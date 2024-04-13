@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Forms;
+
 
 namespace BriefWerkstatt.ViewModels
 {
@@ -220,12 +222,24 @@ namespace BriefWerkstatt.ViewModels
                 OnPropertyChanged(nameof(FileName));
             }
         }
+
+        public string? FullFileName
+        {
+            get => _fileInfo.FullFileName;
+        }
         #endregion
 
         #region Commands
         public void SaveExecute()
         {
-            SenderName = "Saved!";
+            var dialog = new FolderBrowserDialog();
+            var result = dialog.ShowDialog();
+            if (result.ToString() != string.Empty)
+            {
+                string saveFolderPath = dialog.SelectedPath + @"\";
+                _repository.CreatePdfDocument(this, saveFolderPath);
+            }
+
         }
 
         public ICommand Save

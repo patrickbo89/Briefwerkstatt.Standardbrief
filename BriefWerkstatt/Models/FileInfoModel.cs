@@ -10,7 +10,7 @@ namespace BriefWerkstatt.Models
     /// Repräsentiert und enthält Informationen für die interne Verarbeitung.
     /// CustomerNumber: Die intern verwendete Kundennummer.
     /// FileName: Der Dateiname.
-    /// FullFileName: Der komplette Dateiname, setzt sich zusammen aus Kundennummer und Dateinamen.
+    /// FullFileName: Der komplette Dateiname: "Kundennummer_Dateiname.pdf"
     /// </summary>
     public class FileInfoModel
     {
@@ -21,7 +21,7 @@ namespace BriefWerkstatt.Models
         {
             get
             {
-                return $"{CustomerNumber}_{FileName}";
+                return $"{CustomerNumber}_{FileName}.pdf";
             } 
         }
     }

@@ -16,7 +16,7 @@ namespace BriefWerkstatt.Models
         {
             Sender = new SenderModel();
             Recipient = new RecipientModel();
-            LetterContent = new LetterContentModel() { Intro = "Sehr geehrte Damen und Herren, " };
+            LetterContent = new LetterContentModel() { Intro = "Sehr geehrte Damen und Herren,", Outro = "Mit freundlichen Grüßen," };
         }
     }
 }
