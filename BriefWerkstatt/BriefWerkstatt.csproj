@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
+    <PackageReference Include="PDFsharp-WPF" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
