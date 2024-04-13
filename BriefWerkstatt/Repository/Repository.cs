@@ -40,13 +40,13 @@ namespace BriefWerkstatt.Repository
             XGraphics gfx = XGraphics.FromPdfPage(page);
 
             DrawSenderBlock(gfx);
-            DrawWindowEnvelopeLine(gfx);
+            DrawWindowEnvelopeAddress(gfx);
             DrawRecipientBlock(gfx);
             DrawCurrentDate(gfx);
-            DrawTopicLine(gfx);
-            DrawIntroLine(gfx);
-            DrawLetterBody(gfx);
-            DrawOutroLine(gfx);
+            DrawTopicText(gfx);
+            DrawIntroText(gfx);
+            DrawLetterBodyText(gfx);
+            DrawOutroText(gfx);
 
             DrawFoldingLines(gfx);
             DrawHolePunchGuide(gfx);
@@ -75,7 +75,7 @@ namespace BriefWerkstatt.Repository
 
         }
 
-        private void DrawWindowEnvelopeLine(XGraphics gfx)
+        private void DrawWindowEnvelopeAddress(XGraphics gfx)
         {
 
         }
@@ -90,22 +90,22 @@ namespace BriefWerkstatt.Repository
 
         }
 
-        private void DrawTopicLine(XGraphics gfx)
+        private void DrawTopicText(XGraphics gfx)
         {
 
         }
 
-        private void DrawIntroLine(XGraphics gfx)
+        private void DrawIntroText(XGraphics gfx)
         {
 
         }
 
-        private void DrawLetterBody(XGraphics gfx)
+        private void DrawLetterBodyText(XGraphics gfx)
         {
 
         }
 
-        private void DrawOutroLine(XGraphics gfx)
+        private void DrawOutroText(XGraphics gfx)
         {
 
         }
