@@ -293,7 +293,9 @@ namespace BriefWerkstatt.ViewModels
 
         public void DeleteDataExecute()
         {
-            var dialogResult = MessageBox.Show("Eingetragene Daten werden gelöscht. Sicher?", "Daten löschen?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            var dialogResult = MessageBox.Show(
+                "Eingetragene Daten werden gelöscht. Sicher?", 
+                "Daten löschen?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
 
             if (dialogResult == DialogResult.Yes)
             {
