@@ -6,25 +6,25 @@ namespace BriefWerkstatt.Models
     {
         [Required]
         public SenderModel Sender { get; set; }
-        
+
         [Required]
         public RecipientModel Recipient { get; set; }
-        
+
         [Required]
         public LetterContentModel LetterContent { get; set; }
 
         [Required]
         public FileInfoModel FileInfo { get; set; }
 
-        public StandardLetterModel() 
+        public StandardLetterModel()
         {
             Sender = new SenderModel();
             Recipient = new RecipientModel();
-            
+
             LetterContent = new LetterContentModel()
-            { 
-                Intro = "Sehr geehrte Damen und Herren,", 
-                Outro = "Mit freundlichen Grüßen" 
+            {
+                Intro = "Sehr geehrte Damen und Herren,",
+                Outro = "Mit freundlichen Grüßen"
             };
 
             FileInfo = new FileInfoModel();

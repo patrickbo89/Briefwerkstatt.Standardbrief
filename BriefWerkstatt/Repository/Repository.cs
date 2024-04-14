@@ -114,7 +114,8 @@ namespace BriefWerkstatt.Repository
 
             //gfx.DrawRectangle(XBrushes.Purple, windowTextLineRect);
 
-            tf.DrawString(windowTextLine.ToString(), _windowEnvelopeLineFont, XBrushes.Black, windowTextLineRect, XStringFormats.TopLeft);
+            tf.DrawString(
+                windowTextLine.ToString(), _windowEnvelopeLineFont, XBrushes.Black, windowTextLineRect, XStringFormats.TopLeft);
         }
 
         private void DrawRecipientBlock(XGraphics gfx, RecipientModel recipient)
@@ -147,7 +148,8 @@ namespace BriefWerkstatt.Repository
 
             //gfx.DrawRectangle(XBrushes.Orange, RecipientAddressRect);
 
-            tf.DrawString(recipientAddressBlock.ToString(), _normalFont, XBrushes.Black, RecipientAddressRect, XStringFormats.TopLeft);
+            tf.DrawString(
+                recipientAddressBlock.ToString(), _normalFont, XBrushes.Black, RecipientAddressRect, XStringFormats.TopLeft);
 
         }
 
@@ -181,16 +183,20 @@ namespace BriefWerkstatt.Repository
             XTextFormatter tf = new XTextFormatter(gfx);
 
             //gfx.DrawRectangle(XBrushes.Beige, letterContentRect);
-            gfx.DrawString(date, _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopRight);
+            gfx.DrawString(
+                date, _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopRight);
 
-            tf.DrawString($"\n\n\n{letterContent.TopicLineOne}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+            tf.DrawString(
+                $"\n\n\n{letterContent.TopicLineOne}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
 
             if (!string.IsNullOrEmpty(letterContent.TopicLineTwo))
             {
-                tf.DrawString($"\n\n\n\n{letterContent.TopicLineTwo}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+                tf.DrawString(
+                    $"\n\n\n\n{letterContent.TopicLineTwo}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
             }
 
-            tf.DrawString(letterContentBlock.ToString(), _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+            tf.DrawString(
+                letterContentBlock.ToString(), _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
         }
 
         private XPoint CreateXPointFromMillimetres(double millimetresX, double millimetresY)
