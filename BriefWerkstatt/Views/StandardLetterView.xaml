@@ -11,6 +11,8 @@
         Width="800"
         MinHeight="720"
         MinWidth="800"
+        ResizeMode="NoResize"
+        Background="DarkGray"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewmodels:StandardLetterViewModel />
