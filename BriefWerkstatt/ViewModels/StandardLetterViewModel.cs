@@ -246,6 +246,72 @@ namespace BriefWerkstatt.ViewModels
                 return new RelayCommand(SaveExecute);
             }
         }
+
+        public void FillWithExampleDataExecute()
+        {
+            SenderName = "Max Mustermann";
+            SenderCareOfInfo = "c/o Musterfrau";
+            SenderStreetName = "Musterstraße";
+            SenderStreetNumber = 1234;
+            SenderAdditionalAdressInfo = "Vorderhaus, links";
+            SenderZipCode = 12345;
+            SenderCityName = "Musterstadt";
+
+            RecipientName = "Maxine Musterfrau";
+            RecipientCareOfInfo = "c/o Mustermann";
+            RecipientStreetName = "Musterallee";
+            RecipientStreetNumber = 1234;
+            RecipientAdditionalAdressInfo = "Hinterhaus, links";
+            RecipientZipCode = 12345;
+            RecipientCityName = "Musterstadt";
+
+            Topic = "Betreff";
+            TextBody = "hiermit teile ich Ihnen mit, dass ich meinen Vertrag kündigen möchte.\n\nBitte senden Sie mir eine Kündigungsbestätigung zu.\n\nVielen Dank.";
+
+            CustomerNumber = "1234";
+            FileName = "Example";
+        }
+
+        public ICommand FillWithExampleData
+        {
+            get
+            {
+                return new RelayCommand(FillWithExampleDataExecute);
+            }
+        }
+
+        public void DeleteDataExecute()
+        {
+            SenderName = null;
+            SenderCareOfInfo = null;
+            SenderStreetName = null;
+            SenderStreetNumber = null;
+            SenderAdditionalAdressInfo = null;
+            SenderZipCode = null;
+            SenderCityName = null;
+
+            RecipientName = null;
+            RecipientCareOfInfo = null;
+            RecipientStreetName = null;
+            RecipientStreetNumber = null;
+            RecipientAdditionalAdressInfo = null;
+            RecipientZipCode = null;
+            RecipientCityName = null;
+
+            Topic = null;
+            TextBody = null;
+
+            CustomerNumber = null;
+            FileName = null;
+        }
+
+        public ICommand DeleteData
+        {
+            get
+            {
+                return new RelayCommand(DeleteDataExecute);
+            }
+        }
         #endregion
 
         public StandardLetterViewModel()
@@ -255,11 +321,12 @@ namespace BriefWerkstatt.ViewModels
         }
 
         #region Model Validation
-        public bool ValidateModel()
+        private bool ValidateModel()
         {
-            // Überprüft, ob alle Nutzereingaben gültig sind. Zeigt eine gesammelte Fehlerliste an, wenn nicht.
+            // Überprüft bei Betätigen des Speichern-Buttons, ob alle Nutzereingaben gültig sind.
+            // Zeigt eine gesammelte Fehlerliste an, wenn nicht.
 
-            var validationResults = _standardLetter.Validate().ToList();;
+            var validationResults = _standardLetter.Validate().ToList();
             bool isValid = validationResults.Count == 0;
 
             if (!isValid)

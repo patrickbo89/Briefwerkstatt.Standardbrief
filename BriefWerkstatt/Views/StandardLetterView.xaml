@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:BriefWerkstatt.Views"
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
         mc:Ignorable="d"
-        Title="StandardLetterView"
-        Height="450"
-        Width="800">
+        Title="BriefWerkstatt - Standardbrief"
+        Height="700"
+        Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewmodels:StandardLetterViewModel />
     </Window.DataContext>
@@ -229,8 +230,20 @@
 
         <Button Content="Speichern"
                 Grid.Row="5"
-                Grid.ColumnSpan="3"
+                Grid.Column="2"
                 HorizontalAlignment="Center"
                 Command="{Binding Save}" />
+
+        <Button Content="Beispieldaten einfügen"
+                Grid.Row="5"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Command="{Binding FillWithExampleData}" />
+
+        <Button Content="Eingabedaten löschen"
+                Grid.Row="5"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                Command="{Binding DeleteData}" />
     </Grid>
 </Window>

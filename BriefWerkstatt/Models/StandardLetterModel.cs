@@ -29,7 +29,7 @@ namespace BriefWerkstatt.Models
             LetterContent = new LetterContentModel()
             { 
                 Intro = "Sehr geehrte Damen und Herren,", 
-                Outro = "Mit freundlichen Grüßen," 
+                Outro = "Mit freundlichen Grüßen" 
             };
 
             FileInfo = new FileInfoModel();
