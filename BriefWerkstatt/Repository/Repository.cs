@@ -1,5 +1,4 @@
 ﻿using BriefWerkstatt.Models;
-using Microsoft.Extensions.Primitives;
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf;
@@ -18,7 +17,7 @@ namespace BriefWerkstatt.Repository
         // Seitenrandabstände in Millimeter
         private const double LeftMargin = 25.0;
         private const double RightMargin = 20.0;
-        private const double TopMargin = 10.0;
+        private const double TopMargin = 15.0;
         private const double BottomMargin = 20.0;
         private const double HeaderMargin = 45.0;
         #endregion
@@ -87,7 +86,7 @@ namespace BriefWerkstatt.Repository
 
             senderAdressBlock.Append($"\n{sender.ZipCode} {sender.CityName}");
 
-            gfx.DrawRectangle(XBrushes.Blue, HeaderRect); // Test
+            //gfx.DrawRectangle(XBrushes.Blue, HeaderRect); // Test
             tf.DrawString(sender.Name, _boldFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
             tf.DrawString(senderAdressBlock.ToString(), _normalFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
         }
@@ -111,8 +110,9 @@ namespace BriefWerkstatt.Repository
                 );
 
             windowTextLine.Append(sender.CareOfInfo == null ? "" : $"\n{sender.CareOfInfo}");
+            windowTextLine.Append(sender.AdditionalAdressInfo == null ? "" : $", {sender.AdditionalAdressInfo}");
 
-            gfx.DrawRectangle(XBrushes.Purple, windowTextLineRect);
+            //gfx.DrawRectangle(XBrushes.Purple, windowTextLineRect);
 
             tf.DrawString(windowTextLine.ToString(), _windowEnvelopeLineFont, XBrushes.Black, windowTextLineRect, XStringFormats.TopLeft);
         }
@@ -129,7 +129,7 @@ namespace BriefWerkstatt.Repository
 
             StringBuilder recipientAddressBlock = new StringBuilder();
 
-            recipientAddressBlock.Append(recipient.Name);
+            recipientAddressBlock.Append($"\n{recipient.Name}");
 
             if (recipient.CareOfInfo != null)
             {
@@ -145,7 +145,7 @@ namespace BriefWerkstatt.Repository
 
             recipientAddressBlock.Append($"\n{recipient.ZipCode} {recipient.CityName}");
 
-            gfx.DrawRectangle(XBrushes.Orange, RecipientAddressRect);
+            //gfx.DrawRectangle(XBrushes.Orange, RecipientAddressRect);
 
             tf.DrawString(recipientAddressBlock.ToString(), _normalFont, XBrushes.Black, RecipientAddressRect, XStringFormats.TopLeft);
 
@@ -166,19 +166,30 @@ namespace BriefWerkstatt.Repository
 
             StringBuilder letterContentBlock = new StringBuilder();
 
+            if (!string.IsNullOrEmpty(letterContent.TopicLineTwo))
+            {
+                letterContentBlock.Append('\n');
+            }
+
             letterContentBlock.Append(
                 $"\n\n\n\n\n\n{letterContent.Intro}" +
-                $"\n{letterContent.TextBody}" +
+                $"\n\n{letterContent.TextBody}" +
                 $"\n\n{letterContent.Outro}" +
                 $"\n\n\n\n\n{sender.Name}"
                 );
 
             XTextFormatter tf = new XTextFormatter(gfx);
 
-            gfx.DrawRectangle(XBrushes.Beige, letterContentRect);
+            //gfx.DrawRectangle(XBrushes.Beige, letterContentRect);
             gfx.DrawString(date, _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopRight);
 
-            tf.DrawString($"\n\n\n{letterContent.Topic}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+            tf.DrawString($"\n\n\n{letterContent.TopicLineOne}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+
+            if (!string.IsNullOrEmpty(letterContent.TopicLineTwo))
+            {
+                tf.DrawString($"\n\n\n\n{letterContent.TopicLineTwo}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+            }
+
             tf.DrawString(letterContentBlock.ToString(), _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
         }
 

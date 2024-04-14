@@ -7,8 +7,10 @@
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
         mc:Ignorable="d"
         Title="BriefWerkstatt - Standardbrief"
-        Height="700"
+        Height="720"
         Width="800"
+        MinHeight="720"
+        MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewmodels:StandardLetterViewModel />
@@ -16,6 +18,7 @@
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -56,7 +59,7 @@
 
                 <TextBlock Grid.Row="0"
                            Grid.ColumnSpan="2"
-                           Text="Name oder Firma:" />
+                           Text="Vor- und Nachname oder Firma:" />
                 <TextBox Grid.Row="1"
                          Grid.ColumnSpan="2"
                          Margin="0 0 0 5"
@@ -137,7 +140,7 @@
 
                 <TextBlock Grid.Row="0"
                            Grid.ColumnSpan="2"
-                           Text="Name oder Firma:" />
+                           Text="Vor- und Nachname oder Firma:" />
                 <TextBox Grid.Row="1"
                          Grid.ColumnSpan="2"
                          Margin="0 0 0 5"
@@ -197,51 +200,57 @@
         <GroupBox Header="Betreff"
                   Grid.Row="1"
                   Grid.ColumnSpan="2">
-            <TextBox Text="{Binding Topic, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel>
+                <TextBox Text="{Binding TopicLineOne, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Text="{Binding TopicLineTwo, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
         </GroupBox>
 
         <!-- Anredezeile -->
         <GroupBox Header="Anrede"
-                  Grid.Row="2"
+                  Grid.Row="3"
                   Grid.ColumnSpan="2">
             <TextBox Text="{Binding Intro, UpdateSourceTrigger=PropertyChanged}" />
         </GroupBox>
 
         <!-- Briefinhalt -->
         <GroupBox Header="Briefinhalt"
-                  Grid.Row="3"
+                  Grid.Row="4"
                   Grid.ColumnSpan="3">
             <TextBox Height="250"
-                     Text="{Binding TextBody, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding TextBody, UpdateSourceTrigger=PropertyChanged}"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True" 
+                     VerticalScrollBarVisibility="Auto"/>
         </GroupBox>
 
         <!-- Kundennummer, Dateiname und Speichern-Button -->
         <GroupBox Header="Kundennummer"
-                  Grid.Row="4"
+                  Grid.Row="5"
                   Grid.Column="0">
             <TextBox Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
         </GroupBox>
 
         <GroupBox Header="Dateiname"
-                  Grid.Row="4"
+                  Grid.Row="5"
                   Grid.Column="2">
             <TextBox Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
         </GroupBox>
 
         <Button Content="Speichern"
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="2"
                 HorizontalAlignment="Center"
                 Command="{Binding Save}" />
 
         <Button Content="Beispieldaten einfügen"
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="0"
                 HorizontalAlignment="Left"
                 Command="{Binding FillWithExampleData}" />
 
         <Button Content="Eingabedaten löschen"
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 Command="{Binding DeleteData}" />
