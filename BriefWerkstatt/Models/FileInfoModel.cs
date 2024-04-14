@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +16,14 @@ namespace BriefWerkstatt.Models
     /// </summary>
     public class FileInfoModel
     {
-        public int CustomerNumber { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kundennummer darf nicht leer sein.")]
+        [StringLength(4, MinimumLength = 4, ErrorMessage = "Kundennummer muss vierstellig sein.")]
+        public string? CustomerNumber { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Dateiname darf nicht leer sein.")]
         public string? FileName { get; set; }
 
-        public string? FullFileName 
+        public string? FullFileName
         {
             get
             {

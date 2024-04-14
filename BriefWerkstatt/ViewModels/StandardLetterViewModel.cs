@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Forms;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace BriefWerkstatt.ViewModels
@@ -36,7 +37,7 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        public int SenderStreetNumber
+        public int? SenderStreetNumber
         {
             get => _standardLetter.Sender.StreetNumber;
             set
@@ -46,7 +47,7 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        public int SenderZipCode
+        public int? SenderZipCode
         {
             get => _standardLetter.Sender.ZipCode;
             set
@@ -108,7 +109,7 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        public int RecipientStreetNumber
+        public int? RecipientStreetNumber
         {
             get => _standardLetter.Recipient.StreetNumber;
             set
@@ -118,7 +119,7 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        public int RecipientZipCode
+        public int? RecipientZipCode
         {
             get => _standardLetter.Recipient.ZipCode;
             set
@@ -202,7 +203,7 @@ namespace BriefWerkstatt.ViewModels
         #endregion
 
         #region Datei-Info-Properties
-        public int CustomerNumber
+        public string? CustomerNumber
         {
             get => _standardLetter.FileInfo.CustomerNumber;
             set
@@ -226,14 +227,16 @@ namespace BriefWerkstatt.ViewModels
         #region Commands
         public void SaveExecute()
         {
-            var dialog = new FolderBrowserDialog();
-            var result = dialog.ShowDialog();
-            if (result.ToString() != string.Empty)
+            if (ValidateModel())
             {
-                string saveFolderPath = dialog.SelectedPath + @"\";
-                _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+                var dialog = new FolderBrowserDialog();
+                var result = dialog.ShowDialog();
+                if (result.ToString() != string.Empty && !result.ToString().Equals("Cancel"))
+                {
+                    string saveFolderPath = dialog.SelectedPath + @"\";
+                    _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+                }
             }
-
         }
 
         public ICommand Save
@@ -250,5 +253,23 @@ namespace BriefWerkstatt.ViewModels
             _standardLetter = new StandardLetterModel();
             _repository = new Repository.Repository();
         }
+
+        #region Model Validation
+        public bool ValidateModel()
+        {
+            // Überprüft, ob alle Nutzereingaben gültig sind. Zeigt eine gesammelte Fehlerliste an, wenn nicht.
+
+            var validationResults = _standardLetter.Validate().ToList();;
+            bool isValid = validationResults.Count == 0;
+
+            if (!isValid)
+            {
+                string errorMessage = string.Join("\n", validationResults.Select(r => r.ErrorMessage));
+                MessageBox.Show(errorMessage, "Fehlende Eingaben", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            return isValid;
+        }
+        #endregion
     }
 }
