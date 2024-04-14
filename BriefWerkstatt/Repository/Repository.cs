@@ -222,6 +222,7 @@ namespace BriefWerkstatt.Repository
                     $"\n\n\n\n{letterContent.TopicLineTwo}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
             }
 
+            tf.Alignment = XParagraphAlignment.Justify;
             tf.DrawString(
                 letterContentBlock.ToString(), _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
         }
