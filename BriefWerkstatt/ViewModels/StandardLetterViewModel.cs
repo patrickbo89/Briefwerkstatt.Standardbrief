@@ -317,6 +317,7 @@ namespace BriefWerkstatt.ViewModels
 
                 TopicLineOne = null;
                 TopicLineTwo = null;
+                Intro = "Sehr geehrte Damen und Herren,";
                 TextBody = null;
 
                 CustomerNumber = null;
