@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using BriefWerkstatt.ViewModels;
-using PdfSharp;
+﻿using BriefWerkstatt.Models;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using System.Diagnostics;
 
 namespace BriefWerkstatt.Repository
 {
@@ -33,7 +25,7 @@ namespace BriefWerkstatt.Repository
         private readonly XFont _windowEnvelopeLineFont = new XFont("Verdana", 8, XFontStyleEx.Underline);
         #endregion
 
-        public void CreatePdfDocument(StandardLetterViewModel standardLetter, string saveFolderPath)
+        public void CreatePdfDocument(StandardLetterModel standardLetter, string saveFolderPath)
         {
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
@@ -55,19 +47,19 @@ namespace BriefWerkstatt.Repository
             OpenDocumentInViewer(saveFolderPath, standardLetter);
         }
 
-        private void OpenDocumentInViewer(string saveFolderPath, StandardLetterViewModel standardLetterModel)
+        private void OpenDocumentInViewer(string saveFolderPath, StandardLetterModel standardLetterModel)
         {
             // Open PDF with external viewer
             Process PdfViewer = new Process();
             PdfViewer.StartInfo.UseShellExecute = true;
             PdfViewer.StartInfo.WorkingDirectory = saveFolderPath;
-            PdfViewer.StartInfo.FileName = standardLetterModel.FullFileName;
+            PdfViewer.StartInfo.FileName = standardLetterModel.FileInfo.FullFileName;
             PdfViewer.Start();
         }
 
-        private void SaveDocument(PdfDocument document, string saveFolderPath, StandardLetterViewModel standardLetterModel)
+        private void SaveDocument(PdfDocument document, string saveFolderPath, StandardLetterModel standardLetterModel)
         {
-            document.Save($"{saveFolderPath}{standardLetterModel.FullFileName}");
+            document.Save($"{saveFolderPath}{standardLetterModel.FileInfo.FullFileName}");
         }
 
         private void DrawSenderBlock(XGraphics gfx)

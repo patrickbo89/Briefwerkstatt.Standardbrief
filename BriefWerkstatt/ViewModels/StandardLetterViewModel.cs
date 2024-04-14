@@ -13,7 +13,6 @@ namespace BriefWerkstatt.ViewModels
     public class StandardLetterViewModel : ViewModelBase
     {
         private StandardLetterModel _standardLetter;
-        private FileInfoModel _fileInfo;
         private Repository.Repository _repository;
 
         #region Absender-Properties
@@ -205,27 +204,22 @@ namespace BriefWerkstatt.ViewModels
         #region Datei-Info-Properties
         public int CustomerNumber
         {
-            get => _fileInfo.CustomerNumber;
+            get => _standardLetter.FileInfo.CustomerNumber;
             set
             {
-                _fileInfo.CustomerNumber = value;
+                _standardLetter.FileInfo.CustomerNumber = value;
                 OnPropertyChanged(nameof(CustomerNumber));
             }
         }
 
         public string? FileName
         {
-            get => _fileInfo?.FileName;
+            get => _standardLetter.FileInfo?.FileName;
             set
             {
-                _fileInfo.FileName = value;
+                _standardLetter.FileInfo.FileName = value;
                 OnPropertyChanged(nameof(FileName));
             }
-        }
-
-        public string? FullFileName
-        {
-            get => _fileInfo.FullFileName;
         }
         #endregion
 
@@ -237,7 +231,7 @@ namespace BriefWerkstatt.ViewModels
             if (result.ToString() != string.Empty)
             {
                 string saveFolderPath = dialog.SelectedPath + @"\";
-                _repository.CreatePdfDocument(this, saveFolderPath);
+                _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
             }
 
         }
@@ -254,7 +248,6 @@ namespace BriefWerkstatt.ViewModels
         public StandardLetterViewModel()
         {
             _standardLetter = new StandardLetterModel();
-            _fileInfo = new FileInfoModel();
             _repository = new Repository.Repository();
         }
     }
