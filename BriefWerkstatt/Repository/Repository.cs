@@ -50,8 +50,9 @@ namespace BriefWerkstatt.Repository
         #endregion
 
         #region Fonts
-        private readonly XFont _boldFont = new XFont("Arial", 12, XFontStyleEx.Bold);
+        private readonly XFont _senderNameFont = new XFont("Arial", 12, XFontStyleEx.Bold);
         private readonly XFont _normalFont = new XFont("Arial", 11, XFontStyleEx.Regular);
+        private readonly XFont _topicFont = new XFont("Arial", 11, XFontStyleEx.Bold);
         private readonly XFont _windowEnvelopeLineFont = new XFont("Arial", 6, XFontStyleEx.Regular);
         #endregion
 
@@ -114,7 +115,7 @@ namespace BriefWerkstatt.Repository
             senderAdressBlock.Append($"\n{sender.ZipCode} {sender.CityName}");
 
             //gfx.DrawRectangle(XBrushes.Blue, HeaderRect); // Test
-            tf.DrawString(sender.Name, _boldFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
+            tf.DrawString(sender.Name, _senderNameFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
             tf.DrawString(senderAdressBlock.ToString(), _normalFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
         }
 
@@ -214,12 +215,12 @@ namespace BriefWerkstatt.Repository
                 date, _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopRight);
 
             tf.DrawString(
-                $"\n\n\n{letterContent.TopicLineOne}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+                $"\n\n\n{letterContent.TopicLineOne}", _topicFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
 
             if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
             {
                 tf.DrawString(
-                    $"\n\n\n\n{letterContent.TopicLineTwo}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+                    $"\n\n\n\n{letterContent.TopicLineTwo}", _topicFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
             }
 
             tf.Alignment = XParagraphAlignment.Justify;
@@ -241,7 +242,7 @@ namespace BriefWerkstatt.Repository
 
         private void DrawFoldingLines(XGraphics gfx)
         {
-            // Faltmarken nach Geschäftsbrief Form B DIN 5008
+            // Falzmarken nach Geschäftsbrief Form B DIN 5008
             gfx.DrawLine(XPens.Black, CreateXPointFromMillimetres(5.0, 105.0), CreateXPointFromMillimetres(10.0, 105.0));
             gfx.DrawLine(XPens.Black, CreateXPointFromMillimetres(5.0, 210.0), CreateXPointFromMillimetres(10.0, 210.0));
         }
