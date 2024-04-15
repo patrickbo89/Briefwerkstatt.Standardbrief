@@ -16,6 +16,9 @@ namespace BriefWerkstatt.Models
         [Required]
         public FileInfoModel FileInfo { get; set; }
 
+        private bool _isValid;
+        public bool IsValid { get { Validate(); return _isValid; } set { _isValid = value; } }
+
         public StandardLetterModel()
         {
             Sender = new SenderModel();
@@ -49,6 +52,8 @@ namespace BriefWerkstatt.Models
 
             var fileInfoContext = new ValidationContext(FileInfo);
             Validator.TryValidateObject(FileInfo, fileInfoContext, results, true);
+
+            IsValid = results.Select(r => r.ErrorMessage).ToList().Count == 0;
 
             return results;
         }

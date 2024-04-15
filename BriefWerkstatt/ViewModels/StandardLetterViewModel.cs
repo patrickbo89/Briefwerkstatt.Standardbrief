@@ -16,6 +16,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Sender.Name = value;
                 OnPropertyChanged(nameof(SenderName));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -26,6 +27,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Sender.StreetName = value;
                 OnPropertyChanged(nameof(SenderStreetName));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -36,6 +38,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Sender.StreetNumber = value;
                 OnPropertyChanged(nameof(SenderStreetNumber));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -46,6 +49,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Sender.ZipCode = value;
                 OnPropertyChanged(nameof(SenderZipCode));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -56,6 +60,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Sender.CityName = value;
                 OnPropertyChanged(nameof(SenderCityName));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -88,6 +93,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Recipient.Name = value;
                 OnPropertyChanged(nameof(RecipientName));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -98,6 +104,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Recipient.StreetName = value;
                 OnPropertyChanged(nameof(RecipientStreetName));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -108,6 +115,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Recipient.StreetNumber = value;
                 OnPropertyChanged(nameof(RecipientStreetNumber));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -118,6 +126,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Recipient.ZipCode = value;
                 OnPropertyChanged(nameof(RecipientZipCode));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -128,6 +137,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Recipient.CityName = value;
                 OnPropertyChanged(nameof(RecipientCityName));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -160,6 +170,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.LetterContent.TopicLineOne = value;
                 OnPropertyChanged(nameof(TopicLineOne));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -180,6 +191,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.LetterContent.Intro = value;
                 OnPropertyChanged(nameof(Intro));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -190,6 +202,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.LetterContent.TextBody = value;
                 OnPropertyChanged(nameof(TextBody));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -212,6 +225,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.FileInfo.CustomerNumber = value;
                 OnPropertyChanged(nameof(CustomerNumber));
+                ChangeSaveButtonBorderColor();
             }
         }
 
@@ -222,6 +236,7 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.FileInfo.FileName = value;
                 OnPropertyChanged(nameof(FileName));
+                ChangeSaveButtonBorderColor();
             }
         }
         #endregion
@@ -333,10 +348,27 @@ namespace BriefWerkstatt.ViewModels
         }
         #endregion
 
+        #region Properties XAML Control Styles
+        private System.Windows.Media.Brush _background;
+        public System.Windows.Media.Brush Background
+        {
+            get
+            {
+                return _background;
+            }
+            set
+            {
+                _background = value;
+                OnPropertyChanged(nameof(Background));
+            }
+        }
+        #endregion
+
         public StandardLetterViewModel()
         {
             _standardLetter = new StandardLetterModel();
             _repository = new Repository.Repository();
+            _background = System.Windows.Media.Brushes.Red;
         }
 
         #region Model Validation
@@ -357,5 +389,10 @@ namespace BriefWerkstatt.ViewModels
             return isValid;
         }
         #endregion
+
+        private void ChangeSaveButtonBorderColor()
+        {
+            Background = _standardLetter.IsValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+        }
     }
 }
