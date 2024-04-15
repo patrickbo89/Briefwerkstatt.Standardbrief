@@ -16,20 +16,7 @@ namespace BriefWerkstatt.Models
         [Required]
         public FileInfoModel FileInfo { get; set; }
 
-        private bool _isValid;
-        public bool IsValid { get { Validate(); return _isValid; } set { _isValid = value; } }
-
-        private bool _isValidSender;
-        public bool IsValidSender { get { Validate(); return _isValidSender; } set { _isValidSender = value; } }
-
-        private bool _isValidRecipient;
-        public bool IsValidRecipient { get { Validate(); return _isValidRecipient; } set { _isValidRecipient = value; } }
-
-        private bool _isValidLetterContent;
-        public bool IsValidLetterContent { get { Validate(); return _isValidLetterContent; } set { _isValidLetterContent = value; } }
-
-        private bool _isValidFileInfo; 
-public bool IsValidFileInfo { get { Validate(); return _isValidFileInfo; } set { _isValidFileInfo = value; } }
+        
 
         public StandardLetterModel()
         {
@@ -69,5 +56,80 @@ public bool IsValidFileInfo { get { Validate(); return _isValidFileInfo; } set {
 
             return results;
         }
+
+
+        #region Validation Properties für Border Color Change
+        // Hässliche Lösung, muss dringend ausgelagert oder komplett anders umgesetzt werden!
+
+        private bool _isValid;
+        public bool IsValid
+        {
+            get
+            {
+                Validate();
+                return _isValid;
+            }
+            set
+            {
+                _isValid = value;
+            }
+        }
+
+        private bool _isValidSender;
+        public bool IsValidSender
+        {
+            get
+            {
+                Validate();
+                return _isValidSender;
+            }
+            set
+            {
+                _isValidSender = value;
+            }
+        }
+
+        private bool _isValidRecipient;
+        public bool IsValidRecipient
+        {
+            get
+            {
+                Validate();
+                return _isValidRecipient;
+            }
+            set
+            {
+                _isValidRecipient = value;
+            }
+        }
+
+        private bool _isValidLetterContent;
+        public bool IsValidLetterContent
+        {
+            get
+            {
+                Validate();
+                return _isValidLetterContent;
+            }
+            set
+            {
+                _isValidLetterContent = value;
+            }
+        }
+
+        private bool _isValidFileInfo;
+        public bool IsValidFileInfo
+        {
+            get
+            {
+                Validate();
+                return _isValidFileInfo;
+            }
+            set
+            {
+                _isValidFileInfo = value;
+            }
+        }
+        #endregion
     }
 }
