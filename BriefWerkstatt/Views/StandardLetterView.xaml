@@ -7,9 +7,9 @@
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
         mc:Ignorable="d"
         Title="BriefWerkstatt - Standardbrief"
-        Height="730"
+        Height="765"
         Width="800"
-        MinHeight="730"
+        MinHeight="765"
         MinWidth="800"
         ResizeMode="NoResize"
         Background="DarkGray"
@@ -26,13 +26,27 @@
                     Value="{Binding SaveButtonBorderColor}" />
             <Setter Property="BorderThickness"
                     Value="5" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="OpacityMask"
-                            Value="#AAFF0000" />
-                </Trigger>
-            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight"
+                    Value="DemiBold" />
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="FontWeight"
+                    Value="Heavy" />
+            <Setter Property="BorderBrush"
+                    Value="{Binding SaveButtonBorderColor}" />
+            <Setter Property="BorderThickness"
+                    Value="2" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize"
+                    Value="14" />
+            <Setter Property="FontWeight"
+                    Value="Regular" />
         </Style>
     </Window.Resources>
 
@@ -54,88 +68,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Row1: Empfänger und Absender -->
-        <GroupBox Header="Empfänger"
-                  Grid.Row="0"
-                  Grid.Column="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Row="0"
-                           Grid.ColumnSpan="2"
-                           Text="Vor- und Nachname oder Firma:" />
-                <TextBox Grid.Row="1"
-                         Grid.ColumnSpan="2"
-                         Margin="0 0 0 5"
-                         Text="{Binding RecipientName, UpdateSourceTrigger=PropertyChanged}" />
-
-                <TextBlock Grid.Row="3"
-                           Grid.ColumnSpan="2"
-                           Text="Zusatz 1 (z.B. Wohnhaft bei, Abteilung, etc.):" />
-                <TextBox Grid.Row="4"
-                         Grid.ColumnSpan="2"
-                         Margin="0 0 0 5"
-                         Text="{Binding RecipientCareOfInfo, UpdateSourceTrigger=PropertyChanged}" />
-
-                <TextBlock Grid.Row="5"
-                           Grid.Column="0"
-                           Text="Straße:" />
-                <TextBlock Grid.Row="5"
-                           Grid.Column="1"
-                           Margin="5 0 0 0"
-                           Text="Haus-Nr.:" />
-                <TextBox Grid.Row="6"
-                         Grid.Column="0"
-                         Margin="0 0 0 5"
-                         Text="{Binding RecipientStreetName, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Row="6"
-                         Grid.Column="1"
-                         Margin="5 0 0 5"
-                         Text="{Binding RecipientStreetNumber, UpdateSourceTrigger=PropertyChanged}" />
-
-                <TextBlock Grid.Row="7"
-                           Grid.ColumnSpan="2"
-                           Text="Zusatz 2 (z.B. Hinterhaus links):" />
-                <TextBox Grid.Row="8"
-                         Grid.ColumnSpan="2"
-                         Margin="0 0 0 5"
-                         Text="{Binding RecipientAdditionalAdressInfo, UpdateSourceTrigger=PropertyChanged}" />
-
-                <TextBlock Grid.Row="9"
-                           Grid.Column="0"
-                           Text="Postleitzahl:" />
-                <TextBlock Grid.Row="9"
-                           Grid.Column="1"
-                           Margin="5 0 0 0"
-                           Text="Ort:" />
-                <TextBox Grid.Row="10"
-                         Grid.Column="0"
-                         Margin="0 0 0 5"
-                         Text="{Binding RecipientZipCode, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Row="10"
-                         Grid.Column="1"
-                         Margin="5 0 0 5"
-                         Text="{Binding RecipientCityName, UpdateSourceTrigger=PropertyChanged}" />
-            </Grid>
-        </GroupBox>
-
+        <!-- Row1: Absender und Empfänger -->
         <GroupBox Header="Absender"
                   Grid.Row="0"
                   Grid.Column="0">
@@ -161,22 +94,25 @@
 
                 <TextBlock Grid.Row="0"
                            Grid.ColumnSpan="2"
-                           Text="Vor- und Nachname oder Firma:" />
+                           Margin="5 0 0 0"
+                           Text="Vor- und Nachname:" />
                 <TextBox Grid.Row="1"
                          Grid.ColumnSpan="2"
-                         Margin="0 0 0 5"
+                         Margin="5 0 5 5"
                          Text="{Binding SenderName, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Grid.Row="3"
                            Grid.ColumnSpan="2"
-                           Text="Zusatz 1 (z.B. Wohnhaft bei, Abteilung, etc.):" />
+                           Margin="5 0 0 0"
+                           Text="Zusatz 1 (z.B. Wohnhaft bei) oder leer:" />
                 <TextBox Grid.Row="4"
                          Grid.ColumnSpan="2"
-                         Margin="0 0 0 5"
+                         Margin="5 0 5 5"
                          Text="{Binding SenderCareOfInfo, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Grid.Row="5"
                            Grid.Column="0"
+                           Margin="5 0 0 0"
                            Text="Straße:" />
                 <TextBlock Grid.Row="5"
                            Grid.Column="1"
@@ -184,23 +120,25 @@
                            Text="Haus-Nr.:" />
                 <TextBox Grid.Row="6"
                          Grid.Column="0"
-                         Margin="0 0 0 5"
+                         Margin="5 0 0 5"
                          Text="{Binding SenderStreetName, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="6"
                          Grid.Column="1"
-                         Margin="5 0 0 5"
+                         Margin="5 0 5 5"
                          Text="{Binding SenderStreetNumber, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Grid.Row="7"
                            Grid.ColumnSpan="2"
-                           Text="Zusatz 2 (z.B. Hinterhaus links):" />
+                           Margin="5 0 0 0"
+                           Text="Zusatz 2 (z.B. Hinterhaus links) oder leer:" />
                 <TextBox Grid.Row="8"
                          Grid.ColumnSpan="2"
-                         Margin="0 0 0 5"
+                         Margin="5 0 5 5"
                          Text="{Binding SenderAdditionalAdressInfo, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Grid.Row="9"
                            Grid.Column="0"
+                           Margin="5 0 0 0"
                            Text="Postleitzahl:" />
                 <TextBlock Grid.Row="9"
                            Grid.Column="1"
@@ -208,12 +146,98 @@
                            Text="Ort:" />
                 <TextBox Grid.Row="10"
                          Grid.Column="0"
-                         Margin="0 0 0 5"
+                         Margin="5 0 0 5"
                          Text="{Binding SenderZipCode, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="10"
                          Grid.Column="1"
-                         Margin="5 0 0 5"
+                         Margin="5 0 5 5"
                          Text="{Binding SenderCityName, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Empfänger"
+                  Grid.Row="0"
+                  Grid.Column="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           Margin="5 0 0 0"
+                           Text="Vor- und Nachname oder Firma:" />
+                <TextBox Grid.Row="1"
+                         Grid.ColumnSpan="2"
+                         Margin="5 0 5 5"
+                         Text="{Binding RecipientName, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="3"
+                           Grid.ColumnSpan="2"
+                           Margin="5 0 0 0"
+                           Text="Zusatz 1 (z.B. Wohnhaft bei, Abteilung, etc.) oder leer:" />
+                <TextBox Grid.Row="4"
+                         Grid.ColumnSpan="2"
+                         Margin="5 0 5 5"
+                         Text="{Binding RecipientCareOfInfo, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Margin="5 0 0 0"
+                           Text="Straße:" />
+                <TextBlock Grid.Row="5"
+                           Grid.Column="1"
+                           Margin="5 0 0 0"
+                           Text="Haus-Nr.:" />
+                <TextBox Grid.Row="6"
+                         Grid.Column="0"
+                         Margin="5 0 0 5"
+                         Text="{Binding RecipientStreetName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="6"
+                         Grid.Column="1"
+                         Margin="5 0 5 5"
+                         Text="{Binding RecipientStreetNumber, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="7"
+                           Grid.ColumnSpan="2"
+                           Margin="5 0 0 0"
+                           Text="Zusatz 2 (z.B. Hinterhaus links) oder leer:" />
+                <TextBox Grid.Row="8"
+                         Grid.ColumnSpan="2"
+                         Margin="5 0 5 5"
+                         Text="{Binding RecipientAdditionalAdressInfo, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Grid.Row="9"
+                           Grid.Column="0"
+                           Margin="5 0 0 0"
+                           Text="Postleitzahl:" />
+                <TextBlock Grid.Row="9"
+                           Grid.Column="1"
+                           Margin="5 0 0 0"
+                           Text="Ort:" />
+                <TextBox Grid.Row="10"
+                         Grid.Column="0"
+                         Margin="5 0 0 5"
+                         Text="{Binding RecipientZipCode, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="10"
+                         Grid.Column="1"
+                         Margin="5 0 5 5"
+                         Text="{Binding RecipientCityName, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </GroupBox>
 
@@ -221,7 +245,7 @@
         <GroupBox Header="Betreff"
                   Grid.Row="1"
                   Grid.ColumnSpan="2">
-            <StackPanel>
+            <StackPanel Margin="2 0 2 2">
                 <TextBox Text="{Binding TopicLineOne, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Text="{Binding TopicLineTwo, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
@@ -231,7 +255,8 @@
         <GroupBox Header="Anrede"
                   Grid.Row="3"
                   Grid.ColumnSpan="2">
-            <TextBox Text="{Binding Intro, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="2 0 2 2" 
+                     Text="{Binding Intro, UpdateSourceTrigger=PropertyChanged}" />
         </GroupBox>
 
         <!-- Briefinhalt -->
@@ -239,24 +264,27 @@
                   Grid.Row="4"
                   Grid.ColumnSpan="3">
             <TextBox Height="250"
+                     Margin="2 0 2 2"
+                     Padding="0 0 10 0"
                      Text="{Binding TextBody, UpdateSourceTrigger=PropertyChanged}"
                      TextWrapping="Wrap"
                      AcceptsReturn="True"
                      VerticalScrollBarVisibility="Auto"
-                     SpellCheck.IsEnabled="True" />
+                     SpellCheck.IsEnabled="True" 
+                     TextAlignment="Justify" />
         </GroupBox>
 
         <!-- Kundennummer, Dateiname und Speichern-Button -->
         <GroupBox Header="Kundennummer"
                   Grid.Row="5"
                   Grid.Column="0">
-            <TextBox Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="2 0 2 2" Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
         </GroupBox>
 
         <GroupBox Header="Dateiname"
                   Grid.Row="5"
                   Grid.Column="2">
-            <TextBox Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="2 0 2 2" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
         </GroupBox>
 
         <Button Style="{StaticResource SaveButton}"
