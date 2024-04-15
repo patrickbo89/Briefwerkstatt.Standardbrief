@@ -19,6 +19,18 @@ namespace BriefWerkstatt.Models
         private bool _isValid;
         public bool IsValid { get { Validate(); return _isValid; } set { _isValid = value; } }
 
+        private bool _isValidSender;
+        public bool IsValidSender { get { Validate(); return _isValidSender; } set { _isValidSender = value; } }
+
+        private bool _isValidRecipient;
+        public bool IsValidRecipient { get { Validate(); return _isValidRecipient; } set { _isValidRecipient = value; } }
+
+        private bool _isValidLetterContent;
+        public bool IsValidLetterContent { get { Validate(); return _isValidLetterContent; } set { _isValidLetterContent = value; } }
+
+        private bool _isValidFileInfo; 
+public bool IsValidFileInfo { get { Validate(); return _isValidFileInfo; } set { _isValidFileInfo = value; } }
+
         public StandardLetterModel()
         {
             Sender = new SenderModel();
@@ -42,16 +54,16 @@ namespace BriefWerkstatt.Models
             // in einer Liste gespeichert werden.
 
             var senderContext = new ValidationContext(Sender);
-            Validator.TryValidateObject(Sender, senderContext, results, true);
+            IsValidSender = Validator.TryValidateObject(Sender, senderContext, results, true);
 
             var recipientContext = new ValidationContext(Recipient);
-            Validator.TryValidateObject(Recipient, recipientContext, results, true);
+            IsValidRecipient = Validator.TryValidateObject(Recipient, recipientContext, results, true);
 
             var letterContentContext = new ValidationContext(LetterContent);
-            Validator.TryValidateObject(LetterContent, letterContentContext, results, true);
+            IsValidLetterContent = Validator.TryValidateObject(LetterContent, letterContentContext, results, true);
 
             var fileInfoContext = new ValidationContext(FileInfo);
-            Validator.TryValidateObject(FileInfo, fileInfoContext, results, true);
+            IsValidFileInfo = Validator.TryValidateObject(FileInfo, fileInfoContext, results, true);
 
             IsValid = results.Select(r => r.ErrorMessage).ToList().Count == 0;
 
