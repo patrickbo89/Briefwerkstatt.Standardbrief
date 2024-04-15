@@ -349,17 +349,17 @@ namespace BriefWerkstatt.ViewModels
         #endregion
 
         #region Properties XAML Control Styles
-        private System.Windows.Media.Brush _background;
-        public System.Windows.Media.Brush Background
+        private System.Windows.Media.Brush _saveButtonBorderColor;
+        public System.Windows.Media.Brush SaveButtonBorderColor
         {
             get
             {
-                return _background;
+                return _saveButtonBorderColor;
             }
             set
             {
-                _background = value;
-                OnPropertyChanged(nameof(Background));
+                _saveButtonBorderColor = value;
+                OnPropertyChanged(nameof(SaveButtonBorderColor));
             }
         }
         #endregion
@@ -368,7 +368,7 @@ namespace BriefWerkstatt.ViewModels
         {
             _standardLetter = new StandardLetterModel();
             _repository = new Repository.Repository();
-            _background = System.Windows.Media.Brushes.Red;
+            _saveButtonBorderColor = System.Windows.Media.Brushes.Red;
         }
 
         #region Model Validation
@@ -392,7 +392,7 @@ namespace BriefWerkstatt.ViewModels
 
         private void ChangeSaveButtonBorderColor()
         {
-            Background = _standardLetter.IsValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+            SaveButtonBorderColor = _standardLetter.IsValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
         }
     }
 }
