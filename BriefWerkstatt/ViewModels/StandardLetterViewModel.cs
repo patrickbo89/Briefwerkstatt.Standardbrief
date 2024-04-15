@@ -1,7 +1,6 @@
 ﻿using BriefWerkstatt.Models;
 using System.Windows.Input;
 
-
 namespace BriefWerkstatt.ViewModels
 {
     public class StandardLetterViewModel : ViewModelBase
@@ -294,7 +293,7 @@ namespace BriefWerkstatt.ViewModels
         public void DeleteDataExecute()
         {
             var dialogResult = MessageBox.Show(
-                "Eingetragene Daten werden gelöscht. Sicher?", 
+                "Eingetragene Daten werden gelöscht. Sicher?",
                 "Daten löschen?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
 
             if (dialogResult == DialogResult.Yes)

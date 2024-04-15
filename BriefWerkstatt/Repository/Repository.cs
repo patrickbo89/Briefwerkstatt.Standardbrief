@@ -99,14 +99,14 @@ namespace BriefWerkstatt.Repository
 
             StringBuilder senderAdressBlock = new StringBuilder();
 
-            if (sender.CareOfInfo != null)
+            if (!string.IsNullOrWhiteSpace(sender.CareOfInfo))
             {
                 senderAdressBlock.Append($"\n{sender.CareOfInfo}");
             }
 
             senderAdressBlock.Append($"\n{sender.StreetName} {sender.StreetNumber}");
 
-            if (sender.AdditionalAdressInfo != null)
+            if (!string.IsNullOrWhiteSpace(sender.AdditionalAdressInfo))
             {
                 senderAdressBlock.Append($"\n{sender.AdditionalAdressInfo}");
             }
@@ -136,8 +136,8 @@ namespace BriefWerkstatt.Repository
                 $" {sender.CityName}"
                 );
 
-            windowTextLine.Append(sender.CareOfInfo == null ? "" : $"\n{sender.CareOfInfo}");
-            windowTextLine.Append(sender.AdditionalAdressInfo == null ? "" : $", {sender.AdditionalAdressInfo}");
+            windowTextLine.Append(string.IsNullOrWhiteSpace(sender.CareOfInfo) ? "" : $"\n{sender.CareOfInfo}");
+            windowTextLine.Append(string.IsNullOrWhiteSpace(sender.AdditionalAdressInfo) ? "" : $", {sender.AdditionalAdressInfo}");
 
             //gfx.DrawRectangle(XBrushes.Purple, windowTextLineRect);
 
@@ -159,14 +159,14 @@ namespace BriefWerkstatt.Repository
 
             recipientAddressBlock.Append($"\n{recipient.Name}");
 
-            if (recipient.CareOfInfo != null)
+            if (!string.IsNullOrWhiteSpace(recipient.CareOfInfo))
             {
                 recipientAddressBlock.Append($"\n{recipient.CareOfInfo}");
             }
 
             recipientAddressBlock.Append($"\n{recipient.StreetName} {recipient.StreetNumber}");
 
-            if (recipient.AdditionalAdressInfo != null)
+            if (!string.IsNullOrWhiteSpace(recipient.AdditionalAdressInfo))
             {
                 recipientAddressBlock.Append($"\n{recipient.AdditionalAdressInfo}");
             }
@@ -195,7 +195,7 @@ namespace BriefWerkstatt.Repository
 
             StringBuilder letterContentBlock = new StringBuilder();
 
-            if (!string.IsNullOrEmpty(letterContent.TopicLineTwo))
+            if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
             {
                 letterContentBlock.Append('\n');
             }
@@ -216,7 +216,7 @@ namespace BriefWerkstatt.Repository
             tf.DrawString(
                 $"\n\n\n{letterContent.TopicLineOne}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
 
-            if (!string.IsNullOrEmpty(letterContent.TopicLineTwo))
+            if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
             {
                 tf.DrawString(
                     $"\n\n\n\n{letterContent.TopicLineTwo}", _boldFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
@@ -241,7 +241,7 @@ namespace BriefWerkstatt.Repository
 
         private void DrawFoldingLines(XGraphics gfx)
         {
-            // Falzmarken nach Geschäftsbrief Form B DIN 5008
+            // Faltmarken nach Geschäftsbrief Form B DIN 5008
             gfx.DrawLine(XPens.Black, CreateXPointFromMillimetres(5.0, 105.0), CreateXPointFromMillimetres(10.0, 105.0));
             gfx.DrawLine(XPens.Black, CreateXPointFromMillimetres(5.0, 210.0), CreateXPointFromMillimetres(10.0, 210.0));
         }
