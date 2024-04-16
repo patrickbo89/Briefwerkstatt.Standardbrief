@@ -7,12 +7,13 @@
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
         mc:Ignorable="d"
         Title="BriefWerkstatt - Standardbrief"
-        Height="765"
+        Height="800"
         Width="800"
-        MinHeight="765"
+        MinHeight="800"
         MinWidth="800"
-        ResizeMode="NoResize"
-        Background="DarkGray"
+        ResizeMode="CanMinimize"
+        Background="#292929"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
@@ -31,13 +32,25 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontWeight"
                     Value="DemiBold" />
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="Foreground"
+                    Value="White" />
         </Style>
 
         <Style TargetType="GroupBox">
+            <Setter Property="Margin"
+                    Value="20 10 20 0" />
             <Setter Property="FontWeight"
                     Value="Heavy" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="Background"
+                    Value="#323232" />
             <Setter Property="BorderThickness"
-                    Value="2" />
+                    Value="0.35" />
         </Style>
 
         <Style TargetType="TextBox">
@@ -45,15 +58,32 @@
                     Value="14" />
             <Setter Property="FontWeight"
                     Value="Regular" />
+            <Setter Property="Foreground"
+                    Value="White" />
             <Setter Property="Background"
-                    Value="#EEEEDD" />
+                    Value="#55FFFFFF" />
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius"
+                            Value="6" />
+                </Style>
+
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Background"
+                            Value="#303030" />
+                    <Setter Property="BorderBrush"
+                            Value="#000000" />
+                    <Setter Property="Width"
+                            Value="5" />
+                </Style>
+            </Style.Resources>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="10">
+    <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="25" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -68,9 +98,61 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.Row="0"
+              Background="#000000"
+              Grid.ColumnSpan="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+
+            <Line Grid.ColumnSpan="3"
+                  X1="0"
+                  X2="800"
+                  VerticalAlignment="Bottom"
+                  StrokeThickness="1"
+                  Stroke="White"
+                  Visibility="Visible" />
+            <TextBlock Text="Brief Werkstatt - Standardbrief"
+                       Foreground="White"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Padding="20 0 0 0"
+                       FontFamily="Ink Free"
+                       FontWeight="Bold" />
+            <Button Content="X"
+                    Foreground="White"
+                    Background="Red"
+                    BorderBrush="Black"
+                    BorderThickness="0"
+                    Width="25"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 5 0"
+                    FontWeight="Bold"
+                    Grid.Column="2"
+                    Command="{Binding CloseApp}" />
+            <Button Content="_"
+                    Foreground="White"
+                    Background="#000000"
+                    BorderBrush="Black"
+                    BorderThickness="0"
+                    Width="25"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,4"
+                    FontWeight="ExtraBold"
+                    Grid.Column="1" 
+                    Click="MinimizeButton_Click"/>
+
+        </Grid>
+
         <!-- Row1: Absender und Empfänger -->
         <GroupBox Header="Absender"
-                  Grid.Row="0"
+                  Grid.Row="1"
                   Grid.Column="0"
                   BorderBrush="{Binding SenderGroupBoxBorderColor}">
             <Grid>
@@ -157,7 +239,7 @@
         </GroupBox>
 
         <GroupBox Header="Empfänger"
-                  Grid.Row="0"
+                  Grid.Row="1"
                   Grid.Column="2"
                   BorderBrush="{Binding RecipientGroupBoxBorderColor}">
             <Grid>
@@ -245,12 +327,13 @@
 
         <!-- Betreffzeile -->
         <GroupBox Header="Betreff"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   Grid.ColumnSpan="2"
                   BorderBrush="{Binding LetterBodyGroupBoxBorderColor}">
             <StackPanel Margin="2 0 2 2">
                 <TextBox Text="{Binding TopicLineOne, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Text="{Binding TopicLineTwo, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Margin="0 5 0 0"
+                         Text="{Binding TopicLineTwo, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </GroupBox>
 
@@ -259,7 +342,7 @@
                   Grid.Row="3"
                   Grid.ColumnSpan="2"
                   BorderBrush="{Binding LetterBodyGroupBoxBorderColor}">
-            <TextBox Margin="2 0 2 2" 
+            <TextBox Margin="2 0 2 2"
                      Text="{Binding Intro, UpdateSourceTrigger=PropertyChanged}" />
         </GroupBox>
 
@@ -275,26 +358,84 @@
                      TextWrapping="Wrap"
                      AcceptsReturn="True"
                      VerticalScrollBarVisibility="Auto"
-                     SpellCheck.IsEnabled="True" 
+                     SpellCheck.IsEnabled="True"
                      TextAlignment="Justify" />
         </GroupBox>
 
-        <!-- Kundennummer, Dateiname und Speichern-Button -->
-        <GroupBox Header="Kundennummer"
-                  Grid.Row="5"
-                  Grid.Column="0"
-                  BorderBrush="{Binding FileInfoGroupBoxBorderColor}">
-            <TextBox Margin="2 0 2 2" Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
-        </GroupBox>
+        <Grid Grid.Row="6"
+              Grid.ColumnSpan="3"
+              Margin="0 20 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="1.8*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!-- Kundennummer, Dateiname und Speichern-Button -->
+            <GroupBox Header="Kundennummer"
+                      Grid.Row="6"
+                      Grid.Column="0"
+                      Width="170"
+                      Margin="0 0 0 0"
+                      BorderBrush="{Binding FileInfoGroupBoxBorderColor}">
+                <TextBox Margin="2 0 2 2"
+                         Width="150"
+                         Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
+            </GroupBox>
 
-        <GroupBox Header="Dateiname"
-                  Grid.Row="5"
-                  Grid.Column="2"
-                  BorderBrush="{Binding FileInfoGroupBoxBorderColor}">
-            <TextBox Margin="2 0 2 2" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
-        </GroupBox>
+            <GroupBox Header="Dateiname"
+                      Grid.Row="6"
+                      Grid.Column="1"
+                      Margin="0 0 20 0"
+                      BorderBrush="{Binding FileInfoGroupBoxBorderColor}">
+                <TextBox Margin="2 0 2 2"
+                         Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
+            </GroupBox>
 
-        <Button Style="{StaticResource SaveButton}"
+            <Button Content="Speichern"
+                    Margin="2 10 12 2"
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Foreground="White"
+                    FontWeight="ExtraBlack"
+                    FontSize="14"
+                    HorizontalAlignment="Center"
+                    Command="{Binding Save}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background"
+                                Value="{Binding SaveButtonColor}" />
+                        <Setter Property="Cursor"
+                                Value="Hand" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="{Binding SaveButtonColorHover}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="175"
+                                Height="35"
+                                CornerRadius="6"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0">
+
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <!--<Button Style="{StaticResource SaveButton}"
                 Content="Speichern"
                 Margin="0 10 0 5"
                 Grid.Row="6"
@@ -305,22 +446,30 @@
             <Button.Resources>
 
             </Button.Resources>
-        </Button>
+        </Button>-->
+
+
 
         <Button Content="Beispieldaten einfügen"
                 Margin="0 10 0 5"
                 Padding="5"
-                Grid.Row="6"
-                Grid.Column="0"
+                Grid.Row="2"
+                Grid.Column="2"
                 HorizontalAlignment="Left"
+                Foreground="Transparent"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Command="{Binding FillWithExampleData}" />
 
         <Button Content="Eingabedaten löschen"
                 Margin="0 10 0 5"
                 Padding="5"
-                Grid.Row="6"
-                Grid.Column="0"
+                Grid.Row="2"
+                Grid.Column="2"
                 HorizontalAlignment="Right"
+                Foreground="Transparent"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Command="{Binding DeleteData}" />
     </Grid>
 </Window>

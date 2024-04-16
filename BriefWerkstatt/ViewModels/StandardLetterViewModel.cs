@@ -242,6 +242,30 @@ namespace BriefWerkstatt.ViewModels
         #endregion
 
         #region Commands
+        public void CloseAppExecute()
+        {
+            var dialogResult = MessageBox.Show(
+                "Programm wird beendet. Sicher?",
+                "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+        }
+
+        public ICommand CloseApp
+        {
+            get 
+            {
+                return new RelayCommand(CloseAppExecute);
+            }
+        }
+
+        public void MinimizeAppExecute()
+        {
+        }
+
         public void SaveExecute()
         {
             if (ValidateModel())
@@ -349,17 +373,31 @@ namespace BriefWerkstatt.ViewModels
         #endregion
 
         #region Properties XAML Control Styles
-        private System.Windows.Media.Brush _saveButtonBorderColor;
-        public System.Windows.Media.Brush SaveButtonBorderColor
+        private System.Windows.Media.Brush _saveButtonColor;
+        public System.Windows.Media.Brush SaveButtonColor
         {
             get
             {
-                return _saveButtonBorderColor;
+                return _saveButtonColor;
             }
             set
             {
-                _saveButtonBorderColor = value;
-                OnPropertyChanged(nameof(SaveButtonBorderColor));
+                _saveButtonColor = value;
+                OnPropertyChanged(nameof(SaveButtonColor));
+            }
+        }
+
+        private System.Windows.Media.Brush _saveButtonColorHover;
+        public System.Windows.Media.Brush SaveButtonColorHover
+        {
+            get
+            {
+                return _saveButtonColorHover;
+            }
+            set
+            {
+                _saveButtonColorHover = value;
+                OnPropertyChanged(nameof(SaveButtonColorHover));
             }
         }
 
@@ -424,7 +462,9 @@ namespace BriefWerkstatt.ViewModels
         {
             _standardLetter = new StandardLetterModel();
             _repository = new Repository.Repository();
-            _saveButtonBorderColor = System.Windows.Media.Brushes.Red;
+
+            _saveButtonColor = System.Windows.Media.Brushes.Red;
+            _saveButtonColorHover = System.Windows.Media.Brushes.DarkRed;
             _senderGroupBoxBorderColor = System.Windows.Media.Brushes.Red;
             _recipientGroupBoxBorderColor = System.Windows.Media.Brushes.Red;
             _letterBodyGroupBoxBorderColor = System.Windows.Media.Brushes.Red;
@@ -452,8 +492,11 @@ namespace BriefWerkstatt.ViewModels
 
         private void ChangeBorderColors()
         {
-            SaveButtonBorderColor = 
+            SaveButtonColor = 
                 _standardLetter.IsValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+
+            SaveButtonColorHover =
+                _standardLetter.IsValid ? System.Windows.Media.Brushes.DarkGreen : System.Windows.Media.Brushes.DarkRed;
 
             SenderGroupBoxBorderColor = 
                 _standardLetter.IsValidSender ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
