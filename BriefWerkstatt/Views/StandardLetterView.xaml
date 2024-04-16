@@ -62,6 +62,8 @@
                     Value="White" />
             <Setter Property="Background"
                     Value="#55FFFFFF" />
+            <Setter Property="CaretBrush"
+                    Value="White" />
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius"
