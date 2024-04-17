@@ -115,7 +115,6 @@ namespace BriefWerkstatt.Repository
 
             senderAdressBlock.Append($"\n{sender.ZipCode} {sender.CityName}");
 
-            //gfx.DrawRectangle(XBrushes.Blue, HeaderRect); // Test
             tf.DrawString(sender.Name, _senderNameFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
             tf.DrawString(senderAdressBlock.ToString(), _normalFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
         }
@@ -140,8 +139,6 @@ namespace BriefWerkstatt.Repository
 
             windowTextLine.Append(string.IsNullOrWhiteSpace(sender.CareOfInfo) ? "" : $"\n{sender.CareOfInfo}");
             windowTextLine.Append(string.IsNullOrWhiteSpace(sender.AdditionalAdressInfo) ? "" : $", {sender.AdditionalAdressInfo}");
-
-            //gfx.DrawRectangle(XBrushes.Purple, windowTextLineRect);
 
             tf.DrawString(
                 windowTextLine.ToString(), _windowEnvelopeLineFont, XBrushes.Black, windowTextLineRect, XStringFormats.TopLeft);
@@ -174,8 +171,6 @@ namespace BriefWerkstatt.Repository
             }
 
             recipientAddressBlock.Append($"\n{recipient.ZipCode} {recipient.CityName}");
-
-            //gfx.DrawRectangle(XBrushes.Orange, RecipientAddressRect);
 
             tf.DrawString(
                 recipientAddressBlock.ToString(), _normalFont, XBrushes.Black, RecipientAddressRect, XStringFormats.TopLeft);
@@ -217,8 +212,6 @@ namespace BriefWerkstatt.Repository
                 $"\n\n\n\n\n{sender.Name}"
                 );
 
-
-
             gfx.DrawString(
                 date, _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopRight);
 
@@ -240,9 +233,14 @@ namespace BriefWerkstatt.Repository
 
             while (hasNextPage)
             {
-                string nextPageText = letterContentFirstPageOrPreviousBlock.ToString().Substring(lastCharIndex + 1);
+                string nextPageText = letterContentFirstPageOrPreviousBlock.ToString().Substring(lastCharIndex + 1).TrimStart();
                 letterContentFirstPageOrPreviousBlock.Clear();
                 letterContentFirstPageOrPreviousBlock.Append(nextPageText);
+
+                // TODO: Es muss verhindert werden, dass die Grußformel als letzter passender Satz einer Seite
+                //       erscheint. Stattdessen soll diese erst auf der nächsten Seite erscheinen.
+                //       Eventuell einfach den Nutzer die Grußformel manuell in die TextBox für den Briefinhalt schreiben lassen,
+                //       sodass der Nutzer einfach selbst zusätzliche Absätze einfügt und den Brief erneut abspeichert.
 
                 //if (wasOutroCutOff)
                 //{
@@ -292,13 +290,6 @@ namespace BriefWerkstatt.Repository
         private bool HasNextPage(XTextFormatterEx2 tf, StringBuilder letterContentBlock, XRect letterContentRect, out int lastFittingCharIndex)
         {
             tf.PrepareDrawString(letterContentBlock.ToString(), _normalFont, letterContentRect, out lastFittingCharIndex, out _);
-
-            return lastFittingCharIndex != -1;
-        }
-
-        private bool HasNextPage(XTextFormatterEx2 tf, string text, XRect letterContentRect, out int lastFittingCharIndex)
-        {
-            tf.PrepareDrawString(text, _normalFont, letterContentRect, out lastFittingCharIndex, out _);
 
             return lastFittingCharIndex != -1;
         }
