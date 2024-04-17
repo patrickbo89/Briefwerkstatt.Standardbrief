@@ -65,7 +65,7 @@ namespace BriefWerkstatt.Repository
             DrawSenderBlock(gfx, standardLetter.Sender);
             DrawWindowEnvelopeAddress(gfx, standardLetter.Sender);
             DrawRecipientBlock(gfx, standardLetter.Recipient);
-            DrawLetterBodyText(gfx, standardLetter.Sender, standardLetter.LetterContent);
+            DrawLetterBodyText(gfx, document, standardLetter.Sender, standardLetter.LetterContent);
 
             DrawFoldingLines(gfx);
             DrawHolePunchGuide(gfx);
@@ -181,7 +181,7 @@ namespace BriefWerkstatt.Repository
 
         }
 
-        private void DrawLetterBodyText(XGraphics gfx, SenderModel sender, LetterContentModel letterContent)
+        private void DrawLetterBodyText(XGraphics gfx, PdfDocument document, SenderModel sender, LetterContentModel letterContent)
         {
             // Der LetterBodyText beinhaltet das Datum, die Betreffzeilen, die Anrede, den Brieftext, die Grußformel und
             // den Absender-Namen. Es hat einen Abstand von 8.4mm zum Empfänger-Anschriftenfeld und eine maximale Höhe bis
@@ -189,43 +189,73 @@ namespace BriefWerkstatt.Repository
 
             string date = $"{sender.CityName}, den {DateTime.Now.Date.ToString("d. MMMM yyyy")}";
 
-            XRect letterContentRect = new XRect(
+            XRect letterContentFirstPageRect = new XRect(
                 CreateXPointFromMillimetres(LeftMargin, HeaderMargin + 5.0 + 40.0 + 8.4),
                 CreateXPointFromMillimetres(PageWidth - RightMargin, PageHeight - BottomMargin)
                 );
 
-            StringBuilder letterContentBlock = new StringBuilder();
+            XRect letterContentSecondPageRect = new XRect(
+                CreateXPointFromMillimetres(LeftMargin, TopMargin),
+                CreateXPointFromMillimetres(PageWidth - RightMargin, PageHeight - BottomMargin)
+                );
+
+            StringBuilder letterContentFirstPageBlock = new StringBuilder();
+            StringBuilder letterContentSecondPageBlock = new StringBuilder();
+
+            XTextFormatterEx2 tf = new XTextFormatterEx2(gfx);
 
             if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
             {
-                letterContentBlock.Append('\n');
+                letterContentFirstPageBlock.Append('\n');
             }
 
-            letterContentBlock.Append(
+            letterContentFirstPageBlock.Append(
                 $"\n\n\n\n\n\n{letterContent.Intro}" +
                 $"\n\n{letterContent.TextBody}" +
                 $"\n\n{letterContent.Outro}" +
                 $"\n\n\n\n\n{sender.Name}"
                 );
 
-            XTextFormatter tf = new XTextFormatter(gfx);
+            int pageCount = CalculatePageCount(tf, letterContentFirstPageBlock, letterContentFirstPageRect, out int lastCharIndex);
 
-            //gfx.DrawRectangle(XBrushes.Beige, letterContentRect);
             gfx.DrawString(
-                date, _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopRight);
+                date, _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopRight);
 
             tf.DrawString(
-                $"\n\n\n{letterContent.TopicLineOne}", _topicFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+                $"\n\n\n{letterContent.TopicLineOne}", _topicFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
 
             if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
             {
                 tf.DrawString(
-                    $"\n\n\n\n{letterContent.TopicLineTwo}", _topicFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+                    $"\n\n\n\n{letterContent.TopicLineTwo}", _topicFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
             }
 
             tf.Alignment = XParagraphAlignment.Justify;
             tf.DrawString(
-                letterContentBlock.ToString(), _normalFont, XBrushes.Black, letterContentRect, XStringFormats.TopLeft);
+                letterContentFirstPageBlock.ToString(), _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
+
+            if (pageCount == 2)
+            {
+                string secondPageText = letterContentFirstPageBlock.ToString().Substring(lastCharIndex);
+                letterContentSecondPageBlock.Append(secondPageText);
+                PdfPage secondPage = document.AddPage();
+                gfx = XGraphics.FromPdfPage(secondPage);
+                tf = new XTextFormatterEx2(gfx);
+                tf.Alignment = XParagraphAlignment.Justify;
+
+                tf.DrawString(
+                    letterContentSecondPageBlock.ToString(), _normalFont, XBrushes.Black, letterContentSecondPageRect, XStringFormats.TopLeft);
+
+                DrawFoldingLines(gfx);
+                DrawHolePunchGuide(gfx);
+            }
+        }
+
+        private int CalculatePageCount(XTextFormatterEx2 tf, StringBuilder letterContentBlock, XRect letterContentRect, out int lastFittingCharIndex)
+        {
+            tf.PrepareDrawString(letterContentBlock.ToString(), _normalFont, letterContentRect, out lastFittingCharIndex, out _);
+
+            return lastFittingCharIndex == -1 ? 1 : 2;
         }
 
         private XPoint CreateXPointFromMillimetres(double millimetresX, double millimetresY)
