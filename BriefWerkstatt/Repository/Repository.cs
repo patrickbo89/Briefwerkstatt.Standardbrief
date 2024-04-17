@@ -54,6 +54,7 @@ namespace BriefWerkstatt.Repository
         private readonly XFont _normalFont = new XFont("Arial", 11, XFontStyleEx.Regular);
         private readonly XFont _topicFont = new XFont("Arial", 11, XFontStyleEx.Bold);
         private readonly XFont _windowEnvelopeLineFont = new XFont("Arial", 6, XFontStyleEx.Regular);
+        private readonly XFont _pageCountFont = new XFont("Arial", 9, XFontStyleEx.Regular);
         #endregion
 
         public void CreatePdfDocument(StandardLetterModel standardLetter, string saveFolderPath)
@@ -194,29 +195,29 @@ namespace BriefWerkstatt.Repository
                 CreateXPointFromMillimetres(PageWidth - RightMargin, PageHeight - BottomMargin)
                 );
 
-            XRect letterContentSecondPageRect = new XRect(
+            XRect letterContentNextPageRect = new XRect(
                 CreateXPointFromMillimetres(LeftMargin, TopMargin),
                 CreateXPointFromMillimetres(PageWidth - RightMargin, PageHeight - BottomMargin)
                 );
 
-            StringBuilder letterContentFirstPageBlock = new StringBuilder();
-            StringBuilder letterContentSecondPageBlock = new StringBuilder();
+            StringBuilder letterContentFirstPageOrPreviousBlock = new StringBuilder();
+            StringBuilder letterContentNextPageBlock = new StringBuilder();
 
             XTextFormatterEx2 tf = new XTextFormatterEx2(gfx);
 
             if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
             {
-                letterContentFirstPageBlock.Append('\n');
+                letterContentFirstPageOrPreviousBlock.Append('\n');
             }
 
-            letterContentFirstPageBlock.Append(
+            letterContentFirstPageOrPreviousBlock.Append(
                 $"\n\n\n\n\n\n{letterContent.Intro}" +
                 $"\n\n{letterContent.TextBody}" +
                 $"\n\n{letterContent.Outro}" +
                 $"\n\n\n\n\n{sender.Name}"
                 );
 
-            int pageCount = CalculatePageCount(tf, letterContentFirstPageBlock, letterContentFirstPageRect, out int lastCharIndex);
+
 
             gfx.DrawString(
                 date, _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopRight);
@@ -232,30 +233,74 @@ namespace BriefWerkstatt.Repository
 
             tf.Alignment = XParagraphAlignment.Justify;
             tf.DrawString(
-                letterContentFirstPageBlock.ToString(), _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
+                letterContentFirstPageOrPreviousBlock.ToString(), _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
 
-            if (pageCount == 2)
+            bool hasNextPage = HasNextPage(tf, letterContentFirstPageOrPreviousBlock, letterContentFirstPageRect, out int lastCharIndex);
+            bool wasOutroCutOff = false;
+
+            while (hasNextPage)
             {
-                string secondPageText = letterContentFirstPageBlock.ToString().Substring(lastCharIndex);
-                letterContentSecondPageBlock.Append(secondPageText);
-                PdfPage secondPage = document.AddPage();
-                gfx = XGraphics.FromPdfPage(secondPage);
+                string nextPageText = letterContentFirstPageOrPreviousBlock.ToString().Substring(lastCharIndex + 1);
+                letterContentFirstPageOrPreviousBlock.Clear();
+                letterContentFirstPageOrPreviousBlock.Append(nextPageText);
+
+                //if (wasOutroCutOff)
+                //{
+                //    letterContentFirstPageOrPreviousBlock.Clear();
+                //    letterContentFirstPageOrPreviousBlock.Append(
+                //        $"\n\n{letterContent.Outro}" +
+                //        $"\n\n\n\n\n{sender.Name}"
+                //        );
+                //}
+
+                //if (!wasOutroCutOff && nextPageText.EndsWith("Mit freundlichen Grüßen") 
+                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n") 
+                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n\n")
+                //    || nextPageText.EndsWith("Mit freundlichen Grüßej\n\n\n")
+                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n\n\n\n")
+                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n\n\n\n\n"))
+                //{
+                //    wasOutroCutOff = true;
+                //    letterContentFirstPageOrPreviousBlock.Replace("Mit freundlichen Grüßen", "");
+                //}
+                
+                PdfPage nextPage = document.AddPage();
+                gfx = XGraphics.FromPdfPage(nextPage);
                 tf = new XTextFormatterEx2(gfx);
                 tf.Alignment = XParagraphAlignment.Justify;
 
                 tf.DrawString(
-                    letterContentSecondPageBlock.ToString(), _normalFont, XBrushes.Black, letterContentSecondPageRect, XStringFormats.TopLeft);
+                    letterContentFirstPageOrPreviousBlock.ToString(), _normalFont, XBrushes.Black, letterContentNextPageRect, XStringFormats.TopLeft);
 
+                hasNextPage = HasNextPage(tf, letterContentFirstPageOrPreviousBlock, letterContentNextPageRect, out lastCharIndex);
+
+                DrawPageNumber(gfx, document.PageCount);
                 DrawFoldingLines(gfx);
                 DrawHolePunchGuide(gfx);
             }
         }
 
-        private int CalculatePageCount(XTextFormatterEx2 tf, StringBuilder letterContentBlock, XRect letterContentRect, out int lastFittingCharIndex)
+        private void DrawPageNumber(XGraphics gfx, int pageCount)
+        {
+            XRect pageCountRect = new XRect(
+                CreateXPointFromMillimetres(LeftMargin, PageHeight - 10),
+                CreateXPointFromMillimetres(PageWidth - RightMargin, PageHeight));
+
+            gfx.DrawString($"- {pageCount} -", _pageCountFont, XBrushes.Black, pageCountRect, XStringFormats.Center);
+        }
+
+        private bool HasNextPage(XTextFormatterEx2 tf, StringBuilder letterContentBlock, XRect letterContentRect, out int lastFittingCharIndex)
         {
             tf.PrepareDrawString(letterContentBlock.ToString(), _normalFont, letterContentRect, out lastFittingCharIndex, out _);
 
-            return lastFittingCharIndex == -1 ? 1 : 2;
+            return lastFittingCharIndex != -1;
+        }
+
+        private bool HasNextPage(XTextFormatterEx2 tf, string text, XRect letterContentRect, out int lastFittingCharIndex)
+        {
+            tf.PrepareDrawString(text, _normalFont, letterContentRect, out lastFittingCharIndex, out _);
+
+            return lastFittingCharIndex != -1;
         }
 
         private XPoint CreateXPointFromMillimetres(double millimetresX, double millimetresY)
