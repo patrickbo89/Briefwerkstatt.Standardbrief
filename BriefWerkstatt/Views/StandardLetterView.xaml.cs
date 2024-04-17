@@ -28,5 +28,10 @@ namespace BriefWerkstatt.Views
         {
             this.WindowState = WindowState.Minimized;
         }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
