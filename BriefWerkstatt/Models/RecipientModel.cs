@@ -17,8 +17,8 @@ namespace BriefWerkstatt.Models
         public int? StreetNumber { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Postleitzahl darf nicht leer sein.")]
-        [Range(10000, 99999, ErrorMessage = "Empfänger: Postleitzahl muss zwischen 10000 und 99999 sein.")]
-        public int? ZipCode { get; set; }
+        [MaxLength, MinLength(5, ErrorMessage = "Empfänger: Postleitzahl muss 5 Ziffern lang sein.")]
+        public string? ZipCode { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Ort darf nicht leer sein.")]
         public string? CityName { get; set; }

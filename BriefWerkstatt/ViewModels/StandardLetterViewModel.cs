@@ -42,7 +42,7 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        public int? SenderZipCode
+        public string? SenderZipCode
         {
             get => _standardLetter.Sender.ZipCode;
             set
@@ -119,7 +119,7 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        public int? RecipientZipCode
+        public string? RecipientZipCode
         {
             get => _standardLetter.Recipient.ZipCode;
             set
@@ -295,7 +295,7 @@ namespace BriefWerkstatt.ViewModels
             SenderStreetName = "Musterstraße";
             SenderStreetNumber = 1234;
             SenderAdditionalAdressInfo = "Vorderhaus, links";
-            SenderZipCode = 12345;
+            SenderZipCode = "12345";
             SenderCityName = "Musterstadt";
 
             RecipientName = "Beispielfirma GmbH";
@@ -303,7 +303,7 @@ namespace BriefWerkstatt.ViewModels
             RecipientStreetName = "Musterallee";
             RecipientStreetNumber = 1234;
             RecipientAdditionalAdressInfo = "Hinterhaus, links";
-            RecipientZipCode = 12345;
+            RecipientZipCode = "12345";
             RecipientCityName = "Musterstadt";
 
             TopicLineOne = "Bewerbung als Marketingmanager";

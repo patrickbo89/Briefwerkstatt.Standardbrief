@@ -22,6 +22,7 @@ namespace BriefWerkstatt.Views
         public StandardLetterView()
         {
             InitializeComponent();
+            
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -32,6 +33,18 @@ namespace BriefWerkstatt.Views
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var dialogResult = System.Windows.Forms.MessageBox.Show(
+                "Programm wird beendet. Sicher?",
+                "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (dialogResult == System.Windows.Forms.DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

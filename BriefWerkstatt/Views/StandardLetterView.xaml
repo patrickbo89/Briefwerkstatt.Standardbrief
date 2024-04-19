@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BriefWerkstatt.Views"
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
+        xmlns:uc="clr-namespace:BriefWerkstatt.Controls"
         mc:Ignorable="d"
         Title="BriefWerkstatt - Standardbrief"
         Height="800"
@@ -14,7 +14,8 @@
         ResizeMode="CanMinimize"
         Background="#292929"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
 
     <Window.DataContext>
         <viewmodels:StandardLetterViewModel />
@@ -24,7 +25,7 @@
         <Style TargetType="Button"
                x:Key="SaveButton">
             <Setter Property="BorderBrush"
-                    Value="{Binding SaveButtonBorderColor}" />
+                    Value="Green" />
             <Setter Property="BorderThickness"
                     Value="2" />
         </Style>
@@ -67,7 +68,7 @@
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius"
-                            Value="6" />
+                            Value="2" />
                 </Style>
 
                 <Style TargetType="ScrollBar">
@@ -107,8 +108,8 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="25" />
             </Grid.ColumnDefinitions>
 
             <Line Grid.ColumnSpan="3"
@@ -124,32 +125,99 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Padding="20 0 0 0"
-                       FontFamily="Ink Free"
+                       FontFamily="Microsoft Sans Serif"
                        FontWeight="Bold" />
-            <Button Content="X"
-                    Foreground="White"
-                    Background="Red"
-                    BorderBrush="Black"
-                    BorderThickness="0"
+            <Button x:Name="Close"
+                    Content="X"
                     Width="25"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
-                    Margin="0 0 5 0"
+                    Margin="0 0 0 0"
                     FontWeight="Bold"
                     Grid.Column="2"
-                    Command="{Binding CloseApp}" />
-            <Button Content="_"
-                    Foreground="White"
-                    Background="#000000"
-                    BorderBrush="Black"
-                    BorderThickness="0"
+                    Command="{Binding CloseApp}">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background"
+                                Value="#000000" />
+                        <Setter Property="Foreground"
+                                Value="White" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="#FF0000" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0">
+
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="Minimize"
+                    Content="_"
                     Width="25"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     Margin="0,0,0,4"
                     FontWeight="ExtraBold"
-                    Grid.Column="1" 
-                    Click="MinimizeButton_Click"/>
+                    Grid.Column="1"
+                    Click="MinimizeButton_Click">
+                
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background"
+                                Value="#000000" />
+                        <Setter Property="Foreground"
+                                Value="White" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="#555555" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0">
+
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
         </Grid>
 
@@ -406,7 +474,7 @@
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background"
-                                Value="{Binding SaveButtonColor}" />
+                                Value="Green" />
                         <Setter Property="Cursor"
                                 Value="Hand" />
                         <Setter Property="BorderBrush"
@@ -416,7 +484,7 @@
                             <Trigger Property="IsMouseOver"
                                      Value="True">
                                 <Setter Property="Background"
-                                        Value="{Binding SaveButtonColorHover}" />
+                                        Value="#008C00" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
