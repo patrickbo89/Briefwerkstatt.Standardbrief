@@ -44,7 +44,7 @@ namespace BriefWerkstatt.Repository
         // Seitenrandabstände in Millimeter
         private const double LeftMargin = 25.0;
         private const double RightMargin = 20.0;
-        private const double TopMargin = 15.0;
+        private const double TopMargin = 25.0;
         private const double BottomMargin = 20.0;
         private const double HeaderMargin = 45.0;
         #endregion
@@ -123,7 +123,7 @@ namespace BriefWerkstatt.Repository
         {
             // Die Fensterkuvertzeile befindet sich 45mm von der oberen Blattkante, ist 85mm breit und 5mm hoch
             XRect windowTextLineRect = new XRect(
-                CreateXPointFromMillimetres(LeftMargin, HeaderMargin),
+                CreateXPointFromMillimetres(LeftMargin, HeaderMargin + 10.0),
                 CreateXPointFromMillimetres(85.0, HeaderMargin + 5.0)
                 );
 
@@ -148,7 +148,7 @@ namespace BriefWerkstatt.Repository
         {
             // Das Empfänger-Anschriftenfeld hat eine Breite von 85mm und eine Höhe von 40mm
             XRect RecipientAddressRect = new XRect(
-                CreateXPointFromMillimetres(LeftMargin, HeaderMargin + 5.0),
+                CreateXPointFromMillimetres(LeftMargin, HeaderMargin + 5.0 + 5.0),
                 CreateXPointFromMillimetres(85.0, HeaderMargin + 5.0 + 40.0)
                 );
 
