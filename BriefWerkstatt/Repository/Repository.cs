@@ -63,10 +63,10 @@ namespace BriefWerkstatt.Repository
             PdfPage page = document.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(page);
 
-            DrawSenderBlock(gfx, standardLetter.Sender);
-            DrawWindowEnvelopeAddress(gfx, standardLetter.Sender);
-            DrawRecipientBlock(gfx, standardLetter.Recipient);
-            DrawLetterBodyText(gfx, document, standardLetter.Sender, standardLetter.LetterContent);
+            DrawSenderBlock(gfx, standardLetter);
+            DrawWindowEnvelopeAddress(gfx, standardLetter);
+            DrawRecipientBlock(gfx, standardLetter);
+            DrawLetterBodyText(gfx, document, standardLetter);
 
             DrawFoldingLines(gfx);
             DrawHolePunchGuide(gfx);
@@ -81,45 +81,45 @@ namespace BriefWerkstatt.Repository
             Process PdfViewer = new Process();
             PdfViewer.StartInfo.UseShellExecute = true;
             PdfViewer.StartInfo.WorkingDirectory = saveFolderPath;
-            PdfViewer.StartInfo.FileName = standardLetterModel.FileInfo.FullFileName;
+            PdfViewer.StartInfo.FileName = standardLetterModel.FullFileName;
             PdfViewer.Start();
         }
 
         private void SaveDocument(PdfDocument document, string saveFolderPath, StandardLetterModel standardLetterModel)
         {
-            document.Save($"{saveFolderPath}{standardLetterModel.FileInfo.FullFileName}");
+            document.Save($"{saveFolderPath}{standardLetterModel.FullFileName}");
         }
 
-        private void DrawSenderBlock(XGraphics gfx, SenderModel sender)
+        private void DrawSenderBlock(XGraphics gfx, StandardLetterModel letter)
         {
             // Der Absender-Bereich befindet sich im 45 mm hohen Briefkopf, linksbündig
             XRect HeaderRect = new XRect(
-                CreateXPointFromMillimetres(LeftMargin, TopMargin),
+                CreateXPointFromMillimetres(LeftMargin, TopMargin - 10),
                 CreateXPointFromMillimetres(PageWidth - RightMargin, HeaderMargin));
 
             XTextFormatter tf = new XTextFormatter(gfx);
 
             StringBuilder senderAdressBlock = new StringBuilder();
 
-            if (!string.IsNullOrWhiteSpace(sender.CareOfInfo))
+            if (!string.IsNullOrWhiteSpace(letter.SenderCareOfInfo))
             {
-                senderAdressBlock.Append($"\n{sender.CareOfInfo}");
+                senderAdressBlock.Append($"\n{letter.SenderCareOfInfo}");
             }
 
-            senderAdressBlock.Append($"\n{sender.StreetName} {sender.StreetNumber}");
+            senderAdressBlock.Append($"\n{letter.SenderStreetAndNumber}");
 
-            if (!string.IsNullOrWhiteSpace(sender.AdditionalAdressInfo))
+            if (!string.IsNullOrWhiteSpace(letter.SenderAdditionalInfo))
             {
-                senderAdressBlock.Append($"\n{sender.AdditionalAdressInfo}");
+                senderAdressBlock.Append($"\n{letter.SenderAdditionalInfo}");
             }
 
-            senderAdressBlock.Append($"\n{sender.ZipCode} {sender.CityName}");
+            senderAdressBlock.Append($"\n{letter.SenderZipCodeAndCity}");
 
-            tf.DrawString(sender.Name, _senderNameFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
+            tf.DrawString(letter.SenderName, _senderNameFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
             tf.DrawString(senderAdressBlock.ToString(), _normalFont, XBrushes.Black, HeaderRect, XStringFormats.TopLeft);
         }
 
-        private void DrawWindowEnvelopeAddress(XGraphics gfx, SenderModel sender)
+        private void DrawWindowEnvelopeAddress(XGraphics gfx, StandardLetterModel letter)
         {
             // Die Fensterkuvertzeile befindet sich 45mm von der oberen Blattkante, ist 85mm breit und 5mm hoch
             XRect windowTextLineRect = new XRect(
@@ -130,21 +130,19 @@ namespace BriefWerkstatt.Repository
             XTextFormatter tf = new XTextFormatter(gfx);
 
             StringBuilder windowTextLine = new StringBuilder();
-            windowTextLine.Append($"{sender.Name}" +
-                $", {sender.StreetName}" +
-                $" {sender.StreetNumber}" +
-                $", {sender.ZipCode}" +
-                $" {sender.CityName}"
+            windowTextLine.Append($"{letter.SenderName}" +
+                $", {letter.SenderStreetAndNumber}" +
+                $", {letter.SenderZipCodeAndCity}"
                 );
 
-            windowTextLine.Append(string.IsNullOrWhiteSpace(sender.CareOfInfo) ? "" : $"\n{sender.CareOfInfo}");
-            windowTextLine.Append(string.IsNullOrWhiteSpace(sender.AdditionalAdressInfo) ? "" : $", {sender.AdditionalAdressInfo}");
+            windowTextLine.Append(string.IsNullOrWhiteSpace(letter.SenderCareOfInfo) ? "" : $"\n{letter.SenderCareOfInfo}");
+            windowTextLine.Append(string.IsNullOrWhiteSpace(letter.SenderAdditionalInfo) ? "" : $", {letter.SenderAdditionalInfo}");
 
             tf.DrawString(
                 windowTextLine.ToString(), _windowEnvelopeLineFont, XBrushes.Black, windowTextLineRect, XStringFormats.TopLeft);
         }
 
-        private void DrawRecipientBlock(XGraphics gfx, RecipientModel recipient)
+        private void DrawRecipientBlock(XGraphics gfx, StandardLetterModel letter)
         {
             // Das Empfänger-Anschriftenfeld hat eine Breite von 85mm und eine Höhe von 40mm
             XRect RecipientAddressRect = new XRect(
@@ -156,34 +154,34 @@ namespace BriefWerkstatt.Repository
 
             StringBuilder recipientAddressBlock = new StringBuilder();
 
-            recipientAddressBlock.Append($"\n{recipient.Name}");
+            recipientAddressBlock.Append($"\n{letter.RecipientName}");
 
-            if (!string.IsNullOrWhiteSpace(recipient.CareOfInfo))
+            if (!string.IsNullOrWhiteSpace(letter.RecipientCareOfInfo))
             {
-                recipientAddressBlock.Append($"\n{recipient.CareOfInfo}");
+                recipientAddressBlock.Append($"\n{letter.RecipientCareOfInfo}");
             }
 
-            recipientAddressBlock.Append($"\n{recipient.StreetName} {recipient.StreetNumber}");
+            recipientAddressBlock.Append($"\n{letter.RecipientStreetAndNumber}");
 
-            if (!string.IsNullOrWhiteSpace(recipient.AdditionalAdressInfo))
+            if (!string.IsNullOrWhiteSpace(letter.RecipientAdditionalInfo))
             {
-                recipientAddressBlock.Append($"\n{recipient.AdditionalAdressInfo}");
+                recipientAddressBlock.Append($"\n{letter.RecipientAdditionalInfo}");
             }
 
-            recipientAddressBlock.Append($"\n{recipient.ZipCode} {recipient.CityName}");
+            recipientAddressBlock.Append($"\n{letter.RecipientZipCodeAndCity}");
 
             tf.DrawString(
                 recipientAddressBlock.ToString(), _normalFont, XBrushes.Black, RecipientAddressRect, XStringFormats.TopLeft);
 
         }
 
-        private void DrawLetterBodyText(XGraphics gfx, PdfDocument document, SenderModel sender, LetterContentModel letterContent)
+        private void DrawLetterBodyText(XGraphics gfx, PdfDocument document, StandardLetterModel letter)
         {
             // Der LetterBodyText beinhaltet das Datum, die Betreffzeilen, die Anrede, den Brieftext, die Grußformel und
             // den Absender-Namen. Es hat einen Abstand von 8.4mm zum Empfänger-Anschriftenfeld und eine maximale Höhe bis
             // zum unteren Seitenrand mit einem unteren Seitenabstand von 20mm.
 
-            string date = $"{sender.CityName}, den {DateTime.Now.Date.ToString("d. MMMM yyyy")}";
+            string date = $"{(letter.SenderZipCodeAndCity).Substring(5)}, den {DateTime.Now.Date.ToString("d. MMMM yyyy")}";
 
             XRect letterContentFirstPageRect = new XRect(
                 CreateXPointFromMillimetres(LeftMargin, HeaderMargin + 5.0 + 40.0 + 8.4),
@@ -200,28 +198,28 @@ namespace BriefWerkstatt.Repository
 
             XTextFormatterEx2 tf = new XTextFormatterEx2(gfx);
 
-            if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
+            if (!string.IsNullOrWhiteSpace(letter.TopicLineTwo))
             {
                 letterContentFirstPageOrPreviousBlock.Append('\n');
             }
 
             letterContentFirstPageOrPreviousBlock.Append(
-                $"\n\n\n\n\n\n{letterContent.Intro}" +
-                $"\n\n{letterContent.TextBody}" +
-                $"\n\n{letterContent.Outro}" +
-                $"\n\n\n\n\n{sender.Name}"
+                $"\n\n\n\n\n\n{letter.Intro}" +
+                $"\n\n{letter.Content}" +
+                $"\n\n{letter.Outro}" +
+                $"\n\n\n\n\n{letter.SenderName}"
                 );
 
             gfx.DrawString(
                 date, _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopRight);
 
             tf.DrawString(
-                $"\n\n\n{letterContent.TopicLineOne}", _topicFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
+                $"\n\n\n{letter.TopicLineOne}", _topicFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
 
-            if (!string.IsNullOrWhiteSpace(letterContent.TopicLineTwo))
+            if (!string.IsNullOrWhiteSpace(letter.TopicLineTwo))
             {
                 tf.DrawString(
-                    $"\n\n\n\n{letterContent.TopicLineTwo}", _topicFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
+                    $"\n\n\n\n{letter.TopicLineTwo}", _topicFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
             }
 
             tf.Alignment = XParagraphAlignment.Justify;

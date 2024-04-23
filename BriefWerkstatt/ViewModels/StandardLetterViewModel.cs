@@ -1,4 +1,5 @@
 ﻿using BriefWerkstatt.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 
 namespace BriefWerkstatt.ViewModels
@@ -9,166 +10,132 @@ namespace BriefWerkstatt.ViewModels
         private Repository.Repository _repository;
 
         #region Absender-Properties
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Absender: Name darf nicht leer sein.")]
         public string? SenderName
         {
-            get => _standardLetter.Sender.Name;
+            get => _standardLetter.SenderName;
             set
             {
-                _standardLetter.Sender.Name = value;
+                _standardLetter.SenderName = value;
                 OnPropertyChanged(nameof(SenderName));
                 ChangeBorderColors();
             }
         }
 
-        public string? SenderStreetName
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Absender: Straße und Haus-Nr. darf nicht leer sein.")]
+        public string? SenderStreetAndNumber
         {
-            get => _standardLetter.Sender.StreetName;
+            get => _standardLetter.SenderStreetAndNumber;
             set
             {
-                _standardLetter.Sender.StreetName = value;
-                OnPropertyChanged(nameof(SenderStreetName));
+                _standardLetter.SenderStreetAndNumber = value;
+                OnPropertyChanged(nameof(SenderStreetAndNumber));
                 ChangeBorderColors();
             }
         }
 
-        public int? SenderStreetNumber
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Absender: Postleitzahl und Ort darf nicht leer sein.")]
+        public string? SenderZipCodeAndCity
         {
-            get => _standardLetter.Sender.StreetNumber;
+            get => _standardLetter.SenderZipCodeAndCity;
             set
             {
-                _standardLetter.Sender.StreetNumber = value;
-                OnPropertyChanged(nameof(SenderStreetNumber));
-                ChangeBorderColors();
-            }
-        }
-
-        public string? SenderZipCode
-        {
-            get => _standardLetter.Sender.ZipCode;
-            set
-            {
-                _standardLetter.Sender.ZipCode = value;
-                OnPropertyChanged(nameof(SenderZipCode));
-                ChangeBorderColors();
-            }
-        }
-
-        public string? SenderCityName
-        {
-            get => _standardLetter.Sender.CityName;
-            set
-            {
-                _standardLetter.Sender.CityName = value;
-                OnPropertyChanged(nameof(SenderCityName));
+                _standardLetter.SenderZipCodeAndCity = value;
+                OnPropertyChanged(nameof(SenderZipCodeAndCity));
                 ChangeBorderColors();
             }
         }
 
         public string? SenderCareOfInfo
         {
-            get => _standardLetter.Sender.CareOfInfo;
+            get => _standardLetter.SenderCareOfInfo;
             set
             {
-                _standardLetter.Sender.CareOfInfo = value;
+                _standardLetter.SenderCareOfInfo = value;
                 OnPropertyChanged(nameof(SenderCareOfInfo));
             }
         }
 
-        public string? SenderAdditionalAdressInfo
+        public string? SenderAdditionalInfo
         {
-            get => _standardLetter.Sender.AdditionalAdressInfo;
+            get => _standardLetter.SenderAdditionalInfo;
             set
             {
-                _standardLetter.Sender.AdditionalAdressInfo = value;
-                OnPropertyChanged(nameof(SenderAdditionalAdressInfo));
+                _standardLetter.SenderAdditionalInfo = value;
+                OnPropertyChanged(nameof(SenderAdditionalInfo));
             }
         }
         #endregion
 
         #region Empfänger-Properties
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Name darf nicht leer sein.")]
         public string? RecipientName
         {
-            get => _standardLetter.Recipient.Name;
+            get => _standardLetter.RecipientName;
             set
             {
-                _standardLetter.Recipient.Name = value;
+                _standardLetter.RecipientName = value;
                 OnPropertyChanged(nameof(RecipientName));
                 ChangeBorderColors();
             }
         }
 
-        public string? RecipientStreetName
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Straße und Haus-Nr. darf nicht leer sein.")]
+        public string? RecipientStreetAndNumber
         {
-            get => _standardLetter.Recipient.StreetName;
+            get => _standardLetter.RecipientStreetAndNumber;
             set
             {
-                _standardLetter.Recipient.StreetName = value;
-                OnPropertyChanged(nameof(RecipientStreetName));
+                _standardLetter.RecipientStreetAndNumber = value;
+                OnPropertyChanged(nameof(RecipientStreetAndNumber));
                 ChangeBorderColors();
             }
         }
 
-        public int? RecipientStreetNumber
+        [Required(AllowEmptyStrings = false, ErrorMessage = "AbRecipient: Postleitzahl und Ort darf nicht leer sein.")]
+        public string? RecipientZipCodeAndCity
         {
-            get => _standardLetter.Recipient.StreetNumber;
+            get => _standardLetter.RecipientZipCodeAndCity;
             set
             {
-                _standardLetter.Recipient.StreetNumber = value;
-                OnPropertyChanged(nameof(RecipientStreetNumber));
-                ChangeBorderColors();
-            }
-        }
-
-        public string? RecipientZipCode
-        {
-            get => _standardLetter.Recipient.ZipCode;
-            set
-            {
-                _standardLetter.Recipient.ZipCode = value;
-                OnPropertyChanged(nameof(RecipientZipCode));
-                ChangeBorderColors();
-            }
-        }
-
-        public string? RecipientCityName
-        {
-            get => _standardLetter.Recipient.CityName;
-            set
-            {
-                _standardLetter.Recipient.CityName = value;
-                OnPropertyChanged(nameof(RecipientCityName));
+                _standardLetter.RecipientZipCodeAndCity = value;
+                OnPropertyChanged(nameof(RecipientZipCodeAndCity));
                 ChangeBorderColors();
             }
         }
 
         public string? RecipientCareOfInfo
         {
-            get => _standardLetter.Recipient.CareOfInfo;
+            get => _standardLetter.RecipientCareOfInfo;
             set
             {
-                _standardLetter.Recipient.CareOfInfo = value;
+                _standardLetter.RecipientCareOfInfo = value;
                 OnPropertyChanged(nameof(RecipientCareOfInfo));
             }
         }
 
-        public string? RecipientAdditionalAdressInfo
+        public string? RecipientAdditionalInfo
         {
-            get => _standardLetter.Recipient.AdditionalAdressInfo;
+            get => _standardLetter.RecipientAdditionalInfo;
             set
             {
-                _standardLetter.Recipient.AdditionalAdressInfo = value;
-                OnPropertyChanged(nameof(RecipientAdditionalAdressInfo));
+                _standardLetter.RecipientAdditionalInfo = value;
+                OnPropertyChanged(nameof(RecipientAdditionalInfo));
             }
         }
         #endregion
 
         #region Briefinhalt-Properties
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Betreffzeile 1 darf nicht leer sein.")]
         public string? TopicLineOne
         {
-            get => _standardLetter.LetterContent.TopicLineOne;
+            get => _standardLetter.TopicLineOne;
             set
             {
-                _standardLetter.LetterContent.TopicLineOne = value;
+                _standardLetter.TopicLineOne = value;
                 OnPropertyChanged(nameof(TopicLineOne));
                 ChangeBorderColors();
             }
@@ -176,65 +143,71 @@ namespace BriefWerkstatt.ViewModels
 
         public string? TopicLineTwo
         {
-            get => _standardLetter.LetterContent.TopicLineTwo;
+            get => _standardLetter.TopicLineTwo;
             set
             {
-                _standardLetter.LetterContent.TopicLineTwo = value;
+                _standardLetter.TopicLineTwo = value;
                 OnPropertyChanged(nameof(TopicLineTwo));
             }
         }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Anrede darf nicht leer sein.")]
         public string? Intro
         {
-            get => _standardLetter.LetterContent?.Intro;
+            get => _standardLetter.Intro;
             set
             {
-                _standardLetter.LetterContent.Intro = value;
+                _standardLetter.Intro = value;
                 OnPropertyChanged(nameof(Intro));
                 ChangeBorderColors();
             }
         }
 
-        public string? TextBody
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Briefinhalt darf nicht leer sein.")]
+        public string? Content
         {
-            get => _standardLetter.LetterContent.TextBody;
+            get => _standardLetter.Content;
             set
             {
-                _standardLetter.LetterContent.TextBody = value;
-                OnPropertyChanged(nameof(TextBody));
+                _standardLetter.Content = value;
+                OnPropertyChanged(nameof(Content));
                 ChangeBorderColors();
             }
         }
 
         public string? Outro
         {
-            get => _standardLetter.LetterContent.Outro;
+            get => _standardLetter.Outro;
             set
             {
-                _standardLetter.LetterContent.Outro = value;
+                _standardLetter.Outro = value;
                 OnPropertyChanged(nameof(Outro));
             }
         }
         #endregion
 
         #region Datei-Info-Properties
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kundennummer darf nicht leer sein.")]
+        [MaxLength(4, ErrorMessage = "Kundennummer muss vier Ziffern lang sein.")]
         public string? CustomerNumber
         {
-            get => _standardLetter.FileInfo.CustomerNumber;
+            get => _standardLetter.CustomerNumber;
             set
             {
-                _standardLetter.FileInfo.CustomerNumber = value;
+                _standardLetter.CustomerNumber = value;
                 OnPropertyChanged(nameof(CustomerNumber));
                 ChangeBorderColors();
             }
         }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Dateiname darf nicht leer sein.")]
         public string? FileName
         {
-            get => _standardLetter.FileInfo?.FileName;
+            get => _standardLetter.FileName;
             set
             {
-                _standardLetter.FileInfo.FileName = value;
+                _standardLetter.FileName = value;
                 OnPropertyChanged(nameof(FileName));
                 ChangeBorderColors();
             }
@@ -292,26 +265,22 @@ namespace BriefWerkstatt.ViewModels
         {
             SenderName = "Max Mustermann";
             SenderCareOfInfo = "c/o Musterfrau";
-            SenderStreetName = "Musterstraße";
-            SenderStreetNumber = 1234;
-            SenderAdditionalAdressInfo = "Vorderhaus, links";
-            SenderZipCode = "12345";
-            SenderCityName = "Musterstadt";
+            SenderStreetAndNumber = "Musterstraße 123";
+            SenderAdditionalInfo = "Vorderhaus, links";
+            SenderZipCodeAndCity = "12345 Musterstadt";
 
             RecipientName = "Beispielfirma GmbH";
             RecipientCareOfInfo = "z.H. Erika Musterfrau";
-            RecipientStreetName = "Musterallee";
-            RecipientStreetNumber = 1234;
-            RecipientAdditionalAdressInfo = "Hinterhaus, links";
-            RecipientZipCode = "12345";
-            RecipientCityName = "Musterstadt";
+            RecipientStreetAndNumber = "Musterallee 123";
+            RecipientAdditionalInfo = "Hinterhaus, links";
+            RecipientZipCodeAndCity = "12345 Musterstadt";
 
             TopicLineOne = "Bewerbung als Marketingmanager";
             TopicLineTwo = "Ihr Stellenangebot vom 10. April 2024";
 
             Intro = "Sehr geehrte Frau Musterfrau,";
 
-            TextBody = "ich habe mit großem Interesse Ihr Stellenangebot für die Position des Marketingmanagers vom 10. April 2024 gelesen und möchte mich hiermit bei Ihnen bewerben." +
+            Content = "ich habe mit großem Interesse Ihr Stellenangebot für die Position des Marketingmanagers vom 10. April 2024 gelesen und möchte mich hiermit bei Ihnen bewerben." +
                 "\n\nIn meiner bisherigen beruflichen Laufbahn konnte ich umfangreiche Erfahrungen im Bereich Marketing sammeln. Besonders hervorheben möchte ich meine Expertise in der Planung und Umsetzung von Marketingstrategien sowie in der Analyse von Markt- und Kundendaten. Ich bin überzeugt davon, dass meine Fähigkeiten und mein Engagement eine Bereicherung für Ihr Team darstellen würden." +
                 "\n\nAnbei finden Sie meinen Lebenslauf und meine Zeugnisse. Ich würde mich sehr freuen, wenn Sie mir die Gelegenheit geben würden, mich in einem persönlichen Gespräch näher vorzustellen und mehr über die Anforderungen und Ziele Ihrer Abteilung zu erfahren." +
                 "\n\nFür Rückfragen stehe ich Ihnen selbstverständlich jederzeit zur Verfügung." +
@@ -339,24 +308,20 @@ namespace BriefWerkstatt.ViewModels
             {
                 SenderName = null;
                 SenderCareOfInfo = null;
-                SenderStreetName = null;
-                SenderStreetNumber = null;
-                SenderAdditionalAdressInfo = null;
-                SenderZipCode = null;
-                SenderCityName = null;
+                SenderStreetAndNumber = null;
+                SenderAdditionalInfo = null;
+                SenderZipCodeAndCity = null;
 
                 RecipientName = null;
                 RecipientCareOfInfo = null;
-                RecipientStreetName = null;
-                RecipientStreetNumber = null;
-                RecipientAdditionalAdressInfo = null;
-                RecipientZipCode = null;
-                RecipientCityName = null;
+                RecipientStreetAndNumber = null;
+                RecipientAdditionalInfo = null;
+                RecipientZipCodeAndCity = null;
 
                 TopicLineOne = null;
                 TopicLineTwo = null;
                 Intro = "Sehr geehrte Damen und Herren,";
-                TextBody = null;
+                Content = null;
 
                 CustomerNumber = null;
                 FileName = null;
@@ -472,19 +437,25 @@ namespace BriefWerkstatt.ViewModels
         }
 
         #region Model Validation
+
+        private bool _isValid;
+
         private bool ValidateModel()
         {
             // Überprüft bei Betätigen des Speichern-Buttons, ob alle Nutzereingaben gültig sind.
             // Zeigt eine gesammelte Fehlerliste an, wenn nicht.
 
-            var validationResults = _standardLetter.Validate().ToList();
-            bool isValid = validationResults.Count == 0;
+            var validationContext = new ValidationContext(this);
+            var validationResults = new List<ValidationResult>();
+            bool isValid = Validator.TryValidateObject(this, validationContext, validationResults, true);
 
             if (!isValid)
             {
                 string errorMessage = string.Join("\n", validationResults.Select(r => r.ErrorMessage));
                 MessageBox.Show(errorMessage, "Fehlende Eingaben", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            _isValid = isValid;
 
             return isValid;
         }
@@ -493,22 +464,22 @@ namespace BriefWerkstatt.ViewModels
         private void ChangeBorderColors()
         {
             SaveButtonColor = 
-                _standardLetter.IsValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
 
             SaveButtonColorHover =
-                _standardLetter.IsValid ? System.Windows.Media.Brushes.DarkGreen : System.Windows.Media.Brushes.DarkRed;
+                _isValid ? System.Windows.Media.Brushes.DarkGreen : System.Windows.Media.Brushes.DarkRed;
 
             SenderGroupBoxBorderColor = 
-                _standardLetter.IsValidSender ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
 
             RecipientGroupBoxBorderColor = 
-                _standardLetter.IsValidRecipient ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
 
             LetterBodyGroupBoxBorderColor = 
-                _standardLetter.IsValidLetterContent ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
 
             FileInfoGroupBoxBorderColor = 
-                _standardLetter.IsValidFileInfo ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
+                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
         }
     }
 }

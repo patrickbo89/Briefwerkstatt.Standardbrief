@@ -4,130 +4,39 @@ namespace BriefWerkstatt.Models
 {
     public class StandardLetterModel
     {
-        [Required]
-        public SenderModel Sender { get; set; }
+        #region Sender Properties
+        public string? SenderName { get; set; }
+        public string? SenderCareOfInfo { get; set; }
+        public string? SenderStreetAndNumber { get; set; }
+        public string? SenderAdditionalInfo { get; set; }
+        public string? SenderZipCodeAndCity { get; set; }
+        #endregion
 
-        [Required]
-        public RecipientModel Recipient { get; set; }
+        #region Recipient Properties
+        public string? RecipientName { get; set; }
+        public string? RecipientCareOfInfo { get; set; }
+        public string? RecipientStreetAndNumber { get; set; }
+        public string? RecipientAdditionalInfo { get; set; }
+        public string? RecipientZipCodeAndCity { get; set; }
+        #endregion
 
-        [Required]
-        public LetterContentModel LetterContent { get; set; }
+        #region Letter Content Properties
+        public string? TopicLineOne { get; set; }
+        public string? TopicLineTwo { get; set; }
+        public string? Intro { get; set; } = "Sehr geehrte Damen und Herren,";
+        public string? Content { get; set; }
+        public string? Outro { get; set; } = "Mit freundlichen Grüßen";
+        #endregion
 
-        [Required]
-        public FileInfoModel FileInfo { get; set; }
+        #region File Properties
+        public string? CustomerNumber { get; set; }
+        public string? FileName { get; set; }
 
-        
-
-        public StandardLetterModel()
-        {
-            Sender = new SenderModel();
-            Recipient = new RecipientModel();
-
-            LetterContent = new LetterContentModel()
-            {
-                Intro = "Sehr geehrte Damen und Herren,",
-                Outro = "Mit freundlichen Grüßen"
-            };
-
-            FileInfo = new FileInfoModel();
-        }
-
-        public IEnumerable<ValidationResult> Validate()
-        {
-            var results = new List<ValidationResult>();
-
-            // Gültigkeit der Nutzereingaben in den jeweiligen TextBoxen überprüfen,
-            // indem alle Gültigkeitsattribute der Sub Models überprüft und die Ergebnisse
-            // in einer Liste gespeichert werden.
-
-            var senderContext = new ValidationContext(Sender);
-            IsValidSender = Validator.TryValidateObject(Sender, senderContext, results, true);
-
-            var recipientContext = new ValidationContext(Recipient);
-            IsValidRecipient = Validator.TryValidateObject(Recipient, recipientContext, results, true);
-
-            var letterContentContext = new ValidationContext(LetterContent);
-            IsValidLetterContent = Validator.TryValidateObject(LetterContent, letterContentContext, results, true);
-
-            var fileInfoContext = new ValidationContext(FileInfo);
-            IsValidFileInfo = Validator.TryValidateObject(FileInfo, fileInfoContext, results, true);
-
-            IsValid = results.Select(r => r.ErrorMessage).ToList().Count == 0;
-
-            return results;
-        }
-
-
-        #region Validation Properties für Border Color Change
-        // Hässliche Lösung, muss dringend ausgelagert oder komplett anders umgesetzt werden!
-
-        private bool _isValid;
-        public bool IsValid
+        public string? FullFileName
         {
             get
             {
-                Validate();
-                return _isValid;
-            }
-            set
-            {
-                _isValid = value;
-            }
-        }
-
-        private bool _isValidSender;
-        public bool IsValidSender
-        {
-            get
-            {
-                Validate();
-                return _isValidSender;
-            }
-            set
-            {
-                _isValidSender = value;
-            }
-        }
-
-        private bool _isValidRecipient;
-        public bool IsValidRecipient
-        {
-            get
-            {
-                Validate();
-                return _isValidRecipient;
-            }
-            set
-            {
-                _isValidRecipient = value;
-            }
-        }
-
-        private bool _isValidLetterContent;
-        public bool IsValidLetterContent
-        {
-            get
-            {
-                Validate();
-                return _isValidLetterContent;
-            }
-            set
-            {
-                _isValidLetterContent = value;
-            }
-        }
-
-        private bool _isValidFileInfo;
-        public bool IsValidFileInfo
-        {
-            get
-            {
-                Validate();
-                return _isValidFileInfo;
-            }
-            set
-            {
-                _isValidFileInfo = value;
+                return $"{CustomerNumber}_{FileName}.pdf";
             }
         }
         #endregion
