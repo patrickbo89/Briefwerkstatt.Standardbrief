@@ -19,7 +19,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.SenderName = value;
                 OnPropertyChanged(nameof(SenderName));
-                ChangeBorderColors();
             }
         }
 
@@ -31,7 +30,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.SenderStreetAndNumber = value;
                 OnPropertyChanged(nameof(SenderStreetAndNumber));
-                ChangeBorderColors();
             }
         }
 
@@ -43,7 +41,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.SenderZipCodeAndCity = value;
                 OnPropertyChanged(nameof(SenderZipCodeAndCity));
-                ChangeBorderColors();
             }
         }
 
@@ -78,7 +75,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.RecipientName = value;
                 OnPropertyChanged(nameof(RecipientName));
-                ChangeBorderColors();
             }
         }
 
@@ -90,7 +86,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.RecipientStreetAndNumber = value;
                 OnPropertyChanged(nameof(RecipientStreetAndNumber));
-                ChangeBorderColors();
             }
         }
 
@@ -102,7 +97,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.RecipientZipCodeAndCity = value;
                 OnPropertyChanged(nameof(RecipientZipCodeAndCity));
-                ChangeBorderColors();
             }
         }
 
@@ -137,7 +131,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.TopicLineOne = value;
                 OnPropertyChanged(nameof(TopicLineOne));
-                ChangeBorderColors();
             }
         }
 
@@ -159,7 +152,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Intro = value;
                 OnPropertyChanged(nameof(Intro));
-                ChangeBorderColors();
             }
         }
 
@@ -171,7 +163,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.Content = value;
                 OnPropertyChanged(nameof(Content));
-                ChangeBorderColors();
             }
         }
 
@@ -197,7 +188,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.CustomerNumber = value;
                 OnPropertyChanged(nameof(CustomerNumber));
-                ChangeBorderColors();
             }
         }
 
@@ -209,7 +199,6 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.FileName = value;
                 OnPropertyChanged(nameof(FileName));
-                ChangeBorderColors();
             }
         }
         #endregion
@@ -337,103 +326,10 @@ namespace BriefWerkstatt.ViewModels
         }
         #endregion
 
-        #region Properties XAML Control Styles
-        private System.Windows.Media.Brush _saveButtonColor;
-        public System.Windows.Media.Brush SaveButtonColor
-        {
-            get
-            {
-                return _saveButtonColor;
-            }
-            set
-            {
-                _saveButtonColor = value;
-                OnPropertyChanged(nameof(SaveButtonColor));
-            }
-        }
-
-        private System.Windows.Media.Brush _saveButtonColorHover;
-        public System.Windows.Media.Brush SaveButtonColorHover
-        {
-            get
-            {
-                return _saveButtonColorHover;
-            }
-            set
-            {
-                _saveButtonColorHover = value;
-                OnPropertyChanged(nameof(SaveButtonColorHover));
-            }
-        }
-
-        private System.Windows.Media.Brush _senderGroupBoxBorderColor;
-        public System.Windows.Media.Brush SenderGroupBoxBorderColor
-        {
-            get
-            {
-                return _senderGroupBoxBorderColor;
-            }
-            set
-            {
-                _senderGroupBoxBorderColor = value;
-                OnPropertyChanged(nameof(SenderGroupBoxBorderColor));
-            }
-        }
-
-        private System.Windows.Media.Brush _recipientGroupBoxBorderColor;
-        public System.Windows.Media.Brush RecipientGroupBoxBorderColor
-        {
-            get
-            {
-                return _recipientGroupBoxBorderColor;
-            }
-            set
-            {
-                _recipientGroupBoxBorderColor = value;
-                OnPropertyChanged(nameof(RecipientGroupBoxBorderColor));
-            }
-        }
-
-        private System.Windows.Media.Brush _letterBodyGroupBoxBorderColor;
-        public System.Windows.Media.Brush LetterBodyGroupBoxBorderColor
-        {
-            get
-            {
-                return _letterBodyGroupBoxBorderColor;
-            }
-            set
-            {
-                _letterBodyGroupBoxBorderColor = value;
-                OnPropertyChanged(nameof(LetterBodyGroupBoxBorderColor));
-            }
-        }
-
-        private System.Windows.Media.Brush _fileInfoGroupBoxBorderColor;
-        public System.Windows.Media.Brush FileInfoGroupBoxBorderColor
-        {
-            get
-            {
-                return _fileInfoGroupBoxBorderColor;
-            }
-            set
-            {
-                _fileInfoGroupBoxBorderColor = value;
-                OnPropertyChanged(nameof(FileInfoGroupBoxBorderColor));
-            }
-        }
-        #endregion
-
         public StandardLetterViewModel()
         {
             _standardLetter = new StandardLetterModel();
             _repository = new Repository.Repository();
-
-            _saveButtonColor = System.Windows.Media.Brushes.Red;
-            _saveButtonColorHover = System.Windows.Media.Brushes.DarkRed;
-            _senderGroupBoxBorderColor = System.Windows.Media.Brushes.Red;
-            _recipientGroupBoxBorderColor = System.Windows.Media.Brushes.Red;
-            _letterBodyGroupBoxBorderColor = System.Windows.Media.Brushes.Red;
-            _fileInfoGroupBoxBorderColor = System.Windows.Media.Brushes.Red;
         }
 
         #region Model Validation
@@ -460,26 +356,5 @@ namespace BriefWerkstatt.ViewModels
             return isValid;
         }
         #endregion
-
-        private void ChangeBorderColors()
-        {
-            SaveButtonColor = 
-                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
-
-            SaveButtonColorHover =
-                _isValid ? System.Windows.Media.Brushes.DarkGreen : System.Windows.Media.Brushes.DarkRed;
-
-            SenderGroupBoxBorderColor = 
-                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
-
-            RecipientGroupBoxBorderColor = 
-                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
-
-            LetterBodyGroupBoxBorderColor = 
-                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
-
-            FileInfoGroupBoxBorderColor = 
-                _isValid ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
-        }
     }
 }
