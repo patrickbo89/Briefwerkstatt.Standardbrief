@@ -335,6 +335,18 @@ namespace BriefWerkstatt.ViewModels
         #region Model Validation
 
         private bool _isValid;
+        public bool IsValid
+        {
+            get
+            {
+                return _isValid;
+            }
+
+            private set
+            {
+                _isValid = value;
+            }
+        }
 
         private bool ValidateModel()
         {
@@ -351,7 +363,7 @@ namespace BriefWerkstatt.ViewModels
                 //MessageBox.Show(errorMessage, "Fehlende Eingaben", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            _isValid = isValid;
+            IsValid = isValid;
 
             return isValid;
         }
