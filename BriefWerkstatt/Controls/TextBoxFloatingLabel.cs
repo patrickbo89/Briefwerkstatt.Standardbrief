@@ -45,7 +45,7 @@ namespace BriefWerkstatt.Controls
     ///     <MyNamespace:TextBoxFloatingLabel/>
     ///
     /// </summary>
-    public class TextBoxFloatingLabel : TextBox
+    public class TextBoxFloatingLabel : System.Windows.Controls.TextBox
     {
         public string FloatingLabelText
         {

@@ -37,14 +37,14 @@ namespace BriefWerkstatt.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //var dialogResult = System.Windows.Forms.MessageBox.Show(
-            //    "Programm wird beendet. Sicher?",
-            //    "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            var dialogResult = System.Windows.Forms.MessageBox.Show(
+                "Programm wird beendet. Sicher?",
+                "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
-            //if (dialogResult == System.Windows.Forms.DialogResult.No)
-            //{
-            //    e.Cancel = true;
-            //}
+            if (dialogResult == System.Windows.Forms.DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

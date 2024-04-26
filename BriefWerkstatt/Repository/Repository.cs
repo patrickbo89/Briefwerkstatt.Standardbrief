@@ -234,31 +234,6 @@ namespace BriefWerkstatt.Repository
                 string nextPageText = letterContentFirstPageOrPreviousBlock.ToString().Substring(lastCharIndex + 1).TrimStart();
                 letterContentFirstPageOrPreviousBlock.Clear();
                 letterContentFirstPageOrPreviousBlock.Append(nextPageText);
-
-                // TODO: Es muss verhindert werden, dass die Grußformel als letzter passender Satz einer Seite
-                //       erscheint. Stattdessen soll diese erst auf der nächsten Seite erscheinen.
-                //       Eventuell einfach den Nutzer die Grußformel manuell in die TextBox für den Briefinhalt schreiben lassen,
-                //       sodass der Nutzer einfach selbst zusätzliche Absätze einfügt und den Brief erneut abspeichert.
-
-                //if (wasOutroCutOff)
-                //{
-                //    letterContentFirstPageOrPreviousBlock.Clear();
-                //    letterContentFirstPageOrPreviousBlock.Append(
-                //        $"\n\n{letterContent.Outro}" +
-                //        $"\n\n\n\n\n{sender.Name}"
-                //        );
-                //}
-
-                //if (!wasOutroCutOff && nextPageText.EndsWith("Mit freundlichen Grüßen") 
-                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n") 
-                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n\n")
-                //    || nextPageText.EndsWith("Mit freundlichen Grüßej\n\n\n")
-                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n\n\n\n")
-                //    || nextPageText.EndsWith("Mit freundlichen Grüßen\n\n\n\n\n"))
-                //{
-                //    wasOutroCutOff = true;
-                //    letterContentFirstPageOrPreviousBlock.Replace("Mit freundlichen Grüßen", "");
-                //}
                 
                 PdfPage nextPage = document.AddPage();
                 gfx = XGraphics.FromPdfPage(nextPage);

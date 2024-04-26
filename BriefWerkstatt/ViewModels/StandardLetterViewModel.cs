@@ -206,19 +206,19 @@ namespace BriefWerkstatt.ViewModels
         #region Commands
         public void CloseAppExecute()
         {
-            //var dialogResult = MessageBox.Show(
-            //    "Programm wird beendet. Sicher?",
-            //    "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            var dialogResult = MessageBox.Show(
+                "Programm wird beendet. Sicher?",
+                "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
-            //if (dialogResult == DialogResult.Yes)
-            //{
-            //    Environment.Exit(0);
-            //}
+            if (dialogResult == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
         }
 
         public ICommand CloseApp
         {
-            get 
+            get
             {
                 return new RelayCommand(CloseAppExecute);
             }
@@ -230,16 +230,16 @@ namespace BriefWerkstatt.ViewModels
 
         public void SaveExecute()
         {
-            //if (ValidateModel())
-            //{
-            //    var dialog = new FolderBrowserDialog();
-            //    var result = dialog.ShowDialog();
-            //    if (result.ToString() != string.Empty && !result.ToString().Equals("Cancel"))
-            //    {
-            //        string saveFolderPath = dialog.SelectedPath + @"\";
-            //        _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
-            //    }
-            //}
+            if (ValidateModel())
+            {
+                var dialog = new FolderBrowserDialog();
+                var result = dialog.ShowDialog();
+                if (result.ToString() != string.Empty && !result.ToString().Equals("Cancel"))
+                {
+                    string saveFolderPath = dialog.SelectedPath + @"\";
+                    _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+                }
+            }
         }
 
         public ICommand Save
@@ -289,32 +289,32 @@ namespace BriefWerkstatt.ViewModels
 
         public void DeleteDataExecute()
         {
-            //var dialogResult = MessageBox.Show(
-            //    "Eingetragene Daten werden gelöscht. Sicher?",
-            //    "Daten löschen?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            var dialogResult = MessageBox.Show(
+                "Eingetragene Daten werden gelöscht. Sicher?",
+                "Daten löschen?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
 
-            //if (dialogResult == DialogResult.Yes)
-            //{
-            //    SenderName = null;
-            //    SenderCareOfInfo = null;
-            //    SenderStreetAndNumber = null;
-            //    SenderAdditionalInfo = null;
-            //    SenderZipCodeAndCity = null;
+            if (dialogResult == DialogResult.Yes)
+            {
+                SenderName = null;
+                SenderCareOfInfo = null;
+                SenderStreetAndNumber = null;
+                SenderAdditionalInfo = null;
+                SenderZipCodeAndCity = null;
 
-            //    RecipientName = null;
-            //    RecipientCareOfInfo = null;
-            //    RecipientStreetAndNumber = null;
-            //    RecipientAdditionalInfo = null;
-            //    RecipientZipCodeAndCity = null;
+                RecipientName = null;
+                RecipientCareOfInfo = null;
+                RecipientStreetAndNumber = null;
+                RecipientAdditionalInfo = null;
+                RecipientZipCodeAndCity = null;
 
-            //    TopicLineOne = null;
-            //    TopicLineTwo = null;
-            //    Intro = "Sehr geehrte Damen und Herren,";
-            //    Content = null;
+                TopicLineOne = null;
+                TopicLineTwo = null;
+                Intro = "Sehr geehrte Damen und Herren,";
+                Content = null;
 
-            //    CustomerNumber = null;
-            //    FileName = null;
-            //}
+                CustomerNumber = null;
+                FileName = null;
+            }
         }
 
         public ICommand DeleteData
@@ -360,7 +360,7 @@ namespace BriefWerkstatt.ViewModels
             if (!isValid)
             {
                 string errorMessage = string.Join("\n", validationResults.Select(r => r.ErrorMessage));
-                //MessageBox.Show(errorMessage, "Fehlende Eingaben", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(errorMessage, "Fehlende Eingaben", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             IsValid = isValid;

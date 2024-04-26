@@ -18,7 +18,7 @@ namespace BriefWerkstatt.Controls
     /// <summary>
     /// Interaction logic for CustomGroupBox.xaml
     /// </summary>
-    public partial class CustomGroupBox : UserControl
+    public partial class CustomGroupBox : System.Windows.Controls.UserControl
     {
         public CustomGroupBox()
         {
