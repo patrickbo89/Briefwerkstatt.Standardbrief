@@ -6,13 +6,13 @@
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
         xmlns:uc="clr-namespace:BriefWerkstatt.Controls"
         mc:Ignorable="d"
-        Title="BriefWerkstatt - Standardbrief"
+        Title="Briefwerkstatt - Standardbrief"
         Height="800"
         Width="800"
         MinHeight="800"
         MinWidth="800"
         ResizeMode="CanMinimize"
-        Background="#292929"
+        Background="#012622"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing">
@@ -21,7 +21,155 @@
         <viewmodels:StandardLetterViewModel />
     </Window.DataContext>
 
+    <Window.Resources>
+        <Style TargetType="uc:TextBoxFloatingLabel">
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="Margin"
+                    Value="10 10 10 25" />
+            <Setter Property="Background"
+                    Value="#ECE5F0" />
+            <Setter Property="Height"
+                    Value="35" />
+            
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="BorderBrush"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value=".2" />
+            <Setter Property="Background"
+                    Value="#003B36" />
+            <Setter Property="Foreground"
+                    Value="#ECE5F0" />
+        </Style>
+    </Window.Resources>
+
     <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="20*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Title Bar -->
+        <Grid Grid.Row="0"
+              Grid.ColumnSpan="3"
+              Background="#151515">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Briefwerkstatt - Standardbrief"
+                       Foreground="#ECE5F0" />
+
+        </Grid>
+
+        <!-- Absender -->
+        <GroupBox Grid.Row="1"
+                  Grid.Column="0"
+                  Margin="30 30 0 0"
+                  Header="Absender"
+                  Foreground="#ECE5F0"
+                  Background="#003B36"
+                  BorderBrush="Transparent"
+                  BorderThickness=".2"
+                  FontSize="16"
+                  FontWeight="Bold">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <uc:TextBoxFloatingLabel Grid.Row="0"
+                                         FloatingLabelText="Vor- und Nachname"
+                                         IconSource="/Images/NameTextBoxImage.png" 
+                                         Text="{Binding SenderName, UpdateSourceTrigger=PropertyChanged}"/>
+                <uc:TextBoxFloatingLabel Grid.Row="1"
+                                         FloatingLabelText="Wohnhaft bei"
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding SenderCareOfInfo, UpdateSourceTrigger=PropertyChanged}" />
+                <uc:TextBoxFloatingLabel Grid.Row="2"
+                                         FloatingLabelText="Straße und Haus-Nr."
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding SenderStreetAndNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <uc:TextBoxFloatingLabel Grid.Row="3"
+                                         FloatingLabelText="Vorderhaus/Hinterhaus"
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding SenderAdditionalInfo, UpdateSourceTrigger=PropertyChanged}" />
+                <uc:TextBoxFloatingLabel Grid.Row="4"
+                                         FloatingLabelText="Postleitzahl und Ort"
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding SenderZipCodeAndCity, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+
+        <!-- Empfänger -->
+        <GroupBox Grid.Row="1"
+                  Grid.Column="2"
+                  Margin="0 30 30 0"
+                  Header="Empfänger"
+                  Foreground="#ECE5F0"
+                  Background="#003B36"
+                  BorderBrush="Transparent"
+                  BorderThickness=".2"
+                  FontSize="16"
+                  FontWeight="Bold">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <uc:TextBoxFloatingLabel Grid.Row="0"
+                                         FloatingLabelText="Vor- und Nachname"
+                                         IconSource="/Images/NameTextBoxImage.png" 
+                                         Text="{Binding RecipientName, UpdateSourceTrigger=PropertyChanged}"/>
+                <uc:TextBoxFloatingLabel Grid.Row="1"
+                                         FloatingLabelText="Wohnhaft bei"
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding RecipientCareOfInfo, UpdateSourceTrigger=PropertyChanged}" />
+                <uc:TextBoxFloatingLabel Grid.Row="2"
+                                         FloatingLabelText="Straße und Haus-Nr."
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding RecipientStreetAndNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <uc:TextBoxFloatingLabel Grid.Row="3"
+                                         FloatingLabelText="Vorderhaus/Hinterhaus"
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding RecipientAdditionalInfo, UpdateSourceTrigger=PropertyChanged}" />
+                <uc:TextBoxFloatingLabel Grid.Row="4"
+                                         FloatingLabelText="Postleitzahl und Ort"
+                                         IconSource="/Images/NameTextBoxImage.png"
+                                         Text="{Binding RecipientZipCodeAndCity, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
         
+        <!-- Betreff -->
+        <GroupBox Grid.Row="2"
+                  Grid.ColumnSpan="3"
+                  Header="Betreff"
+                  FontSize="16"
+                  FontWeight="Bold">
+
+            <uc:TextBoxFloatingLabel />
+        </GroupBox>
     </Grid>
 </Window>

@@ -10,7 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\NameTextBoxImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="PDFsharp-WPF" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\NameTextBoxImage.png" />
   </ItemGroup>
 
 </Project>
