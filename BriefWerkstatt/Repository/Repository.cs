@@ -198,7 +198,25 @@ namespace BriefWerkstatt.Repository
             // den Absender-Namen. Es hat einen Abstand von 8.4mm zum Empfänger-Anschriftenfeld und eine maximale Höhe bis
             // zum unteren Seitenrand mit einem unteren Seitenabstand von 20mm.
 
-            string date = $"{(letter.SenderZipCodeAndCity).Substring(5)}, den {DateTime.Now.Date.ToString("d. MMMM yyyy")}";
+            string[] parts = letter.SenderZipCodeAndCity.Split(' ');
+            string city = "";
+
+            if (parts.Length >= 2) 
+            { 
+                for (int index = 0; index < parts.Length; index++)
+                {
+                    if (index !=0)
+                    {
+                        city += parts[index] + " ";
+                    }
+                }
+            }
+            else
+            {
+                city = parts[0];
+            }
+
+            string date = $"{city.TrimEnd()}, den {DateTime.Now.Date.ToString("d. MMMM yyyy")}";
 
             XRect letterContentFirstPageRect = new XRect(
                 CreateXPointFromMillimetres(LeftMargin, HeaderMargin + 5.0 + 40.0 + 8.4),
