@@ -3,9 +3,8 @@
                     xmlns:local="clr-namespace:BriefWerkstatt"
                     xmlns:controls="clr-namespace:BriefWerkstatt.Controls">
 
-
-    <Style TargetType="{x:Type controls:TextBoxFloatingLabel}"
-           BasedOn="{StaticResource {x:Type TextBox}}">
+    <Style TargetType="{x:Type controls:CustomTextBox}"
+           BasedOn="{StaticResource {x:Type TextBox} }">
         <Style.Resources>
             <SolidColorBrush x:Key="TextBox.Static.Border"
                              Color="#FFABAdB3" />
@@ -26,10 +25,6 @@
                 Value="None" />
         <Setter Property="HorizontalContentAlignment"
                 Value="Left" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Bottom" />
-        <Setter Property="Padding"
-                Value="47 0 0 2" />
         <Setter Property="FocusVisualStyle"
                 Value="{x:Null}" />
         <Setter Property="AllowDrop"
@@ -40,40 +35,16 @@
                 Value="False" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:TextBoxFloatingLabel}">
+                <ControlTemplate TargetType="{x:Type controls:CustomTextBox}">
                     <Border x:Name="border"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="3"
                             SnapsToDevicePixels="True">
-                        <Grid>
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          Focusable="false"
-                                          HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0"
-                                       Source="{TemplateBinding IconSource}"
-                                       Width="25"
-                                       Height="25"
-                                       Margin="7 0 0 0"
-                                       HorizontalAlignment="Left" />
-                                <TextBlock Grid.Column="1"
-                                           x:Name="FloatingLabel"
-                                           Text="{TemplateBinding FloatingLabelText}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Padding="17 0 0 0"
-                                           Foreground="#FFAAAAAA"
-                                           IsHitTestVisible="False">
-                                </TextBlock>
-                            </Grid>
-                        </Grid>
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="false"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled"
@@ -94,17 +65,13 @@
                                     TargetName="border"
                                     Value="{StaticResource TextBox.Focus.Border}" />
                         </Trigger>
-                        <Trigger Property="IsEmpty"
-                                 Value="False">
-                            <Setter Property="VerticalAlignment"
-                                    TargetName="FloatingLabel"
-                                    Value="Top" />
-                        </Trigger>
-                        <Trigger Property="IsFocused"
+                        <Trigger Property="HasErrors"
                                  Value="True">
-                            <Setter Property="VerticalAlignment"
-                                    TargetName="FloatingLabel"
-                                    Value="Top" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="#FF0000" />
+                            <Setter Property="BorderThickness"
+                                    Value="2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

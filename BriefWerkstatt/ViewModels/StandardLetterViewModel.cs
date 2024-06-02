@@ -1,10 +1,13 @@
 ﻿using BriefWerkstatt.Models;
+using System.Collections;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Windows.Input;
 
 namespace BriefWerkstatt.ViewModels
 {
-    public class StandardLetterViewModel : ViewModelBase
+    public class StandardLetterViewModel : ViewModelBase, INotifyDataErrorInfo
     {
         private StandardLetterModel _standardLetter;
         private Repository.Repository _repository;
@@ -18,6 +21,7 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderName = value;
+                Validate(nameof(SenderName), value);
                 OnPropertyChanged(nameof(SenderName));
             }
         }
@@ -29,6 +33,7 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderStreetAndNumber = value;
+                Validate(nameof(SenderStreetAndNumber), value);
                 OnPropertyChanged(nameof(SenderStreetAndNumber));
             }
         }
@@ -40,6 +45,7 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderZipCodeAndCity = value;
+                Validate(nameof(SenderZipCodeAndCity), value);
                 OnPropertyChanged(nameof(SenderZipCodeAndCity));
             }
         }
@@ -74,11 +80,12 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.RecipientName = value;
+                Validate(nameof(RecipientName), value);
                 OnPropertyChanged(nameof(RecipientName));
             }
         }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Straße und Haus-Nr. darf nicht leer sein.")]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Straße und Haus-Nr. darf nicht leer sein.")]
         public string? RecipientStreetAndNumber
         {
             get => _standardLetter.RecipientStreetAndNumber;
@@ -89,13 +96,14 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "AbRecipient: Postleitzahl und Ort darf nicht leer sein.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Postleitzahl und Ort darf nicht leer sein.")]
         public string? RecipientZipCodeAndCity
         {
             get => _standardLetter.RecipientZipCodeAndCity;
             set
             {
                 _standardLetter.RecipientZipCodeAndCity = value;
+                Validate(nameof(RecipientZipCodeAndCity), value);
                 OnPropertyChanged(nameof(RecipientZipCodeAndCity));
             }
         }
@@ -130,6 +138,7 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.TopicLineOne = value;
+                Validate(nameof(TopicLineOne), value);
                 OnPropertyChanged(nameof(TopicLineOne));
             }
         }
@@ -151,17 +160,19 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.Intro = value;
+                Validate(nameof(Intro), value);
                 OnPropertyChanged(nameof(Intro));
             }
         }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Briefinhalt darf nicht leer sein.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Brieftext darf nicht leer sein.")]
         public string? Content
         {
             get => _standardLetter.Content;
             set
             {
                 _standardLetter.Content = value;
+                Validate(nameof(Content), value);
                 OnPropertyChanged(nameof(Content));
             }
         }
@@ -180,13 +191,14 @@ namespace BriefWerkstatt.ViewModels
         #region Datei-Info-Properties
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kundennummer darf nicht leer sein.")]
-        [MaxLength(4, ErrorMessage = "Kundennummer muss vier Ziffern lang sein.")]
+        //[MaxLength(4, ErrorMessage = "Kundennummer muss vier Ziffern lang sein.")]
         public string? CustomerNumber
         {
             get => _standardLetter.CustomerNumber;
             set
             {
                 _standardLetter.CustomerNumber = value;
+                Validate(nameof(CustomerNumber), value);
                 OnPropertyChanged(nameof(CustomerNumber));
             }
         }
@@ -198,6 +210,7 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.FileName = value;
+                Validate(nameof(FileName), value);
                 OnPropertyChanged(nameof(FileName));
             }
         }
@@ -224,10 +237,6 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
-        public void MinimizeAppExecute()
-        {
-        }
-
         public void SaveExecute()
         {
             if (ValidateModel())
@@ -237,8 +246,41 @@ namespace BriefWerkstatt.ViewModels
                 if (result.ToString() != string.Empty && !result.ToString().Equals("Cancel"))
                 {
                     string saveFolderPath = dialog.SelectedPath + @"\";
-                    _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+
+                    if (File.Exists($"{saveFolderPath}{_standardLetter.FullFileName}"))
+                    {
+                        var dialogResult = MessageBox.Show(
+                            $"Eine Datei mit dem Namen\n\n \"{_standardLetter.FullFileName}\"\n\n existiert bereits am gewählten Speicherort.\n\n Soll diese Datei überschrieben werden?",
+                            "Datei existiert bereits",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                        
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+                        }
+                    }
+                    else
+                    {
+                        _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+                    }
+
                 }
+            }
+            else
+            {
+                Validate(nameof(SenderName), SenderName);
+                Validate(nameof(SenderStreetAndNumber), SenderStreetAndNumber);
+                Validate(nameof(SenderZipCodeAndCity), SenderZipCodeAndCity);
+
+                Validate(nameof(RecipientName), RecipientName);
+                Validate(nameof(RecipientZipCodeAndCity), RecipientZipCodeAndCity);
+
+                Validate(nameof(TopicLineOne), TopicLineOne);
+                Validate(nameof(Intro), Intro);
+                Validate(nameof(Content), Content);
+
+                Validate(nameof(CustomerNumber), CustomerNumber);
+                Validate(nameof(FileName), FileName);
             }
         }
 
@@ -334,7 +376,46 @@ namespace BriefWerkstatt.ViewModels
 
         #region Model Validation
 
+        private Dictionary<string, List<string?>> _errors = new Dictionary<string, List<string?>>();
+
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
+        public bool HasErrors => _errors.Count > 0;
+
+        public IEnumerable GetErrors(string? propertyName)
+        {
+            if (_errors.ContainsKey(propertyName))
+            {
+                return _errors[propertyName];
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
+        public void Validate(string propertyName, object? propertyValue)
+        {
+            var results = new List<ValidationResult>();
+            Validator.TryValidateProperty(propertyValue, new ValidationContext(this) { MemberName = propertyName }, results);
+
+            if (results.Any())
+            {
+                if (_errors.ContainsKey(propertyName))
+                {
+                    _errors.Remove(propertyName);
+                }
+
+                _errors.Add(propertyName, results.Select(r => r.ErrorMessage).ToList());
+                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            }
+            else
+            {
+                _errors.Remove(propertyName);
+                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            }
+        }
+
         private bool _isValid;
+
         public bool IsValid
         {
             get

@@ -121,19 +121,33 @@ namespace BriefWerkstatt.Repository
 
         private void DrawWindowEnvelopeAddress(XGraphics gfx, StandardLetterModel letter)
         {
-            // Die Fensterkuvertzeile befindet sich 45mm von der oberen Blattkante, ist 85mm breit und 5mm hoch
+            // Die Fensterkuvertzeile befindet sich 45mm von der oberen Blattkante, ist 85mm breit und 7.5mm hoch
             XRect windowTextLineRect = new XRect(
                 CreateXPointFromMillimetres(LeftMargin, HeaderMargin + 10.0),
-                CreateXPointFromMillimetres(85.0, HeaderMargin + 5.0)
+                CreateXPointFromMillimetres(85.0, HeaderMargin + 2.5)
                 );
 
             XTextFormatter tf = new XTextFormatter(gfx);
 
             StringBuilder windowTextLine = new StringBuilder();
-            windowTextLine.Append($"{letter.SenderName}" +
-                $", {letter.SenderStreetAndNumber}" +
-                $", {letter.SenderZipCodeAndCity}"
+            windowTextLine.Append($"{letter.SenderName}");
+
+            // Überprüft, ob die Absenderdaten eine bestimmte Länge überschreiten, damit nicht abgeschnitten wird, wenn
+            // in die nächste Zeile verschoben wird.
+            if (letter.SenderName.Length + letter.SenderStreetAndNumber.Length + letter.SenderZipCodeAndCity.Length >= 52)
+            {
+                windowTextLine.Append(
+                    $", \n{letter.SenderStreetAndNumber}" +
+                    $", {letter.SenderZipCodeAndCity}"
                 );
+            }
+            else
+            {
+                windowTextLine.Append(
+                    $", {letter.SenderStreetAndNumber}" +
+                    $", {letter.SenderZipCodeAndCity}"
+                );
+            }
 
             windowTextLine.Append(string.IsNullOrWhiteSpace(letter.SenderCareOfInfo) ? "" : $"\n{letter.SenderCareOfInfo}");
             windowTextLine.Append(string.IsNullOrWhiteSpace(letter.SenderAdditionalInfo) ? "" : $", {letter.SenderAdditionalInfo}");
@@ -161,7 +175,10 @@ namespace BriefWerkstatt.Repository
                 recipientAddressBlock.Append($"\n{letter.RecipientCareOfInfo}");
             }
 
-            recipientAddressBlock.Append($"\n{letter.RecipientStreetAndNumber}");
+            if (!string.IsNullOrWhiteSpace(letter.RecipientStreetAndNumber))
+            {
+                recipientAddressBlock.Append($"\n{letter.RecipientStreetAndNumber}");
+            }
 
             if (!string.IsNullOrWhiteSpace(letter.RecipientAdditionalInfo))
             {
@@ -227,7 +244,6 @@ namespace BriefWerkstatt.Repository
                 letterContentFirstPageOrPreviousBlock.ToString(), _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
 
             bool hasNextPage = HasNextPage(tf, letterContentFirstPageOrPreviousBlock, letterContentFirstPageRect, out int lastCharIndex);
-            bool wasOutroCutOff = false;
 
             while (hasNextPage)
             {

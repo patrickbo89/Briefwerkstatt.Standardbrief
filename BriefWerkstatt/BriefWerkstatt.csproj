@@ -7,18 +7,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
 	  <UseWindowsForms>true</UseWindowsForms>
+	  <ApplicationIcon>Icon2.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\NameTextBoxImage.png" />
+    <Content Include="Icon2.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="PDFsharp-WPF" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\NameTextBoxImage.png" />
   </ItemGroup>
 
 </Project>
