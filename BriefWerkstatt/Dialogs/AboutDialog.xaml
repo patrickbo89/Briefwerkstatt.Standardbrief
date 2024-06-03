@@ -79,8 +79,10 @@
                         Dieses Programm nutzt PDFSharp, den Quellcode können Sie<LineBreak />
                         unter <Hyperlink NavigateUri="https://github.com/empira/PDFsharp" RequestNavigate="Hyperlink_RequestNavigate">https://github.com/empira/PDFsharp</Hyperlink> einsehen.<LineBreak /><LineBreak />
                         
-                        Dieses Programm ist OpenSource und Freeware, <LineBreak />
-                        den Code könen Sie sich unter Link zum Code herunterladen.
+                        Dieses Programm ist OpenSource und Freeware. Link zum Quellcode:  <LineBreak />
+                        <Hyperlink NavigateUri="https://github.com/Briefwerkstatt/BriefWerkstatt.Standardbrief.Alphaversion"
+                                   RequestNavigate="Hyperlink_RequestNavigate">https://github.com/Briefwerkstatt/BriefWerkstatt.Standardbrief.Alphaversion
+                        </Hyperlink>.
                     </TextBlock>
                 </GroupBox>
             </StackPanel>
