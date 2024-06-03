@@ -1,7 +1,7 @@
 Eine Anwendung zur Erstellung von Standardbriefen nach DIN 5008 im PDF-Format.
 
 LIZENZ
-
+----------------------------------------------------------------------
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -16,6 +16,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Kontakt: <briefwerkstatt@gmail.com>
+
+----------------------------------------------------------------------
+
+Daten
+----------------------------------------------------------------------
+Dieses Programm speichert die eingegebenen Daten im PDF-Format
+lokal am vom Nutzer gewählten Speicherort, stellt keine Verbindung
+zum Internet her und überträgt somit keine Daten an eine externe Quelle.
+Der Urheber übernimmt keinerlei Haftung für Datenverlust und Missbrauch
+des angebotenen Dienstes.
+
+Dieses Programm nutzt PDFSharp, den Quellcode können Sie<LineBreak />
+unter <https://github.com/empira/PDFsharp> einsehen.
+
 ----------------------------------------------------------------------
 
 Dieses Programm nutzt PDFSharp-WPF 6.0.0:
