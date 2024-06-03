@@ -79,7 +79,7 @@
                         Dieses Programm nutzt PDFSharp, den Quellcode können Sie<LineBreak />
                         unter <Hyperlink NavigateUri="https://github.com/empira/PDFsharp" RequestNavigate="Hyperlink_RequestNavigate">https://github.com/empira/PDFsharp</Hyperlink> einsehen.<LineBreak /><LineBreak />
                         
-                        Das Programm ist OpenSource und Freeware, <LineBreak />
+                        Dieses Programm ist OpenSource und Freeware, <LineBreak />
                         den Code könen Sie sich unter Link zum Code herunterladen.
                     </TextBlock>
                 </GroupBox>
