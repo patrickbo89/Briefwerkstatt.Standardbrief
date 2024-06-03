@@ -15,29 +15,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #endregion
 
-using System.Windows.Input;
+using System.Windows;
 
-namespace BriefWerkstatt
+namespace BriefWerkstatt.Dialogs
 {
-    public class RelayCommand : ICommand
+    /// <summary>
+    /// Interaction logic for AboutDialog.xaml
+    /// </summary>
+    public partial class AboutDialog : Window
     {
-        private readonly Action _execute;
-
-        public event EventHandler? CanExecuteChanged;
-
-        public RelayCommand(Action execute)
+        public AboutDialog()
         {
-            _execute = execute;
-        }
+            InitializeComponent();
 
-        public bool CanExecute(object? parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object? parameter)
-        {
-            _execute();
+            Owner = System.Windows.Application.Current.MainWindow;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
     }
 }
