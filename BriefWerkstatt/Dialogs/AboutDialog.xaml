@@ -5,8 +5,133 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BriefWerkstatt.Dialogs"
         mc:Ignorable="d"
-        Title="AboutDialog" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Über Briefwerkstatt - Standardbrief (Alphaversion)"
+        ResizeMode="NoResize"
+        Background="#242424">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight"
+                    Value="Regular" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Foreground"
+                    Value="#AAE6F0FB" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin"
+                    Value="20 10 20 0" />
+            <Setter Property="FontWeight"
+                    Value="Heavy" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Foreground"
+                    Value="#99E6F0FB" />
+            <Setter Property="Background"
+                    Value="#323232" />
+            <Setter Property="BorderThickness"
+                    Value="0.35" />
+            <Setter Property="Padding"
+                    Value="10" />
+        </Style>
+    </Window.Resources>
+    <Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <GroupBox Header="Lizensierung">
+                    <TextBlock>
+                    Erstellt von Sven und Patrick (<Hyperlink NavigateUri="mailto:briefwerkstatt@gmail.com" RequestNavigate="Hyperlink_RequestNavigate">briefwerkstatt@gmail.com</Hyperlink>)<LineBreak /><LineBreak />
+                    This program is free software: you can redistribute it and/or modify<LineBreak />
+                    it under the terms of the GNU General Public License as published by<LineBreak />
+                    the Free Software Foundation, either version 3 of the License, or<LineBreak />
+                    (at your option) any later version.<LineBreak /><LineBreak />
+
+                    This program is distributed in the hope that it will be useful,<LineBreak />
+                    but WITHOUT ANY WARRANTY; without even the implied warranty of<LineBreak />
+                    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<LineBreak />
+                    GNU General Public License for more details.<LineBreak /><LineBreak />
+
+                    You should have received a copy of the GNU General Public License<LineBreak />
+                    along with this program.  If not, see <Hyperlink NavigateUri="http://www.gnu.org/licenses" RequestNavigate="Hyperlink_RequestNavigate">http://www.gnu.org/licenses</Hyperlink>.
+                    </TextBlock>
+                </GroupBox>
+
+                <GroupBox Header="Daten">
+                    <TextBlock>
+                        Dieses Programm speichert die eingegebenen Daten im PDF-Format<LineBreak />
+                        lokal am vom Nutzer gewählten Speicherort, stellt keine Verbindung<LineBreak />
+                        zum Internet her und überträgt somit keine Daten an eine externe Quelle.<LineBreak />
+                        Der Urheber übernimmt keinerlei Haftung für Datenverlust und Missbrauch<LineBreak />
+                        des angebotenen Dienstes.<LineBreak /><LineBreak />
+                        Dieses Programm nutzt PDFSharp, den Quellcode können Sie<LineBreak />
+                        unter <Hyperlink NavigateUri="https://github.com/empira/PDFsharp" RequestNavigate="Hyperlink_RequestNavigate">https://github.com/empira/PDFsharp</Hyperlink> einsehen.<LineBreak /><LineBreak />
+                        
+                        Das Programm ist OpenSource und Freeware, <LineBreak />
+                        den Code könen Sie sich unter Link zum Code herunterladen.
+                    </TextBlock>
+                </GroupBox>
+            </StackPanel>
+
+            <GroupBox Grid.Row="0"
+                      Grid.Column="1"
+                      Header="PDFSharp-WPF 6.0.0 Lizenz">
+                <TextBlock>
+                    All PDFsharp projects are published Open Source under the<LineBreak /><LineBreak />
+                    
+                    MIT License<LineBreak /><LineBreak />
+
+                    Copyright (c) 2001-2024 empira Software GmbH,<LineBreak />
+                    Troisdorf (Cologne Area), Germany<LineBreak /><LineBreak />
+                    
+                    <Hyperlink NavigateUri="http://docs.pdfsharp.net"
+                               RequestNavigate="Hyperlink_RequestNavigate">http://docs.pdfsharp.net</Hyperlink><LineBreak /><LineBreak />
+
+                    Permission is hereby granted, free of charge, to any person obtaining<LineBreak />
+                    a copy of this software and associated documentation files (the "Software"),<LineBreak />
+                    to deal in the Software without restriction, including without limitation<LineBreak />
+                    the rights to use, copy, modify, merge, publish, distribute, sublicense,<LineBreak />
+                    and/or sell copies of the Software, and to permit persons to whom<LineBreak />
+                    the Software is furnished to do so, subject to the following conditions:<LineBreak /><LineBreak />
+
+                    The above copyright notice and this permission notice shall be included in<LineBreak />
+                    all copies or substantial portions of the Software.<LineBreak /><LineBreak />
+
+                    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,<LineBreak />
+                    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES<LineBreak />
+                    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<LineBreak />
+                    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT<LineBreak />
+                    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,<LineBreak />
+                    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,<LineBreak />
+                    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE<LineBreak />
+                    OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                </TextBlock>
+            </GroupBox>
+
+            <Button x:Name="CloseButton"
+                    Margin="20"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Width="200"
+                    Height="50"
+                    Content="Schließen"
+                    Background="#323232"
+                    Foreground="#AAE6F0FB"
+                    FontSize="16"
+                    Click="CloseButton_Click">
+            </Button>
+        </Grid>
+    </Viewbox>
 </Window>

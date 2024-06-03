@@ -15,7 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #endregion
 
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace BriefWerkstatt.Dialogs
 {
@@ -30,6 +32,21 @@ namespace BriefWerkstatt.Dialogs
 
             Owner = System.Windows.Application.Current.MainWindow;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            SizeToContent = SizeToContent.Width;
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process openLink = new Process();
+            openLink.StartInfo.UseShellExecute = true;
+            openLink.StartInfo.FileName = e.Uri.ToString();
+            openLink.Start();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

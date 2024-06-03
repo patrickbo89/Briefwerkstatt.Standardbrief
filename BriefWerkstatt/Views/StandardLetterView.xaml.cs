@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BriefWerkstatt.Dialogs;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BriefWerkstatt.Views
@@ -33,8 +34,11 @@ namespace BriefWerkstatt.Views
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show($"Erstellt von Sven und Patrick\n\n\nDieses Programm nutzt PDFSharp-WPF 6.0.0\n\n﻿Copyright (c) 2001-2024 empira Software GmbH, Troisdorf (Cologne Area), Germany\r\n\r\nhttp://docs.pdfsharp.net\r\n\r\nMIT License\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a\r\ncopy of this software and associated documentation files (the \"Software\"),\r\nto deal in the Software without restriction, including without limitation\r\nthe rights to use, copy, modify, merge, publish, distribute, sublicense,\r\nand/or sell copies of the Software, and to permit persons to whom the\r\nSoftware is furnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included\r\nin all copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL\r\nTHE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\r\nFROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER \r\nDEALINGS IN THE SOFTWARE.",
-                "Über Briefwerkstatt - Standardbrief");
+            AboutDialog aboutDialog = new AboutDialog();
+            aboutDialog.ShowDialog();
+
+            //System.Windows.MessageBox.Show($"Erstellt von Sven und Patrick\n\n\nDieses Programm nutzt PDFSharp-WPF 6.0.0\n\n﻿Copyright (c) 2001-2024 empira Software GmbH, Troisdorf (Cologne Area), Germany\r\n\r\nhttp://docs.pdfsharp.net\r\n\r\nMIT License\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a\r\ncopy of this software and associated documentation files (the \"Software\"),\r\nto deal in the Software without restriction, including without limitation\r\nthe rights to use, copy, modify, merge, publish, distribute, sublicense,\r\nand/or sell copies of the Software, and to permit persons to whom the\r\nSoftware is furnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included\r\nin all copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL\r\nTHE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\r\nFROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER \r\nDEALINGS IN THE SOFTWARE.",
+            //    "Über Briefwerkstatt - Standardbrief");
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
