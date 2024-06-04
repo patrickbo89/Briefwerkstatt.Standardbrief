@@ -46,6 +46,7 @@ namespace BriefWerkstatt.Models
         #region File Properties
         public string? CustomerNumber { get; set; }
         public string? FileName { get; set; }
+        public bool HasBeenSaved { get; set; } = false;
 
         public string? FullFileName
         {
