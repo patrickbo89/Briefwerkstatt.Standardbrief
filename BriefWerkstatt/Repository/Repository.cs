@@ -114,6 +114,9 @@ namespace BriefWerkstatt.Repository
                 return;
             }
 
+            // Saving the document was successful. Set the flag that it has been saved.
+            standardLetter.HasBeenSaved = true;
+
             try
             {
                 OpenDocumentInViewer(filePath, standardLetter);
