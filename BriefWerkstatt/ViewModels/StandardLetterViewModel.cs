@@ -258,30 +258,42 @@ namespace BriefWerkstatt.ViewModels
         {
             if (ValidateModel())
             {
-                var dialog = new FolderBrowserDialog();
+                var dialog = new SaveFileDialog();
+                dialog.CheckPathExists = true;
+                dialog.FileName = $"{_standardLetter.CustomerNumber}_{_standardLetter.FileName}";
+                dialog.Filter = "PDF-Datei|*.pdf";
                 var result = dialog.ShowDialog();
-                if (result.ToString() != string.Empty && !result.ToString().Equals("Cancel"))
+                dialog.Dispose();
+                if (result == DialogResult.OK)
                 {
-                    string saveFolderPath = dialog.SelectedPath + @"\";
-
-                    if (File.Exists($"{saveFolderPath}{_standardLetter.FullFileName}"))
-                    {
-                        var dialogResult = MessageBox.Show(
-                            $"Eine Datei mit dem Namen\n\n \"{_standardLetter.FullFileName}\"\n\n existiert bereits am gewählten Speicherort.\n\n Soll diese Datei überschrieben werden?",
-                            "Datei existiert bereits",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                        
-                        if (dialogResult == DialogResult.Yes)
-                        {
-                            _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
-                        }
-                    }
-                    else
-                    {
-                        _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
-                    }
-
+                    string filePath = dialog.FileName;
+                    _repository.CreatePdfDocument(_standardLetter, filePath);
                 }
+
+                //var dialog = new FolderBrowserDialog();
+                //var result = dialog.ShowDialog();
+                //if (result.ToString() != string.Empty && !result.ToString().Equals("Cancel"))
+                //{
+                //    string saveFolderPath = dialog.SelectedPath + @"\";
+
+                //    if (File.Exists($"{saveFolderPath}{_standardLetter.FullFileName}"))
+                //    {
+                //        var dialogResult = MessageBox.Show(
+                //            $"Eine Datei mit dem Namen\n\n \"{_standardLetter.FullFileName}\"\n\n existiert bereits am gewählten Speicherort.\n\n Soll diese Datei überschrieben werden?",
+                //            "Datei existiert bereits",
+                //            MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                        
+                //        if (dialogResult == DialogResult.Yes)
+                //        {
+                //            _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
+                //    }
+
+                //}
             }
             else
             {

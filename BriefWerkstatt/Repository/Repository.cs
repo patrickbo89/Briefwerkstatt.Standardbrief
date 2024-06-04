@@ -1,9 +1,12 @@
 ﻿using BriefWerkstatt.Models;
+using PdfSharp;
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
+using System.Windows.Shapes;
 
 namespace BriefWerkstatt.Repository
 {
@@ -74,7 +77,7 @@ namespace BriefWerkstatt.Repository
         private readonly XFont _pageCountFont = new XFont("Arial", 9, XFontStyleEx.Regular);
         #endregion
 
-        public void CreatePdfDocument(StandardLetterModel standardLetter, string saveFolderPath)
+        public void CreatePdfDocument(StandardLetterModel standardLetter, string filePath)
         {
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
@@ -88,23 +91,82 @@ namespace BriefWerkstatt.Repository
             DrawFoldingLines(gfx);
             DrawHolePunchGuide(gfx);
 
-            SaveDocument(document, saveFolderPath, standardLetter);
-            OpenDocumentInViewer(saveFolderPath, standardLetter);
+            try
+            {
+                SaveDocument(document, filePath, standardLetter);
+            }
+            catch (IOException e)
+            {
+                Debug.WriteLine(e.ToString());
+                MessageBox.Show("Der angegebene Speicherpfad konnte nicht gefunden werden. Das Dokument wurde NICHT gespeichert!\n\n" +
+                    "Wenn sich der Speicherpfad auf einem externen Server befindet, könnte die Verbindung zum Server abgebrochen sein.\n\n" +
+                    "Bitte überprüfen Sie in diesem Falle die Verbindung und versuchen Sie es erneut.",
+                    "Speichern fehlgeschlagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            catch (PdfSharpException e)
+            {
+                Debug.WriteLine(e.ToString());
+                MessageBox.Show("Der angegebene Speicherpfad konnte nicht gefunden werden. Das Dokument wurde NICHT gespeichert!\n\n" +
+                    "Wenn sich der Speicherpfad auf einem externen Server befindet, könnte die Verbindung zum Server abgebrochen sein.\n\n" +
+                    "Bitte überprüfen Sie in diesem Falle die Verbindung und versuchen Sie es erneut.",
+                    "Speichern fehlgeschlagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                OpenDocumentInViewer(filePath, standardLetter);
+            }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+                MessageBox.Show("Das Dokument wurde erfolgreich gespeichert, aber beim Öffnen der Datei konnte der Dateipfad nicht gefunden werden.\n\n" +
+                    "Wenn sich der Dateipfad auf einem externen Server befindet, könnte die Verbindung zum Server abgebrochen sein.\n\n" +
+                    "Bitte überprüfen Sie in diesem Falle die Verbindung und öffnen Sie die Datei manuell.",
+                    "Gespeichertes Dokument konnte nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
-        private void OpenDocumentInViewer(string saveFolderPath, StandardLetterModel standardLetterModel)
+        private void OpenDocumentInViewer(string filePath, StandardLetterModel standardLetterModel)
         {
+            // Get the file directory path without the file name
+            FileInfo fileInfo = new FileInfo(filePath);
+            string? directory = fileInfo.DirectoryName;
+
             // Open PDF with external viewer
             Process PdfViewer = new Process();
-            PdfViewer.StartInfo.UseShellExecute = true;
-            PdfViewer.StartInfo.WorkingDirectory = saveFolderPath;
-            PdfViewer.StartInfo.FileName = standardLetterModel.FullFileName;
-            PdfViewer.Start();
+            try
+            {
+                PdfViewer.StartInfo.UseShellExecute = true;
+                PdfViewer.StartInfo.WorkingDirectory = directory;
+                PdfViewer.StartInfo.FileName = standardLetterModel.FullFileName;
+                PdfViewer.Start();
+            }
+            finally
+            {
+                PdfViewer.Close();
+            }
         }
 
-        private void SaveDocument(PdfDocument document, string saveFolderPath, StandardLetterModel standardLetterModel)
+        private void SaveDocument(PdfDocument document, string filePath, StandardLetterModel standardLetterModel)
         {
-            document.Save($"{saveFolderPath}{standardLetterModel.FullFileName}");
+            {
+                FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                Debug.WriteLine(stream.CanWrite);
+
+                try
+                {
+                    document.Save(stream, closeStream: true);
+                }
+                finally
+                {
+                    Debug.WriteLine(stream.CanWrite);
+                    stream.Close();
+                    Debug.WriteLine(stream.CanWrite);
+                }
+            }
         }
 
         private void DrawSenderBlock(XGraphics gfx, StandardLetterModel letter)
@@ -151,7 +213,7 @@ namespace BriefWerkstatt.Repository
 
             // Überprüft, ob die Absenderdaten eine bestimmte Länge überschreiten, damit nicht abgeschnitten wird, wenn
             // in die nächste Zeile verschoben wird.
-            if (letter.SenderName.Length + letter.SenderStreetAndNumber.Length + letter.SenderZipCodeAndCity.Length >= 52)
+            if (letter.SenderName?.Length + letter.SenderStreetAndNumber?.Length + letter.SenderZipCodeAndCity?.Length >= 52)
             {
                 windowTextLine.Append(
                     $", \n{letter.SenderStreetAndNumber}" +
@@ -245,17 +307,16 @@ namespace BriefWerkstatt.Repository
                 CreateXPointFromMillimetres(PageWidth - RightMargin, PageHeight - BottomMargin)
                 );
 
-            StringBuilder letterContentFirstPageOrPreviousBlock = new StringBuilder();
-            StringBuilder letterContentNextPageBlock = new StringBuilder();
+            StringBuilder letterContentCurrentPageBlock = new StringBuilder();
 
             XTextFormatterEx2 tf = new XTextFormatterEx2(gfx);
 
             if (!string.IsNullOrWhiteSpace(letter.TopicLineTwo))
             {
-                letterContentFirstPageOrPreviousBlock.Append('\n');
+                letterContentCurrentPageBlock.Append('\n');
             }
 
-            letterContentFirstPageOrPreviousBlock.Append(
+            letterContentCurrentPageBlock.Append(
                 $"\n\n\n\n\n\n{letter.Intro}" +
                 $"\n\n{letter.Content}" +
                 $"\n\n{letter.Outro}" +
@@ -276,15 +337,15 @@ namespace BriefWerkstatt.Repository
 
             tf.Alignment = XParagraphAlignment.Justify;
             tf.DrawString(
-                letterContentFirstPageOrPreviousBlock.ToString(), _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
+                letterContentCurrentPageBlock.ToString(), _normalFont, XBrushes.Black, letterContentFirstPageRect, XStringFormats.TopLeft);
 
-            bool hasNextPage = HasNextPage(tf, letterContentFirstPageOrPreviousBlock, letterContentFirstPageRect, out int lastCharIndex);
+            bool hasNextPage = HasNextPage(tf, letterContentCurrentPageBlock, letterContentFirstPageRect, out int lastCharIndex);
 
             while (hasNextPage)
             {
-                string nextPageText = letterContentFirstPageOrPreviousBlock.ToString().Substring(lastCharIndex + 1).TrimStart();
-                letterContentFirstPageOrPreviousBlock.Clear();
-                letterContentFirstPageOrPreviousBlock.Append(nextPageText);
+                string nextPageText = letterContentCurrentPageBlock.ToString().Substring(lastCharIndex + 1).TrimStart();
+                letterContentCurrentPageBlock.Clear();
+                letterContentCurrentPageBlock.Append(nextPageText);
                 
                 PdfPage nextPage = document.AddPage();
                 gfx = XGraphics.FromPdfPage(nextPage);
@@ -292,9 +353,9 @@ namespace BriefWerkstatt.Repository
                 tf.Alignment = XParagraphAlignment.Justify;
 
                 tf.DrawString(
-                    letterContentFirstPageOrPreviousBlock.ToString(), _normalFont, XBrushes.Black, letterContentNextPageRect, XStringFormats.TopLeft);
+                    letterContentCurrentPageBlock.ToString(), _normalFont, XBrushes.Black, letterContentNextPageRect, XStringFormats.TopLeft);
 
-                hasNextPage = HasNextPage(tf, letterContentFirstPageOrPreviousBlock, letterContentNextPageRect, out lastCharIndex);
+                hasNextPage = HasNextPage(tf, letterContentCurrentPageBlock, letterContentNextPageRect, out lastCharIndex);
 
                 DrawPageNumber(gfx, document.PageCount);
                 DrawFoldingLines(gfx);
