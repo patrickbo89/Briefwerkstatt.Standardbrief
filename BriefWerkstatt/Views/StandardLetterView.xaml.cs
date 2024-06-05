@@ -36,9 +36,6 @@ namespace BriefWerkstatt.Views
         {
             AboutDialog aboutDialog = new AboutDialog();
             aboutDialog.ShowDialog();
-
-            //System.Windows.MessageBox.Show($"Erstellt von Sven und Patrick\n\n\nDieses Programm nutzt PDFSharp-WPF 6.0.0\n\n﻿Copyright (c) 2001-2024 empira Software GmbH, Troisdorf (Cologne Area), Germany\r\n\r\nhttp://docs.pdfsharp.net\r\n\r\nMIT License\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a\r\ncopy of this software and associated documentation files (the \"Software\"),\r\nto deal in the Software without restriction, including without limitation\r\nthe rights to use, copy, modify, merge, publish, distribute, sublicense,\r\nand/or sell copies of the Software, and to permit persons to whom the\r\nSoftware is furnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included\r\nin all copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL\r\nTHE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\r\nFROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER \r\nDEALINGS IN THE SOFTWARE.",
-            //    "Über Briefwerkstatt - Standardbrief");
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -122,12 +119,32 @@ namespace BriefWerkstatt.Views
             // Setzt die Fenstergröße unter Berücksichtung des dpi-Faktors sowie des Fenstergrößen-Skalierungsfaktors.
             //
             // 900x940 ist die Standardgröße bei einer Auflösung von 1920x1080.
-            this.Width = (int)((900f / dpiFactor) * windowScaleFactor);
+            this.Width = (int)((880f / dpiFactor) * windowScaleFactor);
             this.Height = (int)((940f / dpiFactor) * windowScaleFactor);
 
             // Setzt das Fenster in die Mitte des Bildschirms.
             this.Left = (nWidth / 2) - (this.Width / 2);
             this.Top = (nHeight / 2) - (this.Height / 2);
+        }
+
+        private void NewLetterButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewLetterDialog newLetterDialog = new NewLetterDialog();
+            newLetterDialog.ShowDialog();
+
+            SenderNameBox.HasErrors = false;
+            SenderStreetBox.HasErrors = false;
+            SenderCityBox.HasErrors = false;
+
+            RecipientNameBox.HasErrors = false;
+            RecipientCityBox.HasErrors = false;
+
+            IntroBox.HasErrors = false;
+            TopicLineOneBox.HasErrors = false;
+            LetterContentBox.HasErrors = false;
+
+            CustomerNumberBox.HasErrors = false;
+            FileNameBox.HasErrors = false;
         }
     }
 }

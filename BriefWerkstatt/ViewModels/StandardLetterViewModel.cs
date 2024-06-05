@@ -19,6 +19,7 @@ using BriefWerkstatt.Models;
 using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Input;
 
@@ -28,6 +29,7 @@ namespace BriefWerkstatt.ViewModels
     {
         private StandardLetterModel _standardLetter;
         private Repository.Repository _repository;
+        private bool _createdNewLetter = false;
 
         #region Absender-Properties
 
@@ -38,7 +40,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderName = value;
-                Validate(nameof(SenderName), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(SenderName), value);
+
                 OnPropertyChanged(nameof(SenderName));
             }
         }
@@ -50,7 +55,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderStreetAndNumber = value;
-                Validate(nameof(SenderStreetAndNumber), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(SenderStreetAndNumber), value);
+
                 OnPropertyChanged(nameof(SenderStreetAndNumber));
             }
         }
@@ -62,7 +70,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderZipCodeAndCity = value;
-                Validate(nameof(SenderZipCodeAndCity), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(SenderZipCodeAndCity), value);
+
                 OnPropertyChanged(nameof(SenderZipCodeAndCity));
             }
         }
@@ -97,7 +108,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.RecipientName = value;
-                Validate(nameof(RecipientName), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(RecipientName), value);
+
                 OnPropertyChanged(nameof(RecipientName));
             }
         }
@@ -120,7 +134,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.RecipientZipCodeAndCity = value;
-                Validate(nameof(RecipientZipCodeAndCity), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(RecipientZipCodeAndCity), value);
+
                 OnPropertyChanged(nameof(RecipientZipCodeAndCity));
             }
         }
@@ -155,7 +172,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.TopicLineOne = value;
-                Validate(nameof(TopicLineOne), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(TopicLineOne), value);
+
                 OnPropertyChanged(nameof(TopicLineOne));
             }
         }
@@ -177,7 +197,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.Intro = value;
-                Validate(nameof(Intro), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(Intro), value);
+
                 OnPropertyChanged(nameof(Intro));
             }
         }
@@ -189,7 +212,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.Content = value;
-                Validate(nameof(Content), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(Content), value);
+
                 OnPropertyChanged(nameof(Content));
             }
         }
@@ -215,7 +241,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.CustomerNumber = value;
-                Validate(nameof(CustomerNumber), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(CustomerNumber), value);
+
                 OnPropertyChanged(nameof(CustomerNumber));
             }
         }
@@ -227,7 +256,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.FileName = value;
-                Validate(nameof(FileName), value);
+
+                if (!_createdNewLetter)
+                    Validate(nameof(FileName), value);
+
                 OnPropertyChanged(nameof(FileName));
             }
         }
@@ -258,42 +290,28 @@ namespace BriefWerkstatt.ViewModels
         {
             if (ValidateModel())
             {
-                var dialog = new SaveFileDialog();
-                dialog.CheckPathExists = true;
-                dialog.FileName = $"{_standardLetter.CustomerNumber}_{_standardLetter.FileName}";
-                dialog.Filter = "PDF-Datei|*.pdf";
-                var result = dialog.ShowDialog();
-                dialog.Dispose();
-                if (result == DialogResult.OK)
+                DialogResult? saveAgainDialogResult = null;
+
+                if (_standardLetter.HasBeenSaved)
                 {
-                    string filePath = dialog.FileName;
-                    _repository.CreatePdfDocument(_standardLetter, filePath);
+                    saveAgainDialogResult = MessageBox.Show("Dieser Brief wurde bereits gespeichert. Sicher, dass dieser nochmal gespeichert werden soll?",
+                        "Brief nochmal speichern?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 }
 
-                //var dialog = new FolderBrowserDialog();
-                //var result = dialog.ShowDialog();
-                //if (result.ToString() != string.Empty && !result.ToString().Equals("Cancel"))
-                //{
-                //    string saveFolderPath = dialog.SelectedPath + @"\";
-
-                //    if (File.Exists($"{saveFolderPath}{_standardLetter.FullFileName}"))
-                //    {
-                //        var dialogResult = MessageBox.Show(
-                //            $"Eine Datei mit dem Namen\n\n \"{_standardLetter.FullFileName}\"\n\n existiert bereits am gewählten Speicherort.\n\n Soll diese Datei überschrieben werden?",
-                //            "Datei existiert bereits",
-                //            MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                        
-                //        if (dialogResult == DialogResult.Yes)
-                //        {
-                //            _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        _repository.CreatePdfDocument(_standardLetter, saveFolderPath);
-                //    }
-
-                //}
+                if (!_standardLetter.HasBeenSaved || (saveAgainDialogResult != null && saveAgainDialogResult == DialogResult.Yes))
+                {
+                    var dialog = new SaveFileDialog();
+                    dialog.CheckPathExists = true;
+                    dialog.FileName = $"{_standardLetter.CustomerNumber}_{_standardLetter.FileName}";
+                    dialog.Filter = "PDF-Datei|*.pdf";
+                    var result = dialog.ShowDialog();
+                    dialog.Dispose();
+                    if (result == DialogResult.OK)
+                    {
+                        string filePath = dialog.FileName;
+                        _repository.CreatePdfDocument(_standardLetter, filePath);
+                    }
+                }
             }
             else
             {
@@ -318,6 +336,94 @@ namespace BriefWerkstatt.ViewModels
             get
             {
                 return new RelayCommand(SaveExecute);
+            }
+        }
+
+        public void NewLetterEraseAllDataExecute()
+        {
+            _createdNewLetter = true;
+
+            SenderName = null;
+            SenderStreetAndNumber = null;
+            SenderZipCodeAndCity = null;
+            SenderCareOfInfo = null;
+            SenderAdditionalInfo = null;
+
+            RecipientName = null;
+            RecipientStreetAndNumber = null;
+            RecipientZipCodeAndCity = null;
+            RecipientCareOfInfo = null;
+            RecipientAdditionalInfo = null;
+
+            TopicLineOne = null;
+            TopicLineTwo = null;
+            Intro = "Sehr geehrte Damen und Herren,";
+            Content = null;
+
+            CustomerNumber = null;
+            FileName = null;
+
+            _standardLetter.HasBeenSaved = false;
+            _createdNewLetter = false;
+        }
+
+        public ICommand NewLetterEraseAllData
+        {
+            get
+            {
+                return new RelayCommand(NewLetterEraseAllDataExecute);
+            }
+        }
+
+        public void NewLetterKeepSenderDataExecute()
+        {
+            _createdNewLetter = true;
+
+            RecipientName = null;
+            RecipientStreetAndNumber = null;
+            RecipientZipCodeAndCity = null;
+            RecipientCareOfInfo = null;
+            RecipientAdditionalInfo = null;
+
+            TopicLineOne = null;
+            TopicLineTwo = null;
+            Intro = "Sehr geehrte Damen und Herren,";
+            Content = null;
+
+            FileName = null;
+
+            _standardLetter.HasBeenSaved = false;
+            _createdNewLetter = false;
+        }
+
+        public ICommand NewLetterKeepSenderData
+        {
+            get
+            {
+                return new RelayCommand(NewLetterKeepSenderDataExecute);
+            }
+        }
+
+        public void NewLetterKeepSenderAndRecipientDataExecute()
+        {
+            _createdNewLetter = true;
+
+            TopicLineOne = null;
+            TopicLineTwo = null;
+            Intro = "Sehr geehrte Damen und Herren,";
+            Content = null;
+
+            FileName = null;
+
+            _standardLetter.HasBeenSaved = false;
+            _createdNewLetter = false;
+        }
+
+        public ICommand NewLetterKeepSenderAndRecipientData
+        {
+            get
+            {
+                return new RelayCommand(NewLetterKeepSenderAndRecipientDataExecute);
             }
         }
 

@@ -42,6 +42,7 @@ namespace BriefWerkstatt.Dialogs
             openLink.StartInfo.UseShellExecute = true;
             openLink.StartInfo.FileName = e.Uri.ToString();
             openLink.Start();
+            openLink.Close();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

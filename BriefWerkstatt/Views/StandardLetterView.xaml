@@ -6,7 +6,7 @@
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
         xmlns:uc="clr-namespace:BriefWerkstatt.Controls"
         mc:Ignorable="d"
-        Title="Briefwerkstatt - Standardbrief (Alpha)"
+        Title="Briefwerkstatt - Standardbrief (Betaversion)"
         ResizeMode="CanMinimize"
         Background="#242424"
         WindowStyle="None"
@@ -21,11 +21,60 @@
 
     <Window.Resources>
         <Style TargetType="Button"
+               x:Key="Options">
+            <Setter Property="Background"
+                    Value="#AA5588FF" />
+            <Setter Property="Foreground"
+                    Value="#E6F0FB" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="BorderBrush"
+                    Value="Transparent" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
+            <Setter Property="Margin"
+                    Value="22 10 0 0" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Focusable"
+                    Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                CornerRadius="6"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                Padding="5">
+
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#5588FF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button"
                x:Key="SaveButton">
             <Setter Property="BorderBrush"
                     Value="Green" />
             <Setter Property="BorderThickness"
                     Value="2" />
+            <Setter Property="Focusable"
+                    Value="False" />
         </Style>
 
         <Style TargetType="TextBlock"
@@ -123,7 +172,7 @@
                           StrokeThickness=".5"
                           Stroke="#DDFFFFFF"
                           Visibility="Visible" />
-                    <TextBlock Text="Briefwerkstatt - Standardbrief (Alphaversion)"
+                    <TextBlock Text="Briefwerkstatt - Standardbrief (Betaversion)"
                                Foreground="#E6F0FB"
                                Grid.Column="1"
                                FontSize="15"
@@ -274,7 +323,7 @@
                     </Button>
 
                 </Grid>
-                
+
                 <GroupBox Header="Absender"
                           Grid.Row="1"
                           Grid.Column="0"
@@ -300,13 +349,12 @@
                         <TextBlock Grid.Row="0"
                                    Style="{StaticResource Label}"
                                    Margin="7 8 0 2"
-                                   Text="Vor- und Nachname:" />
+                                   Text="*Vor- und Nachname:" />
                         <uc:CustomTextBox x:Name="SenderNameBox"
                                           Grid.Row="1"
                                           Margin="5,0,5,5"
                                           Width="350"
-                                          Text="{Binding SenderName, UpdateSourceTrigger=PropertyChanged}"
-                                          />
+                                          Text="{Binding SenderName, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock Grid.Row="3"
                                    Style="{StaticResource Label}"
@@ -323,7 +371,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
                                    Margin="7 5 0 2"
-                                   Text="Straße und Haus-Nr.:" />
+                                   Text="*Straße und Haus-Nr.:" />
                         <uc:CustomTextBox x:Name="SenderStreetBox"
                                           Grid.Row="6"
                                           Grid.Column="0"
@@ -348,7 +396,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.Column="0"
                                    Margin="7 5 0 2"
-                                   Text="Postleitzahl und Ort:"
+                                   Text="*Postleitzahl und Ort:"
                                    Grid.ColumnSpan="2" />
 
                         <uc:CustomTextBox x:Name="SenderCityBox"
@@ -387,7 +435,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
                                    Margin="7 8 0 2"
-                                   Text="Vor- und Nachname oder Firma:" />
+                                   Text="*Vor- und Nachname oder Firma:" />
                         <uc:CustomTextBox x:Name="RecipientNameBox"
                                           Grid.Row="1"
                                           Grid.ColumnSpan="2"
@@ -435,7 +483,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.Column="0"
                                    Margin="7 5 0 2"
-                                   Text="Postleitzahl und Ort:" />
+                                   Text="*Postleitzahl und Ort:" />
                         <uc:CustomTextBox x:Name="RecipientCityBox"
                                           Grid.Row="10"
                                           Grid.Column="0"
@@ -448,7 +496,7 @@
                 </GroupBox>
 
                 <!-- Betreffzeilen -->
-                <GroupBox Header="Betreffzeile 1"
+                <GroupBox Header="*Betreffzeile 1*"
                           Grid.Row="2"
                           Grid.ColumnSpan="2"
                           Margin="35 20 35 0"
@@ -474,7 +522,7 @@
                 </GroupBox>
 
                 <!-- Anredezeile -->
-                <GroupBox Header="Anrede"
+                <GroupBox Header="*Anrede*"
                           Grid.Row="3"
                           Grid.ColumnSpan="2"
                           Padding="5"
@@ -486,7 +534,7 @@
                 </GroupBox>
 
                 <!-- Briefinhalt -->
-                <GroupBox Header="Brieftext"
+                <GroupBox Header="*Brieftext*"
                           Grid.Row="4"
                           Grid.ColumnSpan="3"
                           Padding="5"
@@ -513,11 +561,12 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <!-- Kundennummer, Dateiname und Speichern-Button -->
-                    <GroupBox Header="Kundennummer"
+                    <GroupBox Header="*Kundennummer*"
                               Grid.Row="6"
                               Grid.Column="0"
+                              Height="70"
                               Width="180"
-                              Margin="0 0 0 0"
+                              Margin="5 0 0 0"
                               Padding="5">
                         <uc:CustomTextBox x:Name="CustomerNumberBox"
                                           Margin="2 0 2 2"
@@ -525,9 +574,10 @@
                                           Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
                     </GroupBox>
 
-                    <GroupBox Header="Dateiname"
+                    <GroupBox Header="*Dateiname*"
                               Grid.Row="6"
                               Grid.Column="1"
+                              Height="70"
                               Margin="0 0 20 0"
                               Padding="5">
                         <uc:CustomTextBox x:Name="FileNameBox"
@@ -536,50 +586,58 @@
                                           Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
                     </GroupBox>
 
-                    <Button Content="Speichern"
-                            Margin="2 10 12 2"
-                            Grid.Row="6"
-                            Grid.Column="2"
-                            Foreground="#E6F0FB"
-                            FontWeight="ExtraBlack"
-                            FontSize="18"
-                            HorizontalAlignment="Center"
-                            Click="SaveButton_Click"
-                            Command="{Binding Save}">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background"
-                                        Value="Green" />
-                                <Setter Property="Cursor"
-                                        Value="Hand" />
-                                <Setter Property="BorderBrush"
-                                        Value="Transparent" />
+                    <StackPanel Grid.Row="6" Grid.Column="3">
+                        <Button Content="Speichern"
+                                Margin="2 10 12 2"
+                                Grid.Row="6"
+                                Grid.Column="2"
+                                Foreground="#E6F0FB"
+                                FontWeight="ExtraBlack"
+                                FontSize="18"
+                                Focusable="False"
+                                HorizontalAlignment="Center"
+                                Click="SaveButton_Click"
+                                Command="{Binding Save}">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background"
+                                            Value="Green" />
+                                    <Setter Property="Cursor"
+                                            Value="Hand" />
+                                    <Setter Property="BorderBrush"
+                                            Value="Transparent" />
 
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Background"
-                                                Value="#008C00" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True">
+                                            <Setter Property="Background"
+                                                    Value="#008C00" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
 
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="175"
-                                        Height="35"
-                                        CornerRadius="6"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="Transparent"
-                                        BorderThickness="0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="175"
+                                            Height="35"
+                                            CornerRadius="6"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0">
 
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <Button x:Name="NewLetterButton"
+                                Style="{StaticResource Options}"
+                                Content="Neuer Brief" Width="175" Height="35"
+                                Click="NewLetterButton_Click" />
+                    </StackPanel>
                 </Grid>
 
                 <Button Content="Beispieldaten einfügen"
@@ -591,7 +649,7 @@
                         Foreground="Transparent"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Visibility="Visible"
+                        Visibility="Hidden"
                         Command="{Binding FillWithExampleData}" />
 
                 <Button Content="Eingabedaten löschen"

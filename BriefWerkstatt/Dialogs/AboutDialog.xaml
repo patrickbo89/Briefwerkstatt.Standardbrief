@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BriefWerkstatt.Dialogs"
         mc:Ignorable="d"
-        Title="Über Briefwerkstatt - Standardbrief (Alphaversion)"
+        Title="Über Briefwerkstatt - Standardbrief (Betaversion)"
         ResizeMode="NoResize"
         Background="#242424">
 
