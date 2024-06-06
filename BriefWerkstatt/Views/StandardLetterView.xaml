@@ -190,6 +190,7 @@
                             FontWeight="Bold"
                             Grid.Column="3"
                             ToolTip="Schließen"
+                            Focusable="False"
                             Command="{Binding CloseApp}">
 
                         <Button.Style>
@@ -237,6 +238,7 @@
                             FontWeight="ExtraBold"
                             Grid.Column="2"
                             ToolTip="Minimieren"
+                            Focusable="False"
                             Click="MinimizeButton_Click">
 
                         <Button.Style>
@@ -284,6 +286,7 @@
                             FontWeight="ExtraBold"
                             Grid.Column="0"
                             ToolTip="Über Briefwerkstatt"
+                            Focusable="False"
                             Click="About_Click">
 
                         <Button.Style>
@@ -650,6 +653,7 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         Visibility="Visible"
+                        Focusable="False"
                         Command="{Binding FillWithExampleData}" />
 
                 <Button Content="Eingabedaten löschen"
@@ -662,6 +666,7 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         Visibility="Hidden"
+                        Focusable="False"
                         Command="{Binding DeleteData}" />
             </Grid>
         </Viewbox>
