@@ -655,19 +655,6 @@
                         Visibility="Visible"
                         Focusable="False"
                         Command="{Binding FillWithExampleData}" />
-
-                <Button Content="Eingabedaten löschen"
-                        Margin="0 10 0 5"
-                        Padding="5"
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        HorizontalAlignment="Right"
-                        Foreground="Transparent"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Visibility="Hidden"
-                        Focusable="False"
-                        Command="{Binding DeleteData}" />
             </Grid>
         </Viewbox>
     </Border>

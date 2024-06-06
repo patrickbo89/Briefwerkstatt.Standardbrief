@@ -541,14 +541,6 @@ namespace BriefWerkstatt.ViewModels
                 FileName = null;
             }
         }
-
-        public ICommand DeleteData
-        {
-            get
-            {
-                return new RelayCommand(DeleteDataExecute);
-            }
-        }
         #endregion
 
         public StandardLetterViewModel()
