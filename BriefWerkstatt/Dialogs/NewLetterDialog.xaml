@@ -136,8 +136,8 @@
             <GroupBox Grid.Row="0" Header="Optionen für neuen Brief wählen" Width="550">
                 <Grid>
                     <TextBlock Grid.Column="0" TextWrapping="Wrap">
-                    Einen neuen Brief für dieselbe Kundennummer erstellen und nur Absender- sowie Empfänger-Daten beibehalten:<LineBreak /><Button x:Name="KeepSenderAndRecipientDataButton" Style="{StaticResource Options}" Content="Diese Option wählen" Click="KeepSenderAndRecipientDataButton_Click" /><LineBreak /><Line X1="0" X2="550" Stroke="#E6F0FB" Margin="0 20 0 20" /><LineBreak />
                     Einen neuen Brief für dieselbe Kundennummer erstellen und nur Absender-Daten beibehalten:<LineBreak /><Button x:Name="KeepSenderDataButton" Style="{StaticResource Options}" Content="Diese Option wählen" Click="KeepSenderDataButton_Click" /><LineBreak /><Line X1="0" X2="550" Stroke="#E6F0FB" Margin="0 20 0 20" /><LineBreak />
+                    Einen neuen Brief für dieselbe Kundennummer erstellen und nur Absender- sowie Empfänger-Daten beibehalten:<LineBreak /><Button x:Name="KeepSenderAndRecipientDataButton" Style="{StaticResource Options}" Content="Diese Option wählen" Click="KeepSenderAndRecipientDataButton_Click" /><LineBreak /><Line X1="0" X2="550" Stroke="#E6F0FB" Margin="0 20 0 20" /><LineBreak />
                     Einen neuen Brief für eine andere Kundennummer erstellen und alle Eingabefelder leeren:<LineBreak /><Button x:Name="EraseAllButton" Style="{StaticResource Options}" Content="Diese Option wählen" Click="EraseAllButton_Click"/>
                     </TextBlock>
                 </Grid>
