@@ -318,9 +318,28 @@ namespace BriefWerkstatt.ViewModels
         #region Commands
         public void CloseAppExecute()
         {
-            var dialogResult = MessageBox.Show(
-                "Programm wird beendet. Sicher?",
-                "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            DialogResult dialogResult;
+
+            if (_standardLetter.HasBeenSaved == false)
+            {
+                dialogResult = MessageBox.Show(
+                    "Der aktuelle Brief wurde noch nicht gespeichert und geht verloren, wenn das Programm beendet wird.\n\nTrotzdem beenden?",
+                    "Der Brief wurde noch nicht gespeichert",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            }
+            else if (_standardLetter.HasBeenChanged == true)
+            {
+                dialogResult = MessageBox.Show(
+                    "Änderungen am aktuellen Brief wurden noch nicht gespeichert und gehen verloren, wenn das Programm beendet wird.\n\nTrotzdem beenden?",
+                    "Änderungen wurden noch nicht gespeichert",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            }
+            else
+            {
+                dialogResult = MessageBox.Show(
+                    "Programm wird beendet. Sicher?",
+                    "Programm beenden?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            }
 
             if (dialogResult == DialogResult.Yes)
             {
