@@ -1,4 +1,5 @@
 ﻿using BriefWerkstatt.Dialogs;
+using BriefWerkstatt.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 
@@ -129,22 +130,44 @@ namespace BriefWerkstatt.Views
 
         private void NewLetterButton_Click(object sender, RoutedEventArgs e)
         {
-            NewLetterDialog newLetterDialog = new NewLetterDialog();
-            newLetterDialog.ShowDialog();
+            var standardLetterViewModel = DataContext as StandardLetterViewModel;
 
-            SenderNameBox.HasErrors = false;
-            SenderStreetBox.HasErrors = false;
-            SenderCityBox.HasErrors = false;
+            System.Windows.Forms.DialogResult? dialogResult = null;
 
-            RecipientNameBox.HasErrors = false;
-            RecipientCityBox.HasErrors = false;
+            if (standardLetterViewModel?.StandardLetter.HasBeenSaved == false)
+            {
+                dialogResult = System.Windows.Forms.MessageBox.Show
+                    ("Der aktuelle Brief wurde noch nicht gespeichert und geht verloren, wenn er nicht zuvor gespeichert wird.\n\nTrotzdem fortfahren?",
+                     "Der aktuelle Brief wurde noch nicht gespeichert",
+                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            }
+            else if (standardLetterViewModel?.StandardLetter.HasBeenChanged == true)
+            {
+                dialogResult = System.Windows.Forms.MessageBox.Show(
+                    "Die Änderungen am aktuellen Brief wurden noch nicht gespeichert und gehen verloren, wenn diese nicht zuvor gespeichert werden.\n\nTrotzdem fortfahren?",
+                    "Änderungen wurden noch nicht gespeichert",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            }
 
-            IntroBox.HasErrors = false;
-            TopicLineOneBox.HasErrors = false;
-            LetterContentBox.HasErrors = false;
+            if (dialogResult == System.Windows.Forms.DialogResult.Yes || dialogResult == null)
+            {
+                NewLetterDialog newLetterDialog = new NewLetterDialog();
+                newLetterDialog.ShowDialog();
 
-            CustomerNumberBox.HasErrors = false;
-            FileNameBox.HasErrors = false;
+                SenderNameBox.HasErrors = false;
+                SenderStreetBox.HasErrors = false;
+                SenderCityBox.HasErrors = false;
+
+                RecipientNameBox.HasErrors = false;
+                RecipientCityBox.HasErrors = false;
+
+                IntroBox.HasErrors = false;
+                TopicLineOneBox.HasErrors = false;
+                LetterContentBox.HasErrors = false;
+
+                CustomerNumberBox.HasErrors = false;
+                FileNameBox.HasErrors = false;
+            }
         }
     }
 }

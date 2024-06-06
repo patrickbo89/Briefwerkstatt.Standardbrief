@@ -116,6 +116,7 @@ namespace BriefWerkstatt.Repository
 
             // Saving the document was successful. Set the flag that it has been saved.
             standardLetter.HasBeenSaved = true;
+            standardLetter.HasBeenChanged = false;
 
             try
             {

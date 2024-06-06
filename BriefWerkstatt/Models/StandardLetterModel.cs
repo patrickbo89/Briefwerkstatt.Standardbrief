@@ -47,6 +47,7 @@ namespace BriefWerkstatt.Models
         public string? CustomerNumber { get; set; }
         public string? FileName { get; set; }
         public bool HasBeenSaved { get; set; } = false;
+        public bool HasBeenChanged { get; set; } = false;
 
         public string? FullFileName
         {

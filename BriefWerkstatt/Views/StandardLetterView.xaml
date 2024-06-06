@@ -649,7 +649,7 @@
                         Foreground="Transparent"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Visibility="Hidden"
+                        Visibility="Visible"
                         Command="{Binding FillWithExampleData}" />
 
                 <Button Content="Eingabedaten löschen"

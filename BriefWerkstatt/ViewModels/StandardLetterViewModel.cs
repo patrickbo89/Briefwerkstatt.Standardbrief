@@ -27,9 +27,11 @@ namespace BriefWerkstatt.ViewModels
 {
     public class StandardLetterViewModel : ViewModelBase, INotifyDataErrorInfo
     {
-        private StandardLetterModel _standardLetter;
         private Repository.Repository _repository;
         private bool _createdNewLetter = false;
+
+        private StandardLetterModel _standardLetter;
+        public StandardLetterModel StandardLetter => _standardLetter;
 
         #region Absender-Properties
 
@@ -43,6 +45,9 @@ namespace BriefWerkstatt.ViewModels
 
                 if (!_createdNewLetter)
                     Validate(nameof(SenderName), value);
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
 
                 OnPropertyChanged(nameof(SenderName));
             }
@@ -59,6 +64,9 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(SenderStreetAndNumber), value);
 
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(SenderStreetAndNumber));
             }
         }
@@ -74,6 +82,9 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(SenderZipCodeAndCity), value);
 
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(SenderZipCodeAndCity));
             }
         }
@@ -84,6 +95,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderCareOfInfo = value;
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(SenderCareOfInfo));
             }
         }
@@ -94,6 +109,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.SenderAdditionalInfo = value;
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(SenderAdditionalInfo));
             }
         }
@@ -112,6 +131,9 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(RecipientName), value);
 
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(RecipientName));
             }
         }
@@ -123,6 +145,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.RecipientStreetAndNumber = value;
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(RecipientStreetAndNumber));
             }
         }
@@ -138,6 +164,9 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(RecipientZipCodeAndCity), value);
 
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(RecipientZipCodeAndCity));
             }
         }
@@ -148,6 +177,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.RecipientCareOfInfo = value;
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(RecipientCareOfInfo));
             }
         }
@@ -158,6 +191,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.RecipientAdditionalInfo = value;
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(RecipientAdditionalInfo));
             }
         }
@@ -176,6 +213,9 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(TopicLineOne), value);
 
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(TopicLineOne));
             }
         }
@@ -186,6 +226,10 @@ namespace BriefWerkstatt.ViewModels
             set
             {
                 _standardLetter.TopicLineTwo = value;
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(TopicLineTwo));
             }
         }
@@ -201,6 +245,9 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(Intro), value);
 
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
+
                 OnPropertyChanged(nameof(Intro));
             }
         }
@@ -215,6 +262,9 @@ namespace BriefWerkstatt.ViewModels
 
                 if (!_createdNewLetter)
                     Validate(nameof(Content), value);
+
+                if (_standardLetter.HasBeenSaved)
+                    _standardLetter.HasBeenChanged = true;
 
                 OnPropertyChanged(nameof(Content));
             }
@@ -290,27 +340,16 @@ namespace BriefWerkstatt.ViewModels
         {
             if (ValidateModel())
             {
-                DialogResult? saveAgainDialogResult = null;
-
-                if (_standardLetter.HasBeenSaved)
+                var dialog = new SaveFileDialog();
+                dialog.CheckPathExists = true;
+                dialog.FileName = $"{_standardLetter.CustomerNumber}_{_standardLetter.FileName}";
+                dialog.Filter = "PDF-Datei|*.pdf";
+                var result = dialog.ShowDialog();
+                dialog.Dispose();
+                if (result == DialogResult.OK)
                 {
-                    saveAgainDialogResult = MessageBox.Show("Dieser Brief wurde bereits gespeichert. Sicher, dass dieser nochmal gespeichert werden soll?",
-                        "Brief nochmal speichern?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                }
-
-                if (!_standardLetter.HasBeenSaved || (saveAgainDialogResult != null && saveAgainDialogResult == DialogResult.Yes))
-                {
-                    var dialog = new SaveFileDialog();
-                    dialog.CheckPathExists = true;
-                    dialog.FileName = $"{_standardLetter.CustomerNumber}_{_standardLetter.FileName}";
-                    dialog.Filter = "PDF-Datei|*.pdf";
-                    var result = dialog.ShowDialog();
-                    dialog.Dispose();
-                    if (result == DialogResult.OK)
-                    {
-                        string filePath = dialog.FileName;
-                        _repository.CreatePdfDocument(_standardLetter, filePath);
-                    }
+                    string filePath = dialog.FileName;
+                    _repository.CreatePdfDocument(_standardLetter, filePath);
                 }
             }
             else
@@ -364,6 +403,7 @@ namespace BriefWerkstatt.ViewModels
             FileName = null;
 
             _standardLetter.HasBeenSaved = false;
+            _standardLetter.HasBeenChanged = false;
             _createdNewLetter = false;
         }
 
@@ -393,6 +433,7 @@ namespace BriefWerkstatt.ViewModels
             FileName = null;
 
             _standardLetter.HasBeenSaved = false;
+            _standardLetter.HasBeenChanged = false;
             _createdNewLetter = false;
         }
 
@@ -416,6 +457,7 @@ namespace BriefWerkstatt.ViewModels
             FileName = null;
 
             _standardLetter.HasBeenSaved = false;
+            _standardLetter.HasBeenChanged = false;
             _createdNewLetter = false;
         }
 
