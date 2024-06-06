@@ -53,6 +53,8 @@
                     Value="Center" />
             <Setter Property="Margin"
                     Value="178 10 0 0" />
+            <Setter Property="Focusable"
+                    Value="False" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -94,6 +96,8 @@
                     Value="Center" />
             <Setter Property="Margin"
                     Value="10 10 0 20" />
+            <Setter Property="Focusable"
+                    Value="False" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">

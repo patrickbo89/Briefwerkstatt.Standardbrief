@@ -132,6 +132,7 @@
                     Foreground="#AAE6F0FB"
                     FontSize="16"
                     FontWeight="Bold"
+                    Focusable="False"
                     Click="CloseButton_Click">
                 <Button.Style>
                     <Style TargetType="Button">

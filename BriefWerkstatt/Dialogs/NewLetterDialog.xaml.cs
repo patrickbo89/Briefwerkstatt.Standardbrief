@@ -28,6 +28,9 @@ namespace BriefWerkstatt.Dialogs
             Owner = System.Windows.Application.Current.MainWindow;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
+            Width = Owner.Width / 1.5;
+            Height = Owner.Height / 1.5;
+
             _standardLetterViewModel = Owner.DataContext as StandardLetterViewModel;
             DataContext = _standardLetterViewModel;
         }
