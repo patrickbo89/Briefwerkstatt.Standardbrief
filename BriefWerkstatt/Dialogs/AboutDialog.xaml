@@ -80,9 +80,9 @@
                         unter <Hyperlink NavigateUri="https://github.com/empira/PDFsharp" RequestNavigate="Hyperlink_RequestNavigate">https://github.com/empira/PDFsharp</Hyperlink> einsehen.<LineBreak /><LineBreak />
                         
                         Dieses Programm ist OpenSource und Freeware. Link zum Quellcode:  <LineBreak />
-                        <Hyperlink NavigateUri="https://github.com/Briefwerkstatt/BriefWerkstatt.Standardbrief.Alphaversion"
-                                   RequestNavigate="Hyperlink_RequestNavigate">https://github.com/Briefwerkstatt/BriefWerkstatt.Standardbrief.Alphaversion
-                        </Hyperlink>.
+                        <Hyperlink NavigateUri="https://github.com/Briefwerkstatt/BriefWerkstatt.Standardbrief.Beta"
+                                   RequestNavigate="Hyperlink_RequestNavigate">https://github.com/Briefwerkstatt/BriefWerkstatt.Standardbrief.Beta
+                        </Hyperlink>
                     </TextBlock>
                 </GroupBox>
             </StackPanel>
