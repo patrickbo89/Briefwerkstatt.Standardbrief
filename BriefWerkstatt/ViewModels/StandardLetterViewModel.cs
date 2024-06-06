@@ -349,7 +349,13 @@ namespace BriefWerkstatt.ViewModels
                 if (result == DialogResult.OK)
                 {
                     string filePath = dialog.FileName;
-                    _repository.CreatePdfDocument(_standardLetter, filePath);
+                    bool PDFCreationSuccess = _repository.CreatePdfDocument(_standardLetter, filePath);
+
+                    if (PDFCreationSuccess)
+                    {
+                        _standardLetter.HasBeenSaved = true;
+                        _standardLetter.HasBeenChanged = false;
+                    }
                 }
             }
             else

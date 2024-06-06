@@ -77,7 +77,7 @@ namespace BriefWerkstatt.Repository
         private readonly XFont _pageCountFont = new XFont("Arial", 9, XFontStyleEx.Regular);
         #endregion
 
-        public void CreatePdfDocument(StandardLetterModel standardLetter, string filePath)
+        public bool CreatePdfDocument(StandardLetterModel standardLetter, string filePath)
         {
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
@@ -102,7 +102,7 @@ namespace BriefWerkstatt.Repository
                     "Wenn sich der Speicherpfad auf einem externen Server befindet, könnte die Verbindung zum Server abgebrochen sein.\n\n" +
                     "Bitte überprüfen Sie in diesem Falle die Verbindung und versuchen Sie es erneut.",
                     "Speichern fehlgeschlagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
             catch (PdfSharpException e)
             {
@@ -111,12 +111,10 @@ namespace BriefWerkstatt.Repository
                     "Wenn sich der Speicherpfad auf einem externen Server befindet, könnte die Verbindung zum Server abgebrochen sein.\n\n" +
                     "Bitte überprüfen Sie in diesem Falle die Verbindung und versuchen Sie es erneut.",
                     "Speichern fehlgeschlagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
-            // Saving the document was successful. Set the flag that it has been saved.
-            standardLetter.HasBeenSaved = true;
-            standardLetter.HasBeenChanged = false;
+            
 
             try
             {
@@ -129,8 +127,11 @@ namespace BriefWerkstatt.Repository
                     "Wenn sich der Dateipfad auf einem externen Server befindet, könnte die Verbindung zum Server abgebrochen sein.\n\n" +
                     "Bitte überprüfen Sie in diesem Falle die Verbindung und öffnen Sie die Datei manuell.",
                     "Gespeichertes Dokument konnte nicht geöffnet werden", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return true;
             }
+
+            // Saving the document was successful.
+            return true;
         }
 
         private void OpenDocumentInViewer(string filePath, StandardLetterModel standardLetterModel)
