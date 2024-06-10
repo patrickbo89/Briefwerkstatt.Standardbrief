@@ -198,14 +198,14 @@ namespace BriefWerkstatt.Repository
 
             StringBuilder senderAddressBlock = new StringBuilder();
 
-            if (!string.IsNullOrWhiteSpace(letterModel.SenderCareOfInfo))
+            if (!string.IsNullOrWhiteSpace(letterModel.SenderAdditionalInfoOne))
             {
-                senderAddressBlock.Append($"\n{letterModel.SenderCareOfInfo}");
+                senderAddressBlock.Append($"\n{letterModel.SenderAdditionalInfoOne}");
             }
 
-            if (!string.IsNullOrWhiteSpace(letterModel.SenderAdditionalInfo))
+            if (!string.IsNullOrWhiteSpace(letterModel.SenderAdditionalInfoTwo))
             {
-                senderAddressBlock.Append($"\n{letterModel.SenderAdditionalInfo}");
+                senderAddressBlock.Append($"\n{letterModel.SenderAdditionalInfoTwo}");
             }
 
             senderAddressBlock.Append($"\n{letterModel.SenderStreetAndNumber}");
@@ -227,8 +227,8 @@ namespace BriefWerkstatt.Repository
             XTextFormatter tf = new XTextFormatter(gfx);
             StringBuilder windowTextLine = new StringBuilder();
 
-            bool hasSenderCareOfInfo = !string.IsNullOrWhiteSpace(letterModel.SenderCareOfInfo);
-            bool hasSenderAdditionalInfo = !string.IsNullOrWhiteSpace(letterModel.SenderAdditionalInfo);
+            bool hasSenderCareOfInfo = !string.IsNullOrWhiteSpace(letterModel.SenderAdditionalInfoOne);
+            bool hasSenderAdditionalInfo = !string.IsNullOrWhiteSpace(letterModel.SenderAdditionalInfoTwo);
 
             if (!hasSenderCareOfInfo && !hasSenderAdditionalInfo)
             {
@@ -246,15 +246,15 @@ namespace BriefWerkstatt.Repository
 
             if (hasSenderCareOfInfo && !hasSenderAdditionalInfo)
             {
-                windowTextLine.Append($"\n{letterModel.SenderCareOfInfo}");
+                windowTextLine.Append($"\n{letterModel.SenderAdditionalInfoOne}");
             }
             else if (!hasSenderCareOfInfo && hasSenderAdditionalInfo)
             {
-                windowTextLine.Append($"\n{letterModel.SenderAdditionalInfo}");
+                windowTextLine.Append($"\n{letterModel.SenderAdditionalInfoTwo}");
             }
             else if (hasSenderCareOfInfo && hasSenderAdditionalInfo)
             {
-                windowTextLine.Append($"\n{letterModel.SenderCareOfInfo}, {letterModel.SenderAdditionalInfo}");
+                windowTextLine.Append($"\n{letterModel.SenderAdditionalInfoOne}, {letterModel.SenderAdditionalInfoTwo}");
             }
 
             tf.DrawString(
@@ -275,14 +275,14 @@ namespace BriefWerkstatt.Repository
 
             recipientAddressBlock.Append($"\n{letterModel.RecipientName}");
 
-            if (!string.IsNullOrWhiteSpace(letterModel.RecipientCareOfInfo))
+            if (!string.IsNullOrWhiteSpace(letterModel.RecipientAdditionalInfoOne))
             {
-                recipientAddressBlock.Append($"\n{letterModel.RecipientCareOfInfo}");
+                recipientAddressBlock.Append($"\n{letterModel.RecipientAdditionalInfoOne}");
             }
 
-            if (!string.IsNullOrWhiteSpace(letterModel.RecipientAdditionalInfo))
+            if (!string.IsNullOrWhiteSpace(letterModel.RecipientAdditionalInfoTwo))
             {
-                recipientAddressBlock.Append($"\n{letterModel.RecipientAdditionalInfo}");
+                recipientAddressBlock.Append($"\n{letterModel.RecipientAdditionalInfoTwo}");
             }
 
             if (!string.IsNullOrWhiteSpace(letterModel.RecipientStreetAndNumber))

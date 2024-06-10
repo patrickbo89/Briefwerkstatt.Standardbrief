@@ -652,7 +652,7 @@
                         Foreground="Transparent"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Visibility="Visible"
+                        Visibility="Hidden"
                         Focusable="False"
                         Command="{Binding FillWithExampleData}" />
             </Grid>

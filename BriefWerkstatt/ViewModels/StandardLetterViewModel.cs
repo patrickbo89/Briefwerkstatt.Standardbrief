@@ -47,7 +47,7 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(SenderName), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderName));
             }
@@ -65,7 +65,7 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(SenderStreetAndNumber), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderStreetAndNumber));
             }
@@ -83,37 +83,37 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(SenderZipCodeAndCity), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderZipCodeAndCity));
             }
         }
 
-        public string? SenderCareOfInfo
+        public string? SenderAdditionalInfoOne
         {
-            get => _standardLetter.SenderCareOfInfo;
+            get => _standardLetter.SenderAdditionalInfoOne;
             set
             {
-                _standardLetter.SenderCareOfInfo = value;
+                _standardLetter.SenderAdditionalInfoOne = value;
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
-                OnPropertyChanged(nameof(SenderCareOfInfo));
+                OnPropertyChanged(nameof(SenderAdditionalInfoOne));
             }
         }
 
-        public string? SenderAdditionalInfo
+        public string? SenderAdditionalInfoTwo
         {
-            get => _standardLetter.SenderAdditionalInfo;
+            get => _standardLetter.SenderAdditionalInfoTwo;
             set
             {
-                _standardLetter.SenderAdditionalInfo = value;
+                _standardLetter.SenderAdditionalInfoTwo = value;
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
-                OnPropertyChanged(nameof(SenderAdditionalInfo));
+                OnPropertyChanged(nameof(SenderAdditionalInfoTwo));
             }
         }
         #endregion
@@ -132,13 +132,12 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(RecipientName), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientName));
             }
         }
 
-        //[Required(AllowEmptyStrings = false, ErrorMessage = "Empfänger: Straße und Haus-Nr. darf nicht leer sein.")]
         public string? RecipientStreetAndNumber
         {
             get => _standardLetter.RecipientStreetAndNumber;
@@ -147,7 +146,7 @@ namespace BriefWerkstatt.ViewModels
                 _standardLetter.RecipientStreetAndNumber = value;
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientStreetAndNumber));
             }
@@ -165,37 +164,37 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(RecipientZipCodeAndCity), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientZipCodeAndCity));
             }
         }
 
-        public string? RecipientCareOfInfo
+        public string? RecipientAdditionalInfoOne
         {
-            get => _standardLetter.RecipientCareOfInfo;
+            get => _standardLetter.RecipientAdditionalInfoOne;
             set
             {
-                _standardLetter.RecipientCareOfInfo = value;
+                _standardLetter.RecipientAdditionalInfoOne = value;
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
-                OnPropertyChanged(nameof(RecipientCareOfInfo));
+                OnPropertyChanged(nameof(RecipientAdditionalInfoOne));
             }
         }
 
-        public string? RecipientAdditionalInfo
+        public string? RecipientAdditionalInfoTwo
         {
-            get => _standardLetter.RecipientAdditionalInfo;
+            get => _standardLetter.RecipientAdditionalInfoTwo;
             set
             {
-                _standardLetter.RecipientAdditionalInfo = value;
+                _standardLetter.RecipientAdditionalInfoTwo = value;
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
-                OnPropertyChanged(nameof(RecipientAdditionalInfo));
+                OnPropertyChanged(nameof(RecipientAdditionalInfoTwo));
             }
         }
         #endregion
@@ -214,7 +213,7 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(TopicLineOne), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(TopicLineOne));
             }
@@ -228,7 +227,7 @@ namespace BriefWerkstatt.ViewModels
                 _standardLetter.TopicLineTwo = value;
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(TopicLineTwo));
             }
@@ -246,7 +245,7 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(Intro), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(Intro));
             }
@@ -264,7 +263,7 @@ namespace BriefWerkstatt.ViewModels
                     Validate(nameof(Content), value);
 
                 if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasBeenChanged = true;
+                    _standardLetter.HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(Content));
             }
@@ -327,7 +326,7 @@ namespace BriefWerkstatt.ViewModels
                     "Der Brief wurde noch nicht gespeichert",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             }
-            else if (_standardLetter.HasBeenChanged == true)
+            else if (_standardLetter.HasUnsavedChanges == true)
             {
                 dialogResult = MessageBox.Show(
                     "Änderungen am aktuellen Brief wurden noch nicht gespeichert und gehen verloren, wenn das Programm beendet wird.\n\nTrotzdem beenden?",
@@ -373,7 +372,7 @@ namespace BriefWerkstatt.ViewModels
                     if (PDFCreationSuccess)
                     {
                         _standardLetter.HasBeenSaved = true;
-                        _standardLetter.HasBeenChanged = false;
+                        _standardLetter.HasUnsavedChanges = false;
                     }
                 }
             }
@@ -410,14 +409,14 @@ namespace BriefWerkstatt.ViewModels
             SenderName = null;
             SenderStreetAndNumber = null;
             SenderZipCodeAndCity = null;
-            SenderCareOfInfo = null;
-            SenderAdditionalInfo = null;
+            SenderAdditionalInfoOne = null;
+            SenderAdditionalInfoTwo = null;
 
             RecipientName = null;
             RecipientStreetAndNumber = null;
             RecipientZipCodeAndCity = null;
-            RecipientCareOfInfo = null;
-            RecipientAdditionalInfo = null;
+            RecipientAdditionalInfoOne = null;
+            RecipientAdditionalInfoTwo = null;
 
             TopicLineOne = null;
             TopicLineTwo = null;
@@ -428,7 +427,7 @@ namespace BriefWerkstatt.ViewModels
             FileName = null;
 
             _standardLetter.HasBeenSaved = false;
-            _standardLetter.HasBeenChanged = false;
+            _standardLetter.HasUnsavedChanges = false;
             _createdNewLetter = false;
         }
 
@@ -447,8 +446,8 @@ namespace BriefWerkstatt.ViewModels
             RecipientName = null;
             RecipientStreetAndNumber = null;
             RecipientZipCodeAndCity = null;
-            RecipientCareOfInfo = null;
-            RecipientAdditionalInfo = null;
+            RecipientAdditionalInfoOne = null;
+            RecipientAdditionalInfoTwo = null;
 
             TopicLineOne = null;
             TopicLineTwo = null;
@@ -458,7 +457,7 @@ namespace BriefWerkstatt.ViewModels
             FileName = null;
 
             _standardLetter.HasBeenSaved = false;
-            _standardLetter.HasBeenChanged = false;
+            _standardLetter.HasUnsavedChanges = false;
             _createdNewLetter = false;
         }
 
@@ -482,7 +481,7 @@ namespace BriefWerkstatt.ViewModels
             FileName = null;
 
             _standardLetter.HasBeenSaved = false;
-            _standardLetter.HasBeenChanged = false;
+            _standardLetter.HasUnsavedChanges = false;
             _createdNewLetter = false;
         }
 
@@ -497,15 +496,15 @@ namespace BriefWerkstatt.ViewModels
         public void FillWithExampleDataExecute()
         {
             SenderName = "Max Mustermann";
-            SenderCareOfInfo = "c/o Musterfrau";
+            SenderAdditionalInfoOne = "c/o Musterfrau";
             SenderStreetAndNumber = "Musterstraße 123";
-            SenderAdditionalInfo = "Vorderhaus, links";
+            SenderAdditionalInfoTwo = "Vorderhaus, links";
             SenderZipCodeAndCity = "12345 Musterstadt";
 
             RecipientName = "Beispielfirma GmbH";
-            RecipientCareOfInfo = "z.H. Erika Musterfrau";
+            RecipientAdditionalInfoOne = "z.H. Erika Musterfrau";
             RecipientStreetAndNumber = "Musterallee 123";
-            RecipientAdditionalInfo = "Hinterhaus, links";
+            RecipientAdditionalInfoTwo = "Hinterhaus, links";
             RecipientZipCodeAndCity = "12345 Musterstadt";
 
             TopicLineOne = "Bewerbung als Marketingmanager";
@@ -540,15 +539,15 @@ namespace BriefWerkstatt.ViewModels
             if (dialogResult == DialogResult.Yes)
             {
                 SenderName = null;
-                SenderCareOfInfo = null;
+                SenderAdditionalInfoOne = null;
                 SenderStreetAndNumber = null;
-                SenderAdditionalInfo = null;
+                SenderAdditionalInfoTwo = null;
                 SenderZipCodeAndCity = null;
 
                 RecipientName = null;
-                RecipientCareOfInfo = null;
+                RecipientAdditionalInfoOne = null;
                 RecipientStreetAndNumber = null;
-                RecipientAdditionalInfo = null;
+                RecipientAdditionalInfoTwo = null;
                 RecipientZipCodeAndCity = null;
 
                 TopicLineOne = null;
