@@ -21,17 +21,17 @@ namespace BriefWerkstatt.Models
     {
         #region Sender Properties
         public string? SenderName { get; set; }
-        public string? SenderCareOfInfo { get; set; }
+        public string? SenderAdditionalInfoOne { get; set; }
         public string? SenderStreetAndNumber { get; set; }
-        public string? SenderAdditionalInfo { get; set; }
+        public string? SenderAdditionalInfoTwo { get; set; }
         public string? SenderZipCodeAndCity { get; set; }
         #endregion
 
         #region Recipient Properties
         public string? RecipientName { get; set; }
-        public string? RecipientCareOfInfo { get; set; }
+        public string? RecipientAdditionalInfoOne { get; set; }
         public string? RecipientStreetAndNumber { get; set; }
-        public string? RecipientAdditionalInfo { get; set; }
+        public string? RecipientAdditionalInfoTwo { get; set; }
         public string? RecipientZipCodeAndCity { get; set; }
         #endregion
 
@@ -47,7 +47,7 @@ namespace BriefWerkstatt.Models
         public string? CustomerNumber { get; set; }
         public string? FileName { get; set; }
         public bool HasBeenSaved { get; set; } = false;
-        public bool HasBeenChanged { get; set; } = false;
+        public bool HasUnsavedChanges { get; set; } = false;
 
         public string? FullFileName
         {

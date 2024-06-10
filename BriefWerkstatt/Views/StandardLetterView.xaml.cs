@@ -134,7 +134,7 @@ namespace BriefWerkstatt.Views
                      "Der aktuelle Brief wurde noch nicht gespeichert",
                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             }
-            else if (standardLetterViewModel?.StandardLetter.HasBeenChanged == true)
+            else if (standardLetterViewModel?.StandardLetter.HasUnsavedChanges == true)
             {
                 dialogResult = System.Windows.Forms.MessageBox.Show(
                     "Die Änderungen am aktuellen Brief wurden noch nicht gespeichert und gehen verloren, wenn diese nicht zuvor gespeichert werden.\n\nTrotzdem fortfahren?",
