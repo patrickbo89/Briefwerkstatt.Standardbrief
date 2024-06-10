@@ -316,7 +316,7 @@ SOFTWARE.
 
             string cityName = ExtractCityName(letterModel);
 
-            string date = $"{cityName.TrimEnd()}, den {DateTime.Now.Date.ToString("d. MMMM yyyy")}";
+            string date = $"{cityName.TrimEnd()}, {DateTime.Now.Date.ToString("dd.MM.yyyy")}";
 
             XRect letterContentFirstPageRect = new XRect(
                 CreateXPointFromMillimetres(LeftMargin, HeaderMargin + MarginToWindowSenderLine + RecipientBlockHeight + MarginToRecipientAddressBlock),
