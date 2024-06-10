@@ -351,8 +351,8 @@
 
                         <TextBlock Grid.Row="0"
                                    Style="{StaticResource Label}"
-                                   Margin="7 8 0 2"
-                                   Text="*Vor- und Nachname:" />
+                                   Margin="9 8 0 2"
+                                   Text="Vor- und Nachname *" />
                         <uc:CustomTextBox x:Name="SenderNameBox"
                                           Grid.Row="1"
                                           Margin="5,0,5,5"
@@ -362,8 +362,8 @@
                         <TextBlock Grid.Row="3"
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
-                                   Margin="7 5 0 2"
-                                   Text="Zusatz 1 (z.B. Wohnhaft bei) oder leer:" />
+                                   Margin="9 5 0 2"
+                                   Text="Adresszusatz-Zeile 1 oder leer" />
                         <uc:CustomTextBox Grid.Row="4"
                                           Grid.ColumnSpan="2"
                                           Margin="5 0 5 5"
@@ -373,33 +373,33 @@
                         <TextBlock Grid.Row="5"
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
-                                   Margin="7 5 0 2"
-                                   Text="*Straße und Haus-Nr.:" />
+                                   Margin="9 5 0 2"
+                                   Text="Adresszusatz-Zeile 2 oder leer" />
                         <uc:CustomTextBox x:Name="SenderStreetBox"
                                           Grid.Row="6"
                                           Grid.Column="0"
                                           Grid.ColumnSpan="2"
                                           Margin="5 0 5 5"
                                           Width="350"
-                                          Text="{Binding SenderStreetAndNumber, UpdateSourceTrigger=PropertyChanged}" />
+                                          Text="{Binding SenderAdditionalInfo, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock Grid.Row="7"
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
-                                   Margin="7 5 0 2"
-                                   Text="Zusatz 2 (z.B. Hinterhaus links) oder leer:" />
+                                   Margin="9 5 0 2"
+                                   Text="Straße und Haus-Nr. *" />
                         <uc:CustomTextBox Grid.Row="8"
                                           Grid.ColumnSpan="2"
                                           Margin="5,0,5,5"
                                           Width="350"
-                                          Text="{Binding SenderAdditionalInfo, UpdateSourceTrigger=PropertyChanged}"
+                                          Text="{Binding SenderStreetAndNumber, UpdateSourceTrigger=PropertyChanged}"
                                           Grid.RowSpan="2" />
 
                         <TextBlock Grid.Row="10"
                                    Style="{StaticResource Label}"
                                    Grid.Column="0"
-                                   Margin="7 5 0 2"
-                                   Text="*Postleitzahl und Ort:"
+                                   Margin="9 5 0 2"
+                                   Text="Postleitzahl und Ort *"
                                    Grid.ColumnSpan="2" />
 
                         <uc:CustomTextBox x:Name="SenderCityBox"
@@ -437,8 +437,8 @@
                         <TextBlock Grid.Row="0"
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
-                                   Margin="7 8 0 2"
-                                   Text="*Vor- und Nachname oder Firma:" />
+                                   Margin="9 8 0 2"
+                                   Text="Vor- und Nachname oder Firma *" />
                         <uc:CustomTextBox x:Name="RecipientNameBox"
                                           Grid.Row="1"
                                           Grid.ColumnSpan="2"
@@ -449,8 +449,8 @@
                         <TextBlock Grid.Row="3"
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
-                                   Margin="7 5 0 2"
-                                   Text="Zusatz 1 (z.B. Abteilung) oder leer:" />
+                                   Margin="9 5 0 2"
+                                   Text="Adresszusatz-Zeile 1 oder leer" />
                         <uc:CustomTextBox Grid.Row="4"
                                           Grid.ColumnSpan="2"
                                           Margin="5 0 5 5"
@@ -460,33 +460,33 @@
                         <TextBlock Grid.Row="5"
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
-                                   Margin="7 5 0 2"
-                                   Text="Straße und Haus-Nr. oder Postfach oder leer:" />
+                                   Margin="9 5 0 2"
+                                   Text="Adresszusatz-Zeile 2 oder leer" />
                         <uc:CustomTextBox x:Name="RecipientStreetBox"
                                           Grid.Row="6"
                                           Grid.Column="0"
                                           Grid.ColumnSpan="2"
                                           Margin="5 0 5 5"
                                           Width="350"
-                                          Text="{Binding RecipientStreetAndNumber, UpdateSourceTrigger=PropertyChanged}" />
+                                          Text="{Binding RecipientAdditionalInfo, UpdateSourceTrigger=PropertyChanged}" />
 
 
                         <TextBlock Grid.Row="7"
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
-                                   Margin="7 5 0 2"
-                                   Text="Zusatz 2 (z.B. Hinterhaus links) oder leer:" />
+                                   Margin="9 5 0 2"
+                                   Text="Straße und Haus-Nr. oder Postfach oder leer" />
                         <uc:CustomTextBox Grid.Row="8"
                                           Grid.ColumnSpan="2"
                                           Margin="5 0 5 5"
                                           Width="350"
-                                          Text="{Binding RecipientAdditionalInfo, UpdateSourceTrigger=PropertyChanged}" />
+                                          Text="{Binding RecipientStreetAndNumber, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock Grid.Row="9"
                                    Style="{StaticResource Label}"
                                    Grid.Column="0"
-                                   Margin="7 5 0 2"
-                                   Text="*Postleitzahl und Ort:" />
+                                   Margin="9 5 0 2"
+                                   Text="Postleitzahl und Ort *" />
                         <uc:CustomTextBox x:Name="RecipientCityBox"
                                           Grid.Row="10"
                                           Grid.Column="0"
