@@ -189,7 +189,7 @@ namespace BriefWerkstatt.Repository
 
         private void DrawSenderBlock(XGraphics gfx, StandardLetterModel letterModel)
         {
-            // Der Absender-Bereich befindet sich im 45 mm hohen Briefkopf, linksbündig
+            // Der Absender-Bereich befindet sich im 45 mm hohen Briefkopf, linksbündig mit einem oberen Seitenabstand von 15 mm
             XRect HeaderRect = new XRect(
                 CreateXPointFromMillimetres(LeftMargin, TopMarginFirstPage),
                 CreateXPointFromMillimetres(PageWidth - RightMargin, HeaderMargin));
@@ -203,12 +203,12 @@ namespace BriefWerkstatt.Repository
                 senderAddressBlock.Append($"\n{letterModel.SenderCareOfInfo}");
             }
 
-            senderAddressBlock.Append($"\n{letterModel.SenderStreetAndNumber}");
-
             if (!string.IsNullOrWhiteSpace(letterModel.SenderAdditionalInfo))
             {
                 senderAddressBlock.Append($"\n{letterModel.SenderAdditionalInfo}");
             }
+
+            senderAddressBlock.Append($"\n{letterModel.SenderStreetAndNumber}");
 
             senderAddressBlock.Append($"\n{letterModel.SenderZipCodeAndCity}");
 
@@ -280,14 +280,14 @@ namespace BriefWerkstatt.Repository
                 recipientAddressBlock.Append($"\n{letterModel.RecipientCareOfInfo}");
             }
 
-            if (!string.IsNullOrWhiteSpace(letterModel.RecipientStreetAndNumber))
-            {
-                recipientAddressBlock.Append($"\n{letterModel.RecipientStreetAndNumber}");
-            }
-
             if (!string.IsNullOrWhiteSpace(letterModel.RecipientAdditionalInfo))
             {
                 recipientAddressBlock.Append($"\n{letterModel.RecipientAdditionalInfo}");
+            }
+
+            if (!string.IsNullOrWhiteSpace(letterModel.RecipientStreetAndNumber))
+            {
+                recipientAddressBlock.Append($"\n{letterModel.RecipientStreetAndNumber}");
             }
 
             recipientAddressBlock.Append($"\n{letterModel.RecipientZipCodeAndCity}");
