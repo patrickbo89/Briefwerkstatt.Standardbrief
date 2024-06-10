@@ -363,7 +363,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
                                    Margin="9 5 0 2"
-                                   Text="Adresszusatz-Zeile 1 oder leer" />
+                                   Text="Adresszusatz 1 oder leer" />
                         <uc:CustomTextBox Grid.Row="4"
                                           Grid.ColumnSpan="2"
                                           Margin="5 0 5 5"
@@ -374,7 +374,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
                                    Margin="9 5 0 2"
-                                   Text="Adresszusatz-Zeile 2 oder leer" />
+                                   Text="Adresszusatz 2 oder leer" />
                         <uc:CustomTextBox Grid.Row="6"
                                           Grid.Column="0"
                                           Grid.ColumnSpan="2"
@@ -450,7 +450,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
                                    Margin="9 5 0 2"
-                                   Text="Adresszusatz-Zeile 1 oder leer" />
+                                   Text="Adresszusatz 1 oder leer" />
                         <uc:CustomTextBox Grid.Row="4"
                                           Grid.ColumnSpan="2"
                                           Margin="5 0 5 5"
@@ -461,7 +461,7 @@
                                    Style="{StaticResource Label}"
                                    Grid.ColumnSpan="2"
                                    Margin="9 5 0 2"
-                                   Text="Adresszusatz-Zeile 2 oder leer" />
+                                   Text="Adresszusatz 2 oder leer" />
                         <uc:CustomTextBox Grid.Row="6"
                                           Grid.Column="0"
                                           Grid.ColumnSpan="2"
@@ -498,7 +498,7 @@
                 </GroupBox>
 
                 <!-- Betreffzeilen -->
-                <GroupBox Header="*Betreffzeile 1*"
+                <GroupBox Header="Betreffzeile 1 *"
                           Grid.Row="2"
                           Grid.ColumnSpan="2"
                           Margin="35 20 35 0"
@@ -524,7 +524,7 @@
                 </GroupBox>
 
                 <!-- Anredezeile -->
-                <GroupBox Header="*Anrede*"
+                <GroupBox Header="Anrede *"
                           Grid.Row="3"
                           Grid.ColumnSpan="2"
                           Padding="5"
@@ -536,7 +536,7 @@
                 </GroupBox>
 
                 <!-- Briefinhalt -->
-                <GroupBox Header="*Brieftext*"
+                <GroupBox Header="Brieftext *"
                           Grid.Row="4"
                           Grid.ColumnSpan="3"
                           Padding="5"
@@ -563,7 +563,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <!-- Kundennummer, Dateiname und Speichern-Button -->
-                    <GroupBox Header="*Kundennummer*"
+                    <GroupBox Header="Kundennummer *"
                               Grid.Row="6"
                               Grid.Column="0"
                               Height="70"
@@ -576,7 +576,7 @@
                                           Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
                     </GroupBox>
 
-                    <GroupBox Header="*Dateiname*"
+                    <GroupBox Header="Dateiname *"
                               Grid.Row="6"
                               Grid.Column="1"
                               Height="70"
@@ -654,7 +654,7 @@
                         Foreground="Transparent"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Visibility="Visible"
+                        Visibility="Hidden"
                         Focusable="False"
                         Command="{Binding FillWithExampleData}" />
             </Grid>
