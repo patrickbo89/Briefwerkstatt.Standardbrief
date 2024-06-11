@@ -63,6 +63,10 @@ Copyright (c) 2024 patrickbo89<LineBreak />
 <Hyperlink NavigateUri="https://github.com/patrickbo89"
                         RequestNavigate="Hyperlink_RequestNavigate">https://github.com/patrickbo89</Hyperlink><LineBreak /><LineBreak />
 
+<Hyperlink NavigateUri="https://github.com/patrickbo89/Briefwerkstatt.Standardbrief"
+                    RequestNavigate="Hyperlink_RequestNavigate">https://github.com/patrickbo89/Briefwerkstatt.Standardbrief</Hyperlink><LineBreak /><LineBreak />
+
+
 Permission is hereby granted, free of charge, to any person obtaining<LineBreak />
 a copy of this software and associated documentation files (the "Software"),<LineBreak />
 to deal in the Software without restriction, including without limitation<LineBreak />
