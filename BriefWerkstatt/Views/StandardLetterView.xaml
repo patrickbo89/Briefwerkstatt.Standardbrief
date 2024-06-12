@@ -199,9 +199,10 @@
                                     <Button x:Name="Close"
                                             Content="&#x2715;"
                                             Width="25"
+                                            Height="20"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Right"
-                                            Margin="0 0 1 4"
+                                            Margin="0 0 0 1.2"
                                             FontWeight="Bold"
                                             Grid.Column="3"
                                             ToolTip="Schließen"
@@ -248,9 +249,10 @@
                                     <Button x:Name="Minimize"
                                             Content="&#128469;"
                                             Width="25"
+                                            Height="20"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
-                                            Margin="0,0,0,4"
+                                            Margin="0,0,0,1.2"
                                             FontWeight="ExtraBold"
                                             Grid.Column="2"
                                             ToolTip="Minimieren"
@@ -286,7 +288,7 @@
                                                         BorderBrush="Transparent"
                                                         BorderThickness="0">
 
-                                                    <ContentPresenter VerticalAlignment="Bottom"
+                                                    <ContentPresenter VerticalAlignment="Center"
                                                                       HorizontalAlignment="Center" />
                                                 </Border>
                                             </ControlTemplate>
@@ -296,9 +298,10 @@
                                     <Button x:Name="About"
                                             Content="?"
                                             Width="25"
-                                            VerticalAlignment="Bottom"
+                                            Height="20"
+                                            VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
-                                            Margin="1,0,0,6"
+                                            Margin="0,0,0,1.2"
                                             FontWeight="ExtraBold"
                                             FontFamily="Verdana Bold"
                                             Grid.Column="0"
