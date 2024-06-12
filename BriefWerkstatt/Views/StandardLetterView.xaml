@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="Briefwerkstatt - Standardbrief (Betaversion)"
         ResizeMode="CanMinimize"
-        Background="#242424"
+        Background="Transparent"
+        AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
@@ -134,208 +135,18 @@
     </Window.Resources>
 
     <Border BorderBrush="#E6F0FB"
-            BorderThickness=".8">
+            Background="#242424"
+            BorderThickness="1"
+            CornerRadius="6">
         <Viewbox>
-            <Grid>
+            <Grid Background="Transparent">
+                <Border BorderBrush="#242424"
+                        Background="#242424"
+                        BorderThickness="1"
+                        CornerRadius="6">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Row="0"
-                      Background="#000000"
-                      Grid.ColumnSpan="3"
-                      Margin="0 0 0 0"
-                      Width="910">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <Line Grid.ColumnSpan="4"
-                          X1="0"
-                          X2="910"
-                          VerticalAlignment="Bottom"
-                          StrokeThickness=".5"
-                          Stroke="#DDFFFFFF"
-                          Visibility="Visible" />
-                    <TextBlock Text="Briefwerkstatt - Standardbrief (Betaversion)"
-                               Foreground="#E6F0FB"
-                               Grid.Column="1"
-                               FontSize="15"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Padding="20 0 0 2"
-                               FontFamily="Microsoft Sans Serif"
-                               FontWeight="Bold" />
-                    <Button x:Name="Close"
-                            Content="&#x2715;"
-                            Width="25"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Right"
-                            Margin="0 0 1 0"
-                            FontWeight="Bold"
-                            Grid.Column="3"
-                            ToolTip="Schließen"
-                            Focusable="False"
-                            Command="{Binding CloseApp}">
-
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background"
-                                        Value="#000000" />
-                                <Setter Property="Foreground"
-                                        Value="#E6F0FB" />
-                                <Setter Property="BorderBrush"
-                                        Value="Transparent" />
-                                <Setter Property="BorderThickness"
-                                        Value="0" />
-
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Background"
-                                                Value="#FF0000" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="{TemplateBinding Width}"
-                                        Height="{TemplateBinding Height}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="Transparent"
-                                        BorderThickness="0">
-
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
-                    <Button x:Name="Minimize"
-                            Content="&#128469;"
-                            Width="25"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            Margin="0,0,0,4"
-                            FontWeight="ExtraBold"
-                            Grid.Column="2"
-                            ToolTip="Minimieren"
-                            Focusable="False"
-                            Click="MinimizeButton_Click">
-
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background"
-                                        Value="#000000" />
-                                <Setter Property="Foreground"
-                                        Value="#E6F0FB" />
-                                <Setter Property="BorderBrush"
-                                        Value="Transparent" />
-                                <Setter Property="BorderThickness"
-                                        Value="0" />
-
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Background"
-                                                Value="#555555" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="{TemplateBinding Width}"
-                                        Height="{TemplateBinding Height}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="Transparent"
-                                        BorderThickness="0">
-
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
-                    <Button x:Name="About"
-                            Content="?"
-                            Width="25"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Left"
-                            Margin="0,0,0,4"
-                            FontWeight="ExtraBold"
-                            FontFamily="Verdana Bold"
-                            Grid.Column="0"
-                            ToolTip="Über Briefwerkstatt"
-                            Focusable="False"
-                            Click="About_Click">
-
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background"
-                                        Value="#000000" />
-                                <Setter Property="Foreground"
-                                        Value="#E6F0FB" />
-                                <Setter Property="BorderBrush"
-                                        Value="Transparent" />
-                                <Setter Property="BorderThickness"
-                                        Value="0" />
-
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Background"
-                                                Value="#555555" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="{TemplateBinding Width}"
-                                        Height="{TemplateBinding Height}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="Transparent"
-                                        BorderThickness="0">
-
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
-                </Grid>
-
-                <GroupBox Header="Absender"
-                          Grid.Row="1"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="2"
-                          Margin="35 15 35 0"
-                          Width="380">
-                    <Grid>
+                    <Grid Background="Transparent"
+                          Margin="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
@@ -343,322 +154,531 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
+
                         </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0"
-                                   Style="{StaticResource Label}"
-                                   Margin="9 8 0 2"
-                                   Text="Vor- und Nachname *" />
-                        <uc:CustomTextBox x:Name="SenderNameBox"
-                                          Grid.Row="1"
-                                          Margin="5,0,5,5"
-                                          Width="350"
-                                          Text="{Binding SenderName, UpdateSourceTrigger=PropertyChanged}" />
+                        <Grid Grid.Row="0"
+                              Background="#000000"
+                              Grid.ColumnSpan="3"
+                              Width="910">
+                            <Border BorderBrush="#000000"
+                                    BorderThickness="0"
+                                    CornerRadius="6">
 
-                        <TextBlock Grid.Row="3"
-                                   Style="{StaticResource Label}"
-                                   Grid.ColumnSpan="2"
-                                   Margin="9 5 0 2"
-                                   Text="Adresszusatz 1 oder leer" />
-                        <uc:CustomTextBox Grid.Row="4"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5 0 5 5"
-                                          Width="350"
-                                          Text="{Binding SenderAdditionalInfoOne, UpdateSourceTrigger=PropertyChanged}" />
+                                <Grid Background="Transparent"
+                                      Width="910">
 
-                        <TextBlock Grid.Row="5"
-                                   Style="{StaticResource Label}"
-                                   Grid.ColumnSpan="2"
-                                   Margin="9 5 0 2"
-                                   Text="Adresszusatz 2 oder leer" />
-                        <uc:CustomTextBox Grid.Row="6"
-                                          Grid.Column="0"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5 0 5 5"
-                                          Width="350"
-                                          Text="{Binding SenderAdditionalInfoTwo, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="7"
-                                   Style="{StaticResource Label}"
-                                   Grid.ColumnSpan="2"
-                                   Margin="9 5 0 2"
-                                   Text="Straße und Haus-Nr. *" />
-                        <uc:CustomTextBox x:Name="SenderStreetBox"
-                                          Grid.Row="8"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5,0,5,5"
-                                          Width="350"
-                                          Text="{Binding SenderStreetAndNumber, UpdateSourceTrigger=PropertyChanged}"
-                                          Grid.RowSpan="2" />
+                                    <Line Grid.ColumnSpan="4"
+                                          X1="0"
+                                          X2="910"
+                                          VerticalAlignment="Bottom"
+                                          StrokeThickness=".5"
+                                          Stroke="#DDFFFFFF"
+                                          Visibility="Visible" />
+                                    <TextBlock Text="Briefwerkstatt - Standardbrief (Betaversion)"
+                                               Foreground="#E6F0FB"
+                                               Grid.Column="1"
+                                               FontSize="15"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Padding="20 0 0 2"
+                                               FontFamily="Microsoft Sans Serif"
+                                               FontWeight="Bold" />
+                                    <Button x:Name="Close"
+                                            Content="&#x2715;"
+                                            Width="25"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 1 4"
+                                            FontWeight="Bold"
+                                            Grid.Column="3"
+                                            ToolTip="Schließen"
+                                            Focusable="False"
+                                            Command="{Binding CloseApp}">
 
-                        <TextBlock Grid.Row="10"
-                                   Style="{StaticResource Label}"
-                                   Grid.Column="0"
-                                   Margin="9 5 0 2"
-                                   Text="Postleitzahl und Ort *"
-                                   Grid.ColumnSpan="2" />
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background"
+                                                        Value="#000000" />
+                                                <Setter Property="Foreground"
+                                                        Value="#E6F0FB" />
+                                                <Setter Property="BorderBrush"
+                                                        Value="Transparent" />
+                                                <Setter Property="BorderThickness"
+                                                        Value="0" />
 
-                        <uc:CustomTextBox x:Name="SenderCityBox"
-                                          Grid.Row="11"
-                                          Grid.Column="0"
-                                          Margin="5,0,5,10"
-                                          Width="350"
-                                          Grid.ColumnSpan="2"
-                                          Text="{Binding SenderZipCodeAndCity, UpdateSourceTrigger=PropertyChanged}"
-                                          Grid.RowSpan="2" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver"
+                                                             Value="True">
+                                                        <Setter Property="Background"
+                                                                Value="#FF0000" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
 
-                    </Grid>
-                </GroupBox>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Width="{TemplateBinding Width}"
+                                                        Height="{TemplateBinding Height}"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="Transparent"
+                                                        CornerRadius="0 6 0 0"
+                                                        BorderThickness="0">
 
-                <GroupBox Header="Empfänger"
-                          Grid.Row="1"
-                          Grid.Column="2"
-                          Margin="35 15 35 0"
-                          Width="380">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
+                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                      HorizontalAlignment="Center" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
 
-                        <TextBlock Grid.Row="0"
-                                   Style="{StaticResource Label}"
-                                   Grid.ColumnSpan="2"
-                                   Margin="9 8 0 2"
-                                   Text="Vor- und Nachname oder Firma *" />
-                        <uc:CustomTextBox x:Name="RecipientNameBox"
-                                          Grid.Row="1"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5 0 5 5"
-                                          Width="350"
-                                          Text="{Binding RecipientName, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Button x:Name="Minimize"
+                                            Content="&#128469;"
+                                            Width="25"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,0,0,4"
+                                            FontWeight="ExtraBold"
+                                            Grid.Column="2"
+                                            ToolTip="Minimieren"
+                                            Focusable="False"
+                                            Click="MinimizeButton_Click">
 
-                        <TextBlock Grid.Row="3"
-                                   Style="{StaticResource Label}"
-                                   Grid.ColumnSpan="2"
-                                   Margin="9 5 0 2"
-                                   Text="Adresszusatz 1 oder leer" />
-                        <uc:CustomTextBox Grid.Row="4"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5 0 5 5"
-                                          Width="350"
-                                          Text="{Binding RecipientAdditionalInfoOne, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background"
+                                                        Value="#000000" />
+                                                <Setter Property="Foreground"
+                                                        Value="#E6F0FB" />
+                                                <Setter Property="BorderBrush"
+                                                        Value="Transparent" />
+                                                <Setter Property="BorderThickness"
+                                                        Value="0" />
 
-                        <TextBlock Grid.Row="5"
-                                   Style="{StaticResource Label}"
-                                   Grid.ColumnSpan="2"
-                                   Margin="9 5 0 2"
-                                   Text="Adresszusatz 2 oder leer" />
-                        <uc:CustomTextBox Grid.Row="6"
-                                          Grid.Column="0"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5 0 5 5"
-                                          Width="350"
-                                          Text="{Binding RecipientAdditionalInfoTwo, UpdateSourceTrigger=PropertyChanged}" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver"
+                                                             Value="True">
+                                                        <Setter Property="Background"
+                                                                Value="#555555" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Width="{TemplateBinding Width}"
+                                                        Height="{TemplateBinding Height}"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0">
+
+                                                    <ContentPresenter VerticalAlignment="Bottom"
+                                                                      HorizontalAlignment="Center" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                    <Button x:Name="About"
+                                            Content="?"
+                                            Width="25"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Left"
+                                            Margin="1,0,0,6"
+                                            FontWeight="ExtraBold"
+                                            FontFamily="Verdana Bold"
+                                            Grid.Column="0"
+                                            ToolTip="Über Briefwerkstatt"
+                                            Focusable="False"
+                                            Click="About_Click">
+
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background"
+                                                        Value="#000000" />
+                                                <Setter Property="Foreground"
+                                                        Value="#E6F0FB" />
+                                                <Setter Property="BorderBrush"
+                                                        Value="Transparent" />
+                                                <Setter Property="BorderThickness"
+                                                        Value="0" />
+
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver"
+                                                             Value="True">
+                                                        <Setter Property="Background"
+                                                                Value="#555555" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Width="{TemplateBinding Width}"
+                                                        Height="{TemplateBinding Height}"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0"
+                                                        CornerRadius="6 0 0 0">
+
+                                                    <ContentPresenter VerticalAlignment="Center"
+                                                                      HorizontalAlignment="Center" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <GroupBox Header="Absender"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="2"
+                                  Margin="35 15 35 0"
+                                  Width="380">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           Style="{StaticResource Label}"
+                                           Margin="9 8 0 2"
+                                           Text="Vor- und Nachname *" />
+                                <uc:CustomTextBox x:Name="SenderNameBox"
+                                                  Grid.Row="1"
+                                                  Margin="5,0,5,5"
+                                                  Width="350"
+                                                  Text="{Binding SenderName, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="3"
+                                           Style="{StaticResource Label}"
+                                           Grid.ColumnSpan="2"
+                                           Margin="9 5 0 2"
+                                           Text="Adresszusatz 1 oder leer" />
+                                <uc:CustomTextBox Grid.Row="4"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5 0 5 5"
+                                                  Width="350"
+                                                  Text="{Binding SenderAdditionalInfoOne, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="5"
+                                           Style="{StaticResource Label}"
+                                           Grid.ColumnSpan="2"
+                                           Margin="9 5 0 2"
+                                           Text="Adresszusatz 2 oder leer" />
+                                <uc:CustomTextBox Grid.Row="6"
+                                                  Grid.Column="0"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5 0 5 5"
+                                                  Width="350"
+                                                  Text="{Binding SenderAdditionalInfoTwo, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="7"
+                                           Style="{StaticResource Label}"
+                                           Grid.ColumnSpan="2"
+                                           Margin="9 5 0 2"
+                                           Text="Straße und Haus-Nr. *" />
+                                <uc:CustomTextBox x:Name="SenderStreetBox"
+                                                  Grid.Row="8"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5,0,5,5"
+                                                  Width="350"
+                                                  Text="{Binding SenderStreetAndNumber, UpdateSourceTrigger=PropertyChanged}"
+                                                  Grid.RowSpan="2" />
+
+                                <TextBlock Grid.Row="10"
+                                           Style="{StaticResource Label}"
+                                           Grid.Column="0"
+                                           Margin="9 5 0 2"
+                                           Text="Postleitzahl und Ort *"
+                                           Grid.ColumnSpan="2" />
+
+                                <uc:CustomTextBox x:Name="SenderCityBox"
+                                                  Grid.Row="11"
+                                                  Grid.Column="0"
+                                                  Margin="5,0,5,10"
+                                                  Width="350"
+                                                  Grid.ColumnSpan="2"
+                                                  Text="{Binding SenderZipCodeAndCity, UpdateSourceTrigger=PropertyChanged}"
+                                                  Grid.RowSpan="2" />
+
+                            </Grid>
+                        </GroupBox>
+
+                        <GroupBox Header="Empfänger"
+                                  Grid.Row="1"
+                                  Grid.Column="2"
+                                  Margin="35 15 35 0"
+                                  Width="380">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           Style="{StaticResource Label}"
+                                           Grid.ColumnSpan="2"
+                                           Margin="9 8 0 2"
+                                           Text="Vor- und Nachname oder Firma *" />
+                                <uc:CustomTextBox x:Name="RecipientNameBox"
+                                                  Grid.Row="1"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5 0 5 5"
+                                                  Width="350"
+                                                  Text="{Binding RecipientName, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="3"
+                                           Style="{StaticResource Label}"
+                                           Grid.ColumnSpan="2"
+                                           Margin="9 5 0 2"
+                                           Text="Adresszusatz 1 oder leer" />
+                                <uc:CustomTextBox Grid.Row="4"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5 0 5 5"
+                                                  Width="350"
+                                                  Text="{Binding RecipientAdditionalInfoOne, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="5"
+                                           Style="{StaticResource Label}"
+                                           Grid.ColumnSpan="2"
+                                           Margin="9 5 0 2"
+                                           Text="Adresszusatz 2 oder leer" />
+                                <uc:CustomTextBox Grid.Row="6"
+                                                  Grid.Column="0"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5 0 5 5"
+                                                  Width="350"
+                                                  Text="{Binding RecipientAdditionalInfoTwo, UpdateSourceTrigger=PropertyChanged}" />
 
 
-                        <TextBlock Grid.Row="7"
-                                   Style="{StaticResource Label}"
-                                   Grid.ColumnSpan="2"
-                                   Margin="9 5 0 2"
-                                   Text="Straße und Haus-Nr. oder Postfach oder leer" />
-                        <uc:CustomTextBox Grid.Row="8"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5 0 5 5"
-                                          Width="350"
-                                          Text="{Binding RecipientStreetAndNumber, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Row="7"
+                                           Style="{StaticResource Label}"
+                                           Grid.ColumnSpan="2"
+                                           Margin="9 5 0 2"
+                                           Text="Straße und Haus-Nr. oder Postfach oder leer" />
+                                <uc:CustomTextBox Grid.Row="8"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5 0 5 5"
+                                                  Width="350"
+                                                  Text="{Binding RecipientStreetAndNumber, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <TextBlock Grid.Row="9"
-                                   Style="{StaticResource Label}"
-                                   Grid.Column="0"
-                                   Margin="9 5 0 2"
-                                   Text="Postleitzahl und Ort *" />
-                        <uc:CustomTextBox x:Name="RecipientCityBox"
-                                          Grid.Row="10"
-                                          Grid.Column="0"
-                                          Grid.ColumnSpan="2"
-                                          Margin="5 0 5 10"
-                                          Width="350"
-                                          Text="{Binding RecipientZipCodeAndCity, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Grid.Row="9"
+                                           Style="{StaticResource Label}"
+                                           Grid.Column="0"
+                                           Margin="9 5 0 2"
+                                           Text="Postleitzahl und Ort *" />
+                                <uc:CustomTextBox x:Name="RecipientCityBox"
+                                                  Grid.Row="10"
+                                                  Grid.Column="0"
+                                                  Grid.ColumnSpan="2"
+                                                  Margin="5 0 5 10"
+                                                  Width="350"
+                                                  Text="{Binding RecipientZipCodeAndCity, UpdateSourceTrigger=PropertyChanged}" />
 
-                    </Grid>
-                </GroupBox>
+                            </Grid>
+                        </GroupBox>
 
-                <!-- Betreffzeilen -->
-                <GroupBox Header="Betreffzeile 1 *"
-                          Grid.Row="2"
-                          Grid.ColumnSpan="2"
-                          Margin="35 20 35 0"
-                          Padding="5"
-                          Width="380">
-                    <StackPanel Margin="2 0 2 2">
-                        <uc:CustomTextBox x:Name="TopicLineOneBox"
-                                          Width="350"
-                                          Text="{Binding TopicLineOne, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </GroupBox>
+                        <!-- Betreffzeilen -->
+                        <GroupBox Header="Betreffzeile 1 *"
+                                  Grid.Row="2"
+                                  Grid.ColumnSpan="2"
+                                  Margin="35 20 35 0"
+                                  Padding="5"
+                                  Width="380">
+                            <StackPanel Margin="2 0 2 2">
+                                <uc:CustomTextBox x:Name="TopicLineOneBox"
+                                                  Width="350"
+                                                  Text="{Binding TopicLineOne, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </GroupBox>
 
-                <GroupBox Header="Betreffzeile 2 (optional)"
-                          Grid.Row="2"
-                          Grid.ColumnSpan="2"
-                          Grid.Column="2"
-                          Margin="35 20 35 0"
-                          Padding="5">
-                    <StackPanel Margin="2 0 2 2">
-                        <uc:CustomTextBox Text="{Binding TopicLineTwo, UpdateSourceTrigger=PropertyChanged}"
-                                          Width="350" />
-                    </StackPanel>
-                </GroupBox>
+                        <GroupBox Header="Betreffzeile 2 (optional)"
+                                  Grid.Row="2"
+                                  Grid.ColumnSpan="2"
+                                  Grid.Column="2"
+                                  Margin="35 20 35 0"
+                                  Padding="5">
+                            <StackPanel Margin="2 0 2 2">
+                                <uc:CustomTextBox Text="{Binding TopicLineTwo, UpdateSourceTrigger=PropertyChanged}"
+                                                  Width="350" />
+                            </StackPanel>
+                        </GroupBox>
 
-                <!-- Anredezeile -->
-                <GroupBox Header="Anrede *"
-                          Grid.Row="3"
-                          Grid.ColumnSpan="2"
-                          Padding="5"
-                          Margin="35 20 35 0"
-                          Width="380">
-                    <uc:CustomTextBox x:Name="IntroBox"
-                                      Margin="2 0 2 2"
-                                      Text="{Binding Intro, UpdateSourceTrigger=PropertyChanged}" />
-                </GroupBox>
+                        <!-- Anredezeile -->
+                        <GroupBox Header="Anrede *"
+                                  Grid.Row="3"
+                                  Grid.ColumnSpan="2"
+                                  Padding="5"
+                                  Margin="35 20 35 0"
+                                  Width="380">
+                            <uc:CustomTextBox x:Name="IntroBox"
+                                              Margin="2 0 2 2"
+                                              Text="{Binding Intro, UpdateSourceTrigger=PropertyChanged}" />
+                        </GroupBox>
 
-                <!-- Briefinhalt -->
-                <GroupBox Header="Brieftext *"
-                          Grid.Row="4"
-                          Grid.ColumnSpan="3"
-                          Padding="5"
-                          Margin="35 20 35 0">
-                    <uc:CustomTextBox x:Name="LetterContentBox"
-                                      Height="250"
-                                      Width="800"
-                                      Margin="2 0 2 2"
-                                      Padding="2 5 5 2"
-                                      Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
-                                      TextWrapping="Wrap"
-                                      AcceptsReturn="True"
-                                      VerticalScrollBarVisibility="Auto"
-                                      SpellCheck.IsEnabled="True"
-                                      TextAlignment="Justify" />
-                </GroupBox>
+                        <!-- Briefinhalt -->
+                        <GroupBox Header="Brieftext *"
+                                  Grid.Row="4"
+                                  Grid.ColumnSpan="3"
+                                  Padding="5"
+                                  Margin="35 20 35 0">
+                            <uc:CustomTextBox x:Name="LetterContentBox"
+                                              Height="250"
+                                              Width="800"
+                                              Margin="2 0 2 2"
+                                              Padding="2 5 5 2"
+                                              Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"
+                                              TextWrapping="Wrap"
+                                              AcceptsReturn="True"
+                                              VerticalScrollBarVisibility="Auto"
+                                              SpellCheck.IsEnabled="True"
+                                              TextAlignment="Justify" />
+                        </GroupBox>
 
-                <Grid Grid.Row="5"
-                      Grid.ColumnSpan="3"
-                      Margin="7 15 0 20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="1.8*" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <!-- Kundennummer, Dateiname und Speichern-Button -->
-                    <GroupBox Header="Kundennummer *"
-                              Grid.Row="6"
-                              Grid.Column="0"
-                              Height="70"
-                              Width="180"
-                              Margin="5 0 0 0"
-                              Padding="5">
-                        <uc:CustomTextBox x:Name="CustomerNumberBox"
-                                          Margin="2 0 2 2"
-                                          Width="150"
-                                          Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
-                    </GroupBox>
+                        <Grid Grid.Row="5"
+                              Grid.ColumnSpan="3"
+                              Margin="7 15 0 20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="1.8*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <!-- Kundennummer, Dateiname und Speichern-Button -->
+                            <GroupBox Header="Kundennummer *"
+                                      Grid.Row="6"
+                                      Grid.Column="0"
+                                      Height="70"
+                                      Width="180"
+                                      Margin="5 0 0 0"
+                                      Padding="5">
+                                <uc:CustomTextBox x:Name="CustomerNumberBox"
+                                                  Margin="2 0 2 2"
+                                                  Width="150"
+                                                  Text="{Binding CustomerNumber, UpdateSourceTrigger=PropertyChanged}" />
+                            </GroupBox>
 
-                    <GroupBox Header="Dateiname *"
-                              Grid.Row="6"
-                              Grid.Column="1"
-                              Height="70"
-                              Margin="0 0 20 0"
-                              Padding="5">
-                        <uc:CustomTextBox x:Name="FileNameBox"
-                                          Margin="2 0 2 2"
-                                          Width="400"
-                                          Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
-                    </GroupBox>
+                            <GroupBox Header="Dateiname *"
+                                      Grid.Row="6"
+                                      Grid.Column="1"
+                                      Height="70"
+                                      Margin="0 0 20 0"
+                                      Padding="5">
+                                <uc:CustomTextBox x:Name="FileNameBox"
+                                                  Margin="2 0 2 2"
+                                                  Width="400"
+                                                  Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
+                            </GroupBox>
 
-                    <StackPanel Grid.Row="6"
-                                Grid.Column="3">
-                        <Button Content="Speichern"
-                                Margin="2 10 12 2"
-                                Grid.Row="6"
-                                Grid.Column="2"
-                                Foreground="#E6F0FB"
-                                FontWeight="ExtraBlack"
-                                FontSize="18"
-                                Focusable="False"
-                                HorizontalAlignment="Center"
-                                Click="SaveButton_Click"
-                                Command="{Binding Save}">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background"
-                                            Value="Green" />
-                                    <Setter Property="Cursor"
-                                            Value="Hand" />
-                                    <Setter Property="BorderBrush"
-                                            Value="Transparent" />
-
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver"
-                                                 Value="True">
+                            <StackPanel Grid.Row="6"
+                                        Grid.Column="3">
+                                <Button Content="Speichern"
+                                        Margin="2 10 12 2"
+                                        Grid.Row="6"
+                                        Grid.Column="2"
+                                        Foreground="#E6F0FB"
+                                        FontWeight="ExtraBlack"
+                                        FontSize="18"
+                                        Focusable="False"
+                                        HorizontalAlignment="Center"
+                                        Click="SaveButton_Click"
+                                        Command="{Binding Save}">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
                                             <Setter Property="Background"
-                                                    Value="#008C00" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
+                                                    Value="Green" />
+                                            <Setter Property="Cursor"
+                                                    Value="Hand" />
+                                            <Setter Property="BorderBrush"
+                                                    Value="Transparent" />
 
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="175"
-                                            Height="35"
-                                            CornerRadius="6"
-                                            Background="{TemplateBinding Background}"
-                                            BorderBrush="Transparent"
-                                            BorderThickness="0">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver"
+                                                         Value="True">
+                                                    <Setter Property="Background"
+                                                            Value="#008C00" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
 
-                                        <ContentPresenter VerticalAlignment="Center"
-                                                          HorizontalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="175"
+                                                    Height="35"
+                                                    CornerRadius="6"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0">
 
-                        <Button x:Name="NewLetterButton"
-                                Style="{StaticResource Options}"
-                                Content="Neuer Brief"
-                                Width="175"
-                                Height="35"
-                                Click="NewLetterButton_Click" />
-                    </StackPanel>
-                </Grid>
+                                                <ContentPresenter VerticalAlignment="Center"
+                                                                  HorizontalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                <Button Content="Beispieldaten einfügen"
-                        Margin="0 10 0 5"
-                        Padding="5"
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        HorizontalAlignment="Left"
-                        Foreground="Transparent"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Visibility="Hidden"
-                        Focusable="False"
-                        Command="{Binding FillWithExampleData}" />
+                                <Button x:Name="NewLetterButton"
+                                        Style="{StaticResource Options}"
+                                        Content="Neuer Brief"
+                                        Width="175"
+                                        Height="35"
+                                        Click="NewLetterButton_Click" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Button Content="Beispieldaten einfügen"
+                                Margin="0 10 0 5"
+                                Padding="5"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                Foreground="Transparent"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Visibility="Hidden"
+                                Focusable="False"
+                                Command="{Binding FillWithExampleData}" />
+                    </Grid>
+                </Border>
             </Grid>
         </Viewbox>
     </Border>
