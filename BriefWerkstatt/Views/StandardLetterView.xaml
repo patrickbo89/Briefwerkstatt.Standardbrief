@@ -156,7 +156,8 @@
                 <Grid Grid.Row="0"
                       Background="#000000"
                       Grid.ColumnSpan="3"
-                      Margin="0 0 0 0">
+                      Margin="0 0 0 0"
+                      Width="910">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
@@ -167,7 +168,7 @@
 
                     <Line Grid.ColumnSpan="4"
                           X1="0"
-                          X2="900"
+                          X2="910"
                           VerticalAlignment="Bottom"
                           StrokeThickness=".5"
                           Stroke="#DDFFFFFF"
@@ -178,15 +179,15 @@
                                FontSize="15"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
-                               Padding="20 0 0 0"
+                               Padding="20 0 0 2"
                                FontFamily="Microsoft Sans Serif"
                                FontWeight="Bold" />
                     <Button x:Name="Close"
-                            Content="X"
+                            Content="&#x2715;"
                             Width="25"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Right"
-                            Margin="0 0 0 0"
+                            Margin="0 0 1 0"
                             FontWeight="Bold"
                             Grid.Column="3"
                             ToolTip="Schließen"
@@ -230,9 +231,9 @@
                     </Button>
 
                     <Button x:Name="Minimize"
-                            Content="_"
+                            Content="&#128469;"
                             Width="25"
-                            VerticalAlignment="Bottom"
+                            VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="0,0,0,4"
                             FontWeight="ExtraBold"
@@ -284,6 +285,7 @@
                             HorizontalAlignment="Left"
                             Margin="0,0,0,4"
                             FontWeight="ExtraBold"
+                            FontFamily="Verdana Bold"
                             Grid.Column="0"
                             ToolTip="Über Briefwerkstatt"
                             Focusable="False"
