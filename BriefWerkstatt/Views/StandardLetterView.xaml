@@ -134,7 +134,8 @@
         </Style>
     </Window.Resources>
 
-    <Border BorderBrush="#E6F0FB"
+    <Border x:Name="WindowBorder"
+            BorderBrush="#E6F0FB"
             Background="#242424"
             BorderThickness="1"
             CornerRadius="6">
@@ -163,10 +164,11 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Row="0"
-                              Background="#000000"
+                              x:Name="TitleBar"
+                              Background="#1A1F2F"
                               Grid.ColumnSpan="3"
                               Width="910">
-                            <Border BorderBrush="#000000"
+                            <Border BorderBrush="#1A1F2F"
                                     BorderThickness="0"
                                     CornerRadius="6">
 
@@ -187,7 +189,8 @@
                                           StrokeThickness=".5"
                                           Stroke="#DDFFFFFF"
                                           Visibility="Visible" />
-                                    <TextBlock Text="Briefwerkstatt - Standardbrief (Betaversion)"
+                                    <TextBlock x:Name="TitleText"
+                                               Text="Briefwerkstatt - Standardbrief (Betaversion)"
                                                Foreground="#E6F0FB"
                                                Grid.Column="1"
                                                FontSize="15"
@@ -196,7 +199,7 @@
                                                Padding="20 0 0 2"
                                                FontFamily="Microsoft Sans Serif"
                                                FontWeight="Bold" />
-                                    <Button x:Name="Close"
+                                    <Button x:Name="CloseButton"
                                             Content="&#x2715;"
                                             Width="25"
                                             Height="20"
@@ -212,7 +215,7 @@
                                         <Button.Style>
                                             <Style TargetType="Button">
                                                 <Setter Property="Background"
-                                                        Value="#000000" />
+                                                        Value="#1A1F2F" />
                                                 <Setter Property="Foreground"
                                                         Value="#E6F0FB" />
                                                 <Setter Property="BorderBrush"
@@ -246,7 +249,7 @@
                                         </Button.Template>
                                     </Button>
 
-                                    <Button x:Name="Minimize"
+                                    <Button x:Name="MinimizeButton"
                                             Content="&#128469;"
                                             Width="25"
                                             Height="20"
@@ -262,7 +265,7 @@
                                         <Button.Style>
                                             <Style TargetType="Button">
                                                 <Setter Property="Background"
-                                                        Value="#000000" />
+                                                        Value="#1A1F2F" />
                                                 <Setter Property="Foreground"
                                                         Value="#E6F0FB" />
                                                 <Setter Property="BorderBrush"
@@ -274,7 +277,7 @@
                                                     <Trigger Property="IsMouseOver"
                                                              Value="True">
                                                         <Setter Property="Background"
-                                                                Value="#555555" />
+                                                                Value="#384366" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -295,7 +298,7 @@
                                         </Button.Template>
                                     </Button>
 
-                                    <Button x:Name="About"
+                                    <Button x:Name="AboutButton"
                                             Content="?"
                                             Width="25"
                                             Height="20"
@@ -312,7 +315,7 @@
                                         <Button.Style>
                                             <Style TargetType="Button">
                                                 <Setter Property="Background"
-                                                        Value="#000000" />
+                                                        Value="#1A1F2F" />
                                                 <Setter Property="Foreground"
                                                         Value="#E6F0FB" />
                                                 <Setter Property="BorderBrush"
@@ -324,7 +327,7 @@
                                                     <Trigger Property="IsMouseOver"
                                                              Value="True">
                                                         <Setter Property="Background"
-                                                                Value="#555555" />
+                                                                Value="#384366" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
