@@ -1,7 +1,12 @@
 ﻿using BriefWerkstatt.Dialogs;
 using BriefWerkstatt.ViewModels;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 
 namespace BriefWerkstatt.Views
 {
@@ -10,15 +15,29 @@ namespace BriefWerkstatt.Views
     /// </summary>
     public partial class StandardLetterView : Window
     {
+        private bool _isAnimationAllowed = true;
+
+        public bool IsWindowActive
+        {
+            get { return (bool)GetValue(IsWindowActiveProperty); }
+            set { SetValue(IsWindowActiveProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsWindowActive.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsWindowActiveProperty =
+            DependencyProperty.Register("IsWindowActive", typeof(bool), typeof(Window), new PropertyMetadata(true));
+
+
         public StandardLetterView()
         {
             InitializeComponent();
+            NameScope.SetNameScope(this, new NameScope());
 
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -160,6 +179,130 @@ namespace BriefWerkstatt.Views
 
                 CustomerNumberBox.HasErrors = false;
                 FileNameBox.HasErrors = false;
+            }
+        }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            if (_isAnimationAllowed)
+            {
+                Storyboard? changeTitleBarElementBackgroundColorWindowDeactivated = FindResource("WindowDeactivatedTitleBarAnimation") as Storyboard;
+                Storyboard? changeWindowBorderBrushWindowDeactivated = FindResource("WindowDeactivatedBorderAnimation") as Storyboard;
+                Storyboard? changeWindowTextColorWindowDeactivated = FindResource("WindowDeactivatedTitleBarTextColorAnimation") as Storyboard;
+
+                changeTitleBarElementBackgroundColorWindowDeactivated?.Begin(TitleBar);
+                changeTitleBarElementBackgroundColorWindowDeactivated?.Begin(CloseButton);
+                changeTitleBarElementBackgroundColorWindowDeactivated?.Begin(MinimizeButton);
+                changeTitleBarElementBackgroundColorWindowDeactivated?.Begin(AboutButton);
+
+                changeWindowBorderBrushWindowDeactivated?.Begin(WindowBorder);
+
+                changeWindowTextColorWindowDeactivated?.Begin(TitleText);
+                changeWindowTextColorWindowDeactivated?.Begin(CloseButton);
+                changeWindowTextColorWindowDeactivated?.Begin(MinimizeButton);
+                changeWindowTextColorWindowDeactivated?.Begin(AboutButton);
+            }
+            _isAnimationAllowed = true;
+
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            if (_isAnimationAllowed)
+            {
+                Storyboard? changeTitleBarElementBackgroundColorWindowActivated = FindResource("WindowActivatedTitleBarAnimation") as Storyboard;
+                Storyboard? changeWindowBorderBrushWindowActivated = FindResource("WindowActivatedBorderAnimation") as Storyboard;
+                Storyboard? changeWindowTextColorWindowActivated = FindResource("WindowActivatedTitleBarTextColorAnimation") as Storyboard;
+
+                changeTitleBarElementBackgroundColorWindowActivated?.Begin(TitleBar);
+                changeTitleBarElementBackgroundColorWindowActivated?.Begin(CloseButton);
+                changeTitleBarElementBackgroundColorWindowActivated?.Begin(MinimizeButton);
+                changeTitleBarElementBackgroundColorWindowActivated?.Begin(AboutButton);
+
+                changeWindowBorderBrushWindowActivated?.Begin(WindowBorder);
+
+                changeWindowTextColorWindowActivated?.Begin(TitleText);
+                changeWindowTextColorWindowActivated?.Begin(CloseButton);
+                changeWindowTextColorWindowActivated?.Begin(MinimizeButton);
+                changeWindowTextColorWindowActivated?.Begin(AboutButton);
+            }
+            _isAnimationAllowed = true;
+
+            
+        }
+
+        private void CloseButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            CloseButton.Background = new SolidColorBrush(System.Windows.Media.Colors.Red);
+
+            if (!IsActive)
+            {
+                CloseButton.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(230, 240, 251));
+            }
+        }
+
+        private void CloseButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (IsActive) 
+            {
+                CloseButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(26, 31, 47));
+            }
+            else if (!IsActive)
+            {
+                CloseButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(158, 158, 158));
+                CloseButton.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(63, 66, 69));
+            }
+        }
+
+        private void MinimizeButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (IsActive)
+            {
+                MinimizeButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(56, 67, 102));
+            }
+            else
+            {
+                MinimizeButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(112, 112, 112));
+                MinimizeButton.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(230, 240, 251));
+            }
+        }
+
+        private void MinimizeButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (IsActive)
+            {
+                MinimizeButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(26, 31, 47));
+            }
+            else
+            {
+                MinimizeButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(158, 158, 158));
+                MinimizeButton.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(63, 66, 69));
+            }
+        }
+
+        private void AboutButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (IsActive)
+            {
+                AboutButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(56, 67, 102));
+            }
+            else
+            {
+                AboutButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(112, 112, 112));
+                AboutButton.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(230, 240, 251));
+            }
+        }
+
+        private void AboutButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (IsActive)
+            {
+                AboutButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(26, 31, 47));
+            }
+            else if (!IsActive)
+            {
+                AboutButton.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(158, 158, 158));
+                AboutButton.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(63, 66, 69));
             }
         }
     }

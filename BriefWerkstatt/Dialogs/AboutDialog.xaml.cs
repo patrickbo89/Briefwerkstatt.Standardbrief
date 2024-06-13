@@ -45,7 +45,7 @@ namespace BriefWerkstatt.Dialogs
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             SizeToContent = SizeToContent.Width;
-            Height = Owner.Height;
+            Height = Owner.Height * 1.1;
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

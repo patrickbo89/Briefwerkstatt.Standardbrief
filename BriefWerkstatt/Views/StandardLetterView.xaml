@@ -6,6 +6,7 @@
         xmlns:viewmodels="clr-namespace:BriefWerkstatt.ViewModels"
         xmlns:uc="clr-namespace:BriefWerkstatt.Controls"
         mc:Ignorable="d"
+        x:Name="Window"
         Title="Briefwerkstatt - Standardbrief (Betaversion)"
         ResizeMode="CanMinimize"
         Background="Transparent"
@@ -14,7 +15,9 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
         Closing="Window_Closing"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Deactivated="Window_Deactivated"
+        Activated="Window_Activated">
 
     <Window.DataContext>
         <viewmodels:StandardLetterViewModel />
@@ -132,6 +135,42 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+        <Storyboard x:Key="WindowDeactivatedTitleBarAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                            To="#9E9E9E"
+                            Duration="0:0:.4" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowActivatedTitleBarAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                            To="#1A1F2F"
+                            Duration="0:0:.3" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowDeactivatedBorderAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                            To="#72777D"
+                            Duration="0:0:.4" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowActivatedBorderAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                            To="#E6F0FB"
+                            Duration="0:0:.3" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowDeactivatedTitleBarTextColorAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                            To="#3F4245"
+                            Duration="0:0:.4" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowActivatedTitleBarTextColorAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                            To="#E6F0FB"
+                            Duration="0:0:.4" />
+        </Storyboard>
     </Window.Resources>
 
     <Border x:Name="WindowBorder"
@@ -210,6 +249,8 @@
                                             Grid.Column="3"
                                             ToolTip="Schließen"
                                             Focusable="False"
+                                            MouseEnter="CloseButton_MouseEnter"
+                                            MouseLeave="CloseButton_MouseLeave"
                                             Command="{Binding CloseApp}">
 
                                         <Button.Style>
@@ -222,14 +263,6 @@
                                                         Value="Transparent" />
                                                 <Setter Property="BorderThickness"
                                                         Value="0" />
-
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver"
-                                                             Value="True">
-                                                        <Setter Property="Background"
-                                                                Value="#FF0000" />
-                                                    </Trigger>
-                                                </Style.Triggers>
                                             </Style>
                                         </Button.Style>
 
@@ -239,7 +272,7 @@
                                                         Height="{TemplateBinding Height}"
                                                         Background="{TemplateBinding Background}"
                                                         BorderBrush="Transparent"
-                                                        CornerRadius="0 6 0 0"
+                                                        CornerRadius="0 5 0 0"
                                                         BorderThickness="0">
 
                                                     <ContentPresenter VerticalAlignment="Center"
@@ -260,6 +293,8 @@
                                             Grid.Column="2"
                                             ToolTip="Minimieren"
                                             Focusable="False"
+                                            MouseEnter="MinimizeButton_MouseEnter"
+                                            MouseLeave="MinimizeButton_MouseLeave"
                                             Click="MinimizeButton_Click">
 
                                         <Button.Style>
@@ -272,14 +307,6 @@
                                                         Value="Transparent" />
                                                 <Setter Property="BorderThickness"
                                                         Value="0" />
-
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver"
-                                                             Value="True">
-                                                        <Setter Property="Background"
-                                                                Value="#384366" />
-                                                    </Trigger>
-                                                </Style.Triggers>
                                             </Style>
                                         </Button.Style>
 
@@ -310,6 +337,8 @@
                                             Grid.Column="0"
                                             ToolTip="Über Briefwerkstatt"
                                             Focusable="False"
+                                            MouseEnter="AboutButton_MouseEnter"
+                                            MouseLeave="AboutButton_MouseLeave"
                                             Click="About_Click">
 
                                         <Button.Style>
@@ -322,14 +351,6 @@
                                                         Value="Transparent" />
                                                 <Setter Property="BorderThickness"
                                                         Value="0" />
-
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver"
-                                                             Value="True">
-                                                        <Setter Property="Background"
-                                                                Value="#384366" />
-                                                    </Trigger>
-                                                </Style.Triggers>
                                             </Style>
                                         </Button.Style>
 
@@ -340,7 +361,7 @@
                                                         Background="{TemplateBinding Background}"
                                                         BorderBrush="Transparent"
                                                         BorderThickness="0"
-                                                        CornerRadius="6 0 0 0">
+                                                        CornerRadius="5 0 0 0">
 
                                                     <ContentPresenter VerticalAlignment="Center"
                                                                       HorizontalAlignment="Center" />
@@ -686,6 +707,7 @@
                     </Grid>
                 </Border>
             </Grid>
+
         </Viewbox>
     </Border>
 </Window>
