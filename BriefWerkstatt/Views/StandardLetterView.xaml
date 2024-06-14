@@ -266,7 +266,7 @@
                                                HorizontalAlignment="Center"
                                                Padding="20 0 0 2"
                                                FontFamily="Microsoft Sans Serif"
-                                               FontWeight="Bold" />
+                                               FontWeight="Light" />
                                     <Button x:Name="CloseButton"
                                             Content="&#x2715;"
                                             Width="25"
