@@ -9,6 +9,8 @@
     </Application.MainWindow>
     
     <Application.Resources>
-         
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <!-- Empty to remove the default red border when having invalid inputs in textboxes. -->
+        </ControlTemplate>
     </Application.Resources>
 </Application>

@@ -119,6 +119,8 @@
                     Value="#E6F0FB" />
             <Setter Property="Height"
                     Value="25" />
+            <Setter Property="Validation.ErrorTemplate"
+                    Value="{StaticResource ValidationErrorTemplate}" />
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius"
