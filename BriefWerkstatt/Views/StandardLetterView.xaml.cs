@@ -187,6 +187,8 @@ namespace BriefWerkstatt.Views
             if (_isAnimationAllowed)
             {
                 Storyboard? changeTitleBarElementBackgroundColorWindowDeactivated = FindResource("WindowDeactivatedTitleBarAnimation") as Storyboard;
+                Storyboard? changeTitleBarBrushWindowDeactivated = FindResource("WindowDeactivatedTitleBorderAnimation") as Storyboard;
+                Storyboard? changeTitleButtonBorderWindowDeactivated = FindResource("WindowDeactivatedTitleButtonBorderAnimation") as Storyboard;
                 Storyboard? changeWindowBorderBrushWindowDeactivated = FindResource("WindowDeactivatedBorderAnimation") as Storyboard;
                 Storyboard? changeWindowTextColorWindowDeactivated = FindResource("WindowDeactivatedTitleBarTextColorAnimation") as Storyboard;
 
@@ -194,6 +196,11 @@ namespace BriefWerkstatt.Views
                 changeTitleBarElementBackgroundColorWindowDeactivated?.Begin(CloseButton);
                 changeTitleBarElementBackgroundColorWindowDeactivated?.Begin(MinimizeButton);
                 changeTitleBarElementBackgroundColorWindowDeactivated?.Begin(AboutButton);
+
+                changeTitleBarBrushWindowDeactivated?.Begin(TitleBorder);
+                changeTitleButtonBorderWindowDeactivated?.Begin(CloseButton);
+                changeTitleButtonBorderWindowDeactivated?.Begin(MinimizeButton);
+                changeTitleButtonBorderWindowDeactivated?.Begin(AboutButton);
 
                 changeWindowBorderBrushWindowDeactivated?.Begin(WindowBorder);
 
@@ -211,6 +218,8 @@ namespace BriefWerkstatt.Views
             if (_isAnimationAllowed)
             {
                 Storyboard? changeTitleBarElementBackgroundColorWindowActivated = FindResource("WindowActivatedTitleBarAnimation") as Storyboard;
+                Storyboard? changeTitleBarBrushWindowActivated = FindResource("WindowActivatedTitleBorderAnimation") as Storyboard;
+                Storyboard? changeTitleButtonBorderWindowActivated = FindResource("WindowActivatedTitleButtonBorderAnimation") as Storyboard;
                 Storyboard? changeWindowBorderBrushWindowActivated = FindResource("WindowActivatedBorderAnimation") as Storyboard;
                 Storyboard? changeWindowTextColorWindowActivated = FindResource("WindowActivatedTitleBarTextColorAnimation") as Storyboard;
 
@@ -218,6 +227,11 @@ namespace BriefWerkstatt.Views
                 changeTitleBarElementBackgroundColorWindowActivated?.Begin(CloseButton);
                 changeTitleBarElementBackgroundColorWindowActivated?.Begin(MinimizeButton);
                 changeTitleBarElementBackgroundColorWindowActivated?.Begin(AboutButton);
+
+                changeTitleBarBrushWindowActivated?.Begin(TitleBorder);
+                changeTitleButtonBorderWindowActivated?.Begin(CloseButton);
+                changeTitleButtonBorderWindowActivated?.Begin(MinimizeButton);
+                changeTitleButtonBorderWindowActivated?.Begin(AboutButton);
 
                 changeWindowBorderBrushWindowActivated?.Begin(WindowBorder);
 

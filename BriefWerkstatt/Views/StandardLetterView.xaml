@@ -147,6 +147,31 @@
                             To="#1A1F2F"
                             Duration="0:0:.3" />
         </Storyboard>
+        
+        <Storyboard x:Key="WindowDeactivatedTitleBorderAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                            To="#9E9E9E"
+                            Duration="0:0:.4" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowActivatedTitleBorderAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                            To="Transparent"
+                            Duration="0:0:.3" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowDeactivatedTitleButtonBorderAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                            To="#9E9E9E"
+                            Duration="0:0:.4" />
+        </Storyboard>
+
+        <Storyboard x:Key="WindowActivatedTitleButtonBorderAnimation">
+            <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
+                            To="#E6F0FB"
+                            Duration="0:0:.3" />
+        </Storyboard>
+
 
         <Storyboard x:Key="WindowDeactivatedBorderAnimation">
             <ColorAnimation Storyboard.TargetProperty="(BorderBrush).(SolidColorBrush.Color)"
@@ -175,18 +200,18 @@
 
     <Border x:Name="WindowBorder"
             BorderBrush="#E6F0FB"
-            Background="#242424"
+            Background="Transparent"
             BorderThickness="1"
             CornerRadius="6">
         <Viewbox>
             <Grid Background="Transparent">
                 <Border BorderBrush="#242424"
                         Background="#242424"
-                        BorderThickness="1"
+                        BorderThickness="0"
                         CornerRadius="6">
 
                     <Grid Background="Transparent"
-                          Margin="0">
+                          Margin=".8">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
@@ -207,9 +232,11 @@
                               Background="#1A1F2F"
                               Grid.ColumnSpan="3"
                               Width="910">
-                            <Border BorderBrush="#1A1F2F"
-                                    BorderThickness="0"
-                                    CornerRadius="6">
+                            <Border x:Name="TitleBorder"
+                                    BorderBrush="#1A1F2F"
+                                    BorderThickness="1 2 1 0"
+                                    CornerRadius="6 6 0 0"
+                                    Margin="-1.6 -1.6 -1.6 0">
 
                                 <Grid Background="Transparent"
                                       Width="910">
@@ -244,7 +271,7 @@
                                             Height="20"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Right"
-                                            Margin="0 0 0 1.2"
+                                            Margin="0 -2 -1.8 1.2"
                                             FontWeight="Bold"
                                             Grid.Column="3"
                                             ToolTip="Schließen"
@@ -260,20 +287,21 @@
                                                 <Setter Property="Foreground"
                                                         Value="#E6F0FB" />
                                                 <Setter Property="BorderBrush"
-                                                        Value="Transparent" />
+                                                        Value="#E6F0FB" />
                                                 <Setter Property="BorderThickness"
-                                                        Value="0" />
+                                                        Value="0 1 1 0" />
                                             </Style>
                                         </Button.Style>
 
                                         <Button.Template>
                                             <ControlTemplate TargetType="Button">
-                                                <Border Width="{TemplateBinding Width}"
+                                                <Border x:Name="CloseButtonBorder"
+                                                    Width="{TemplateBinding Width}"
                                                         Height="{TemplateBinding Height}"
                                                         Background="{TemplateBinding Background}"
-                                                        BorderBrush="Transparent"
-                                                        CornerRadius="0 5 0 0"
-                                                        BorderThickness="0">
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        CornerRadius="0 6 0 0"
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
 
                                                     <ContentPresenter VerticalAlignment="Center"
                                                                       HorizontalAlignment="Center" />
@@ -288,7 +316,7 @@
                                             Height="20"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
-                                            Margin="0,0,0,1.2"
+                                            Margin="0,-2,0,1.2"
                                             FontWeight="ExtraBold"
                                             Grid.Column="2"
                                             ToolTip="Minimieren"
@@ -304,19 +332,20 @@
                                                 <Setter Property="Foreground"
                                                         Value="#E6F0FB" />
                                                 <Setter Property="BorderBrush"
-                                                        Value="Transparent" />
+                                                        Value="#E6F0FB" />
                                                 <Setter Property="BorderThickness"
-                                                        Value="0" />
+                                                        Value="0 1 0 0" />
                                             </Style>
                                         </Button.Style>
 
                                         <Button.Template>
                                             <ControlTemplate TargetType="Button">
-                                                <Border Width="{TemplateBinding Width}"
+                                                <Border x:Name="MinimizeButtonBorder"
+                                                    Width="{TemplateBinding Width}"
                                                         Height="{TemplateBinding Height}"
                                                         Background="{TemplateBinding Background}"
-                                                        BorderBrush="Transparent"
-                                                        BorderThickness="0">
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
 
                                                     <ContentPresenter VerticalAlignment="Center"
                                                                       HorizontalAlignment="Center" />
@@ -331,7 +360,7 @@
                                             Height="20"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
-                                            Margin="0,0,0,1.2"
+                                            Margin="-1.8,-2,0,1.2"
                                             FontWeight="ExtraBold"
                                             FontFamily="Verdana Bold"
                                             Grid.Column="0"
@@ -348,20 +377,21 @@
                                                 <Setter Property="Foreground"
                                                         Value="#E6F0FB" />
                                                 <Setter Property="BorderBrush"
-                                                        Value="Transparent" />
+                                                        Value="#E6F0FB" />
                                                 <Setter Property="BorderThickness"
-                                                        Value="0" />
+                                                        Value="1 1 0 0" />
                                             </Style>
                                         </Button.Style>
 
                                         <Button.Template>
                                             <ControlTemplate TargetType="Button">
-                                                <Border Width="{TemplateBinding Width}"
+                                                <Border x:Name="AboutButtonBorder"
+                                                    Width="{TemplateBinding Width}"
                                                         Height="{TemplateBinding Height}"
                                                         Background="{TemplateBinding Background}"
-                                                        BorderBrush="Transparent"
-                                                        BorderThickness="0"
-                                                        CornerRadius="5 0 0 0">
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        CornerRadius="6 0 0 0">
 
                                                     <ContentPresenter VerticalAlignment="Center"
                                                                       HorizontalAlignment="Center" />
