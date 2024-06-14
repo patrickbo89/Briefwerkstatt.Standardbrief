@@ -7,7 +7,7 @@
         xmlns:uc="clr-namespace:BriefWerkstatt.Controls"
         mc:Ignorable="d"
         x:Name="Window"
-        Title="Briefwerkstatt - Standardbrief (Betaversion)"
+        Title="Briefwerkstatt (Betaversion)"
         ResizeMode="CanMinimize"
         Background="Transparent"
         AllowsTransparency="True"
@@ -258,7 +258,7 @@
                                           Stroke="#DDFFFFFF"
                                           Visibility="Visible" />
                                     <TextBlock x:Name="TitleText"
-                                               Text="Briefwerkstatt - Standardbrief (Betaversion)"
+                                               Text="Briefwerkstatt (Betaversion)"
                                                Foreground="#E6F0FB"
                                                Grid.Column="1"
                                                FontSize="15"
