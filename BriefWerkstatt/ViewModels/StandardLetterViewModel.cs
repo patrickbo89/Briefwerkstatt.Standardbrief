@@ -57,8 +57,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(SenderName), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderName));
             }
@@ -75,8 +75,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(SenderStreetAndNumber), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderStreetAndNumber));
             }
@@ -93,8 +93,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(SenderZipCodeAndCity), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderZipCodeAndCity));
             }
@@ -107,8 +107,8 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.SenderAdditionalInfoOne = value;
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderAdditionalInfoOne));
             }
@@ -121,8 +121,8 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.SenderAdditionalInfoTwo = value;
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(SenderAdditionalInfoTwo));
             }
@@ -142,8 +142,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(RecipientName), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientName));
             }
@@ -156,8 +156,8 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.RecipientStreetAndNumber = value;
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientStreetAndNumber));
             }
@@ -174,8 +174,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(RecipientZipCodeAndCity), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientZipCodeAndCity));
             }
@@ -188,8 +188,8 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.RecipientAdditionalInfoOne = value;
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientAdditionalInfoOne));
             }
@@ -202,8 +202,8 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.RecipientAdditionalInfoTwo = value;
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(RecipientAdditionalInfoTwo));
             }
@@ -223,8 +223,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(TopicLineOne), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(TopicLineOne));
             }
@@ -237,8 +237,8 @@ namespace BriefWerkstatt.ViewModels
             {
                 _standardLetter.TopicLineTwo = value;
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(TopicLineTwo));
             }
@@ -255,8 +255,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(Intro), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(Intro));
             }
@@ -273,8 +273,8 @@ namespace BriefWerkstatt.ViewModels
                 if (!_createdNewLetter)
                     Validate(nameof(Content), value);
 
-                if (_standardLetter.HasBeenSaved)
-                    _standardLetter.HasUnsavedChanges = true;
+                if (HasBeenSaved)
+                    HasUnsavedChanges = true;
 
                 OnPropertyChanged(nameof(Content));
             }
@@ -323,6 +323,42 @@ namespace BriefWerkstatt.ViewModels
                 OnPropertyChanged(nameof(FileName));
             }
         }
+
+        public bool HasBeenSaved
+        {
+            get => _standardLetter.HasBeenSaved;
+            set
+            {
+                _standardLetter.HasBeenSaved = value;
+                ChangeInfoText();
+                OnPropertyChanged(nameof(HasBeenSaved));
+            }
+        }
+
+        public bool HasUnsavedChanges
+        {
+            get => _standardLetter.HasUnsavedChanges;
+            set
+            {
+                _standardLetter.HasUnsavedChanges = value;
+                ChangeInfoText();
+                OnPropertyChanged(nameof(HasUnsavedChanges));
+            }
+        }
+
+        private string _infoText;
+        public string InfoText
+        {
+            get
+            {
+                return _infoText;
+            }
+            set
+            {
+                _infoText = value;
+                OnPropertyChanged(nameof(InfoText));
+            }
+        }
         #endregion
 
         #region Commands
@@ -330,14 +366,14 @@ namespace BriefWerkstatt.ViewModels
         {
             DialogResult dialogResult;
 
-            if (_standardLetter.HasBeenSaved == false)
+            if (HasBeenSaved == false)
             {
                 dialogResult = MessageBox.Show(
                     "Der aktuelle Brief wurde noch nicht gespeichert und geht verloren, wenn das Programm beendet wird.\n\nTrotzdem beenden?",
                     "Der Brief wurde noch nicht gespeichert",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             }
-            else if (_standardLetter.HasUnsavedChanges == true)
+            else if (HasUnsavedChanges == true)
             {
                 dialogResult = MessageBox.Show(
                     "Änderungen am aktuellen Brief wurden noch nicht gespeichert und gehen verloren, wenn das Programm beendet wird.\n\nTrotzdem beenden?",
@@ -382,8 +418,8 @@ namespace BriefWerkstatt.ViewModels
 
                     if (PDFCreationSuccess)
                     {
-                        _standardLetter.HasBeenSaved = true;
-                        _standardLetter.HasUnsavedChanges = false;
+                        HasBeenSaved = true;
+                        HasUnsavedChanges = false;
                     }
                 }
             }
@@ -437,8 +473,8 @@ namespace BriefWerkstatt.ViewModels
             CustomerNumber = null;
             FileName = null;
 
-            _standardLetter.HasBeenSaved = false;
-            _standardLetter.HasUnsavedChanges = false;
+            HasBeenSaved = false;
+            HasUnsavedChanges = false;
             _createdNewLetter = false;
         }
 
@@ -467,8 +503,8 @@ namespace BriefWerkstatt.ViewModels
 
             FileName = null;
 
-            _standardLetter.HasBeenSaved = false;
-            _standardLetter.HasUnsavedChanges = false;
+            HasBeenSaved = false;
+            HasUnsavedChanges = false;
             _createdNewLetter = false;
         }
 
@@ -491,8 +527,8 @@ namespace BriefWerkstatt.ViewModels
 
             FileName = null;
 
-            _standardLetter.HasBeenSaved = false;
-            _standardLetter.HasUnsavedChanges = false;
+            HasBeenSaved = false;
+            HasUnsavedChanges = false;
             _createdNewLetter = false;
         }
 
@@ -576,6 +612,19 @@ namespace BriefWerkstatt.ViewModels
         {
             _standardLetter = new StandardLetterModel();
             _repository = new Repository.Repository();
+            _infoText = "Der Brief wurde noch nicht gespeichert.";
+        }
+
+        private void ChangeInfoText()
+        {
+            if (HasBeenSaved && !HasUnsavedChanges)
+                InfoText = "Der Brief wurde erfolgreich gespeichert.";
+            else if (!HasBeenSaved && !HasUnsavedChanges)
+                InfoText = "Der Brief wurde noch nicht gespeichert.";
+            else if (HasBeenSaved && HasUnsavedChanges)
+                InfoText = "Änderungen am Brief wurden noch nicht gespeichert.";
+            else
+                InfoText = "Änderungen am Brief wurden erfolgreich gespeichert.";
         }
 
         #region Model Validation

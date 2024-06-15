@@ -20,7 +20,7 @@
         Activated="Window_Activated">
 
     <Window.DataContext>
-        <viewmodels:StandardLetterViewModel />
+        <viewmodels:StandardLetterViewModel x:Name="ViewDataContext" />
     </Window.DataContext>
 
     <Window.Resources>
@@ -221,6 +221,7 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
 
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -402,6 +403,98 @@
                                         </Button.Template>
                                     </Button>
 
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="6"
+                              x:Name="InfoBar"
+                              Background="Transparent"
+                              Grid.ColumnSpan="3"
+                              Width="910">
+                            <Border x:Name="InfoBorder"
+                                    BorderBrush="#323232"
+                                    Background="#323232"
+                                    BorderThickness="0 2 0 1"
+                                    CornerRadius="0 0 6 6"
+                                    Margin="0 0 0 0">
+
+                                <Grid Background="Transparent"
+                                      Width="910">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock x:Name="InfoText"
+                                               Text="{Binding InfoText, UpdateSourceTrigger=PropertyChanged}"
+                                               Grid.Column="0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Foreground"
+                                                        Value="#20FF20" />
+                                                <Setter Property="FontWeight"
+                                                        Value="Regular" />
+                                                <Setter Property="FontSize"
+                                                        Value="14" />
+                                                <Setter Property="VerticalAlignment"
+                                                        Value="Bottom" />
+                                                <Setter Property="HorizontalAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="FontFamily"
+                                                        Value="Microsoft Sans Serif" />
+                                                <Setter Property="Padding"
+                                                        Value="18 1 0 2" />
+
+                                                <Style.Triggers>
+                                                    
+                                                    <MultiDataTrigger>
+                                                        <!-- HasBeenSaved && !HasUnsavedChanges-->
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding HasBeenSaved}"
+                                                                       Value="True" />
+                                                            <Condition Binding="{Binding HasUnsavedChanges}"
+                                                                       Value="False" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Foreground"
+                                                                Value="#20FF20" />
+                                                    </MultiDataTrigger>
+                                                    
+                                                    <!-- !HasBeenSaved && !HasUnsavedChanges-->
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding HasBeenSaved}"
+                                                                   Value="False" />
+                                                        <Condition Binding="{Binding HasUnsavedChanges}"
+                                                                   Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Foreground"
+                                                            Value="#FF2020" />
+                                                    </MultiDataTrigger>
+
+                                                    <!-- HasBeenSaved && HasUnsavedChanges-->
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding HasBeenSaved}"
+                                                                       Value="True" />
+                                                            <Condition Binding="{Binding HasUnsavedChanges}"
+                                                                       Value="True" />
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Foreground"
+                                                                Value="#FF2020" />
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock x:Name="VersionInfo"
+                                               Grid.Column="3"
+                                               Text="version 1.3.0-beta.1" 
+                                               Margin="0 1 12 2"/>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -733,11 +826,24 @@
                                 Foreground="Transparent"
                                 Background="Transparent"
                                 BorderBrush="Transparent"
-                                Visibility="Hidden"
+                                Visibility="Visible"
                                 Focusable="False"
                                 Command="{Binding FillWithExampleData}" />
+
+
+                        <Line Grid.ColumnSpan="3"
+                              Grid.Row="5"
+                              X1="0"
+                              X2="910"
+                              VerticalAlignment="Bottom"
+                              StrokeThickness="1"
+                              Stroke="#383838"
+                              Visibility="Visible" />
                     </Grid>
+                    
                 </Border>
+
+
             </Grid>
 
         </Viewbox>

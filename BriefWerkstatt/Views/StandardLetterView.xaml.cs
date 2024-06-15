@@ -131,9 +131,9 @@ namespace BriefWerkstatt.Views
 
             // Setzt die Fenstergröße unter Berücksichtung des dpi-Faktors sowie des Fenstergrößen-Skalierungsfaktors.
             //
-            // 900x940 ist die Standardgröße bei einer Auflösung von 1920x1080.
+            // 900x961 ist die Standardgröße bei einer Auflösung von 1920x1080.
             this.Width = (int)((880f / dpiFactor) * windowScaleFactor);
-            this.Height = (int)((940f / dpiFactor) * windowScaleFactor);
+            this.Height = (int)((961f / dpiFactor) * windowScaleFactor);
 
             // Setzt das Fenster in die Mitte des Bildschirms.
             this.Left = (nWidth / 2) - (this.Width / 2);
