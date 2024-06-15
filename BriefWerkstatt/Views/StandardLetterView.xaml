@@ -472,7 +472,7 @@
                                                                    Value="False" />
                                                     </MultiDataTrigger.Conditions>
                                                     <Setter Property="Foreground"
-                                                            Value="#FF2020" />
+                                                            Value="#FF4040" />
                                                     </MultiDataTrigger>
 
                                                     <!-- HasBeenSaved && HasUnsavedChanges-->
@@ -484,7 +484,7 @@
                                                                        Value="True" />
                                                         </MultiDataTrigger.Conditions>
                                                         <Setter Property="Foreground"
-                                                                Value="#FF2020" />
+                                                                Value="#FF4040" />
                                                     </MultiDataTrigger>
                                                 </Style.Triggers>
                                             </Style>
