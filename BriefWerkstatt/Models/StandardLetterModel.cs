@@ -59,6 +59,7 @@ namespace BriefWerkstatt.Models
         public string? FileName { get; set; }
         public bool HasBeenSaved { get; set; } = false;
         public bool HasUnsavedChanges { get; set; } = false;
+        public bool HaveChangesBeenSaved { get; set; } = false;
 
         public string? FullFileName
         {

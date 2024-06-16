@@ -346,6 +346,17 @@ namespace BriefWerkstatt.ViewModels
             }
         }
 
+        public bool HaveChangesBeenSaved
+        {
+            get => _standardLetter.HaveChangesBeenSaved;
+            set
+            {
+                _standardLetter.HaveChangesBeenSaved = value;
+                ChangeInfoText();
+                OnPropertyChanged(nameof(HaveChangesBeenSaved));
+            }
+        }
+
         private string _infoText;
         public string InfoText
         {
@@ -376,7 +387,7 @@ namespace BriefWerkstatt.ViewModels
             else if (HasUnsavedChanges == true)
             {
                 dialogResult = MessageBox.Show(
-                    "Änderungen am aktuellen Brief wurden noch nicht gespeichert und gehen verloren, wenn das Programm beendet wird.\n\nTrotzdem beenden?",
+                    "Die Änderungen am aktuellen Brief wurden noch nicht gespeichert und gehen verloren, wenn das Programm beendet wird.\n\nTrotzdem beenden?",
                     "Änderungen wurden noch nicht gespeichert",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             }
@@ -419,6 +430,10 @@ namespace BriefWerkstatt.ViewModels
                     if (PDFCreationSuccess)
                     {
                         HasBeenSaved = true;
+
+                        if (HasUnsavedChanges)
+                            HaveChangesBeenSaved = true;
+
                         HasUnsavedChanges = false;
                     }
                 }
@@ -475,6 +490,7 @@ namespace BriefWerkstatt.ViewModels
 
             HasBeenSaved = false;
             HasUnsavedChanges = false;
+            HaveChangesBeenSaved = false;
             _createdNewLetter = false;
         }
 
@@ -505,6 +521,7 @@ namespace BriefWerkstatt.ViewModels
 
             HasBeenSaved = false;
             HasUnsavedChanges = false;
+            HaveChangesBeenSaved= false;
             _createdNewLetter = false;
         }
 
@@ -529,6 +546,7 @@ namespace BriefWerkstatt.ViewModels
 
             HasBeenSaved = false;
             HasUnsavedChanges = false;
+            HaveChangesBeenSaved = false;
             _createdNewLetter = false;
         }
 
@@ -612,19 +630,19 @@ namespace BriefWerkstatt.ViewModels
         {
             _standardLetter = new StandardLetterModel();
             _repository = new Repository.Repository();
-            _infoText = "Der Brief wurde noch nicht gespeichert.";
+            _infoText = "Brief wurde noch nicht gespeichert";
         }
 
         private void ChangeInfoText()
         {
-            if (HasBeenSaved && !HasUnsavedChanges)
-                InfoText = "Der Brief wurde erfolgreich gespeichert.";
+            if (HasBeenSaved && !HasUnsavedChanges && !HaveChangesBeenSaved)
+                InfoText = "Brief wurde erfolgreich gespeichert";
             else if (!HasBeenSaved && !HasUnsavedChanges)
-                InfoText = "Der Brief wurde noch nicht gespeichert.";
+                InfoText = "Brief wurde noch nicht gespeichert";
             else if (HasBeenSaved && HasUnsavedChanges)
-                InfoText = "Änderungen am Brief wurden noch nicht gespeichert.";
+                InfoText = "Änderungen wurden noch nicht gespeichert";
             else
-                InfoText = "Änderungen am Brief wurden erfolgreich gespeichert.";
+                InfoText = "Änderungen wurden erfolgreich gespeichert";
         }
 
         #region Model Validation
