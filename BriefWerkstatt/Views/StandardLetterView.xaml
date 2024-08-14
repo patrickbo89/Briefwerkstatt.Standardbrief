@@ -494,7 +494,7 @@
                                     <TextBlock x:Name="VersionInfo"
                                                Grid.Column="3"
                                                Foreground="#E4F0FB"
-                                               Text="version 1.3.0-beta.1" 
+                                               Text="version 1.3.1-beta.1" 
                                                Margin="0 1 12 4"/>
                                 </Grid>
                             </Border>
