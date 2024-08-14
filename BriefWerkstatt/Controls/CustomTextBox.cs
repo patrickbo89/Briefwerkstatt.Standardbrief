@@ -26,6 +26,7 @@ SOFTWARE.
 */
 #endregion
 
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -105,6 +106,15 @@ namespace BriefWerkstatt.Controls
             HasErrors = Validation.GetHasError(this);
 
             base.OnTextChanged(e);
+        }
+
+        protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("^[^<>?/:|*\"]*$");
+            if (!regex.IsMatch(e.Text) || e.Text.Contains('\\'))
+                e.Handled = true;
+
+            base.OnPreviewTextInput(e);
         }
     }
 }

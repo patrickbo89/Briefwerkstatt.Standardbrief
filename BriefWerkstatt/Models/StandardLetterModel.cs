@@ -65,7 +65,7 @@ namespace BriefWerkstatt.Models
         {
             get
             {
-                return $"{CustomerNumber}_{FileName}.pdf";
+                return $"{CustomerNumber}_{FileName}";
             }
         }
         #endregion

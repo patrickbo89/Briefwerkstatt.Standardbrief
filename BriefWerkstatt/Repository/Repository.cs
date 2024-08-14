@@ -170,7 +170,7 @@ SOFTWARE.
             {
                 PdfViewer.StartInfo.UseShellExecute = true;
                 PdfViewer.StartInfo.WorkingDirectory = directory;
-                PdfViewer.StartInfo.FileName = letterModel.FullFileName;
+                PdfViewer.StartInfo.FileName = fileInfo.Name;
                 PdfViewer.Start();
             }
             finally

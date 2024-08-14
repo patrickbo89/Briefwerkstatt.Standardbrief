@@ -418,13 +418,37 @@ namespace BriefWerkstatt.ViewModels
             {
                 var dialog = new SaveFileDialog();
                 dialog.CheckPathExists = true;
-                dialog.FileName = $"{_standardLetter.CustomerNumber}_{_standardLetter.FileName}";
+                dialog.FileName = $"{_standardLetter.FullFileName}";
                 dialog.Filter = "PDF-Datei|*.pdf";
                 var result = dialog.ShowDialog();
                 dialog.Dispose();
                 if (result == DialogResult.OK)
                 {
                     string filePath = dialog.FileName;
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    string fileNameWithoutExtension = fileInfo.Name.Remove(fileInfo.Name.Length - fileInfo.Extension.Length);
+                    
+                    int underScoreCharCount = 0;
+                    foreach (char c in fileNameWithoutExtension)
+                    {
+                        if (char.Equals(c, '_'))
+                        {
+                            underScoreCharCount++;
+                        }
+                    }
+
+                    if (underScoreCharCount > 1 || (underScoreCharCount == 1 && fileNameWithoutExtension.LastIndexOf('_') != fileNameWithoutExtension.Length - 1))
+                    {
+                        string[] parts = fileInfo.Name.Split('_', 2);
+                        CustomerNumber = parts[0];
+                        FileName = parts[1].Contains(".pdf") ? parts[1].Remove(parts[1].Length - ".pdf".Length) : parts[1];
+                    }
+                    else
+                    {
+                        CustomerNumber = "LEER";
+                        FileName = fileInfo.Name.Contains(".pdf") ? fileInfo.Name.Remove(fileInfo.Name.Length - ".pdf".Length) : fileInfo.Name;
+                    }
+
                     bool PDFCreationSuccess = _repository.CreatePdfDocument(_standardLetter, filePath);
 
                     if (PDFCreationSuccess)
